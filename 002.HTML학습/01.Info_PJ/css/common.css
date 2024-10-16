@@ -1,0 +1,103 @@
+@charset "utf-8"; 
+/* css 상단 필수 코드 
+   css 외부파일은 반드시 맨위에 utf-8설정 필수!
+*/
+
+/* Info PJ 공통 CSS - common.css */
+
+/* CSS 인터널 코딩구역 */
+/* 웹폰트 */
+@import url("https://fonts.googleapis.com/css?family=Hi+Melody:400");
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic:400");
+/* 
+        선택자{속성:값;}
+        -> 선택자는 기본적으로 
+        요소명 / 아이디명 / 클래스명
+        header{} 요소명
+        #top-area{} 아이디명
+        .part {} 클래스명
+
+        border 종류 solid(선형), dashed(데쉬선), dotted(점선)
+        hsl : h색상, s채도, l명도
+        rgb : 레드, 그린, 블루 / 0,0,0(블랙) / 255,255,255(화이트)
+      */
+/* 마진
+        margin: 값;(모든방향) margin: 값 값;(위아래 양쪽) margin: 값 값 값;(위 아래 양쪽) margin: 값 값 값 값; (위 오른 아래 왼쪽)
+        margin-top: ;
+        margin-bottom: ;
+        margin-left: ;
+        margin-right: ;
+
+        크기를 가지는 블록박스 중앙정렬
+        margin: 0 auto;
+      */
+body {
+  margin: 0;
+  padding: 24px;
+}
+/* 상단영역 */
+#top-area {
+  text-align: center; /* tac */
+  background-color: #eee; /* bgc */
+}
+/* 전체 타이틀 */
+#top-area h1 {
+  font-family: "Do Hyeon", sans-serif; /* ff */
+  font-size: 40px; /* fz40 */
+  color: #333; /* c */
+  /* text-shadow: x축 y축 블러 색; */
+  text-shadow: 2px 2px 3px #00000030; /* ts */
+}
+#top-area h1 span {
+  color: #2db400;
+}
+.menu span + a {
+  /* 형제선택자 : 앞에 span형제요소가 있는 a만 선택 +는 형제선택자 */
+  margin: 4px;
+}
+.menu span + a:hover {
+  /* :hover 가상클래스 */
+  color: #2db400;
+  text-decoration: overline; /* tdo */
+  text-decoration-style: wavy; /* tdst */
+  text-decoration-color: #ccc;
+}
+.menu a {
+  font-family: "Hi Melody", sans-serif;
+  font-size: 20px;
+  font-weight: 600; /* fw */
+  color: #333;
+  text-decoration: none; /* tdn */
+  margin: 10px; /* 인라인 요소라서 양쪽 여백만 적용됨! */
+  /* padding: 10px; */
+}
+/* 메인영역 */
+#main-area {
+  /*
+        margin-top: 15px; // mt 
+        margin-bottom: 15px; // mb 
+        */
+  margin: 12px auto;
+}
+/* 하단영역 */
+#info-area {
+  background-color: #333; /* bgc */
+}
+address {
+  font-style: normal; /* fsn */
+  text-align: center; /* tac */
+  font-family: "Nanum Gothic", sans-serif;
+  font-weight: 400; /* fwb */
+  font-size: 12px;
+  color: #eee;
+}
+/* 최상위 박스 공통 */
+.part {
+  /* 가로크기를 지정하면 화면이 박스보다 작아질 경우 가로스크롤이 생김 */
+  /* width: 1280px; */
+  max-width: 1280px; /* maw1280 */
+  margin: 0 auto; /* m0 */
+  border: 2px dashed #669966;
+  border-radius: 20px;
+  padding: 15px; /* p15 */
+}
