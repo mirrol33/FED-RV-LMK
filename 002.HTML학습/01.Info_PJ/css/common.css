@@ -9,6 +9,7 @@
 /* 웹폰트 */
 @import url("https://fonts.googleapis.com/css?family=Hi+Melody:400");
 @import url("https://fonts.googleapis.com/css?family=Nanum+Gothic:400");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
 /* 
         선택자{속성:값;}
         -> 선택자는 기본적으로 
@@ -34,6 +35,7 @@
 body {
   margin: 0;
   padding: 24px;
+  font-family: "Pretendard", sans-serif;
 }
 /* 상단영역 */
 #top-area {
@@ -86,7 +88,7 @@ body {
 address {
   font-style: normal; /* fsn */
   text-align: center; /* tac */
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Pretendard" sans-serif;
   font-weight: 400; /* fwb */
   font-size: 12px;
   color: #eee;
