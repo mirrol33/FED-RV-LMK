@@ -1,15 +1,42 @@
 /* 2-1. 서브타이틀 
 태그명+이름 방식의 선택자는 종속선택자 */
 h2.sub-title {
+  /* 글자체 font-family (ff) */
+  font-family: "Hi Melody", sans-serif;
   /* 글자크기 font-size (fz) */
   font-size: 38px;
   /* 글자두께 font-weight (fw)
     두껍게 bold / 보통 normal(fwn) */
-  font-weight: normal;
-  text-align: center; /* 텍스트 중앙 정렬 tac */
-  background-color: #b1b40052; /* 배경색 bgc */
   font-weight: bold;
+  /* 텍스트 중앙 정렬 tac */
+  text-align: center; 
+  /* 배경색 bgc */
+  /* background-color: #b1b40052; */
+  /* ts */ 
+  text-shadow: 3px 3px 3px #00000094;  
+  /* p20 */
+  padding: 20px;
+  /* brad */
+  border-radius: 20px;
+  /* ../는 상대경로로 이미지 폴더를 하나위로 올라가서 찾는다 */
+  background: url(../images/titbg4_2.webp) no-repeat center/cover;
+  background-attachment: fixed;
+  color: #fff;
+
+  /* 박스그림자 box-shadow (bsh, bxsh) */
+  /* 
+    box-shadow: (내부그림자 inset) X축 Y축 블러 확장 색; 
+    콤마로 연결하면 글자 그림자든 박스그림자든 모두 다중 그림자 적용가능함!
+    블러 뒤에 확장옵션에 px값을 주면 그림자가 더 커진다 박스 그림자에만 이 옵션이 있음
+  */
+  box-shadow:
+  /* 내부 그림자 */ 
+  inset 0 0 10px 5px #00000075,
+  /* 바깥쪽 그림자 */
+  0 0 20px 5px skyblue;
+  
 }
+
 
 /*
 [ 선택자의 종류 ]
