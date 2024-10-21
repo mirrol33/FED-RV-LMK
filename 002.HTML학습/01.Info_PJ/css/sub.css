@@ -169,12 +169,12 @@ figcaption 는 블럭요소이다! */
   /* text-decoration: 유형 (스타일) 
   스타일이 있을 경우 뒤에 띄어쓰기로 쓸 수 있음 */
 }
-/* 2-5.5. 인용블록영역 */
-.quote-box {
+/* 공통 보더박스 디자인: .bd-box */
+.bd-box {
   border-top: 2px dashed gray; /* bt */
   margin-top: 20px; /* mt */
 }
-.quote-box h4 {
+.bd-box h4 {
   /* 가로크기 내용만큼 설정위해 display변경!
   inline (패딩 디자인이 실제 공간을 차지하지 않음)
   line-block (블록처럼 디자인적용되는 인라인요소)
@@ -189,12 +189,20 @@ figcaption 는 블럭요소이다! */
   box-shadow: inset 0 0 10px #7b7b7b; /* bxsh */  
 
 }
+
+
+/* 2-5.5. 인용블록영역 */
 /* 인용구 박스 : blockquote */
 .quote-box blockquote {
   margin: 0; /* m */
   font-size: 20px; /* fz */
   line-height: 1.8; /* lh */
+  /* 글자 양쪽정렬 */
   text-align: justify; /* taj */
+  /* 글자 양쪽 정렬시 단어 깨기 */
+  word-break: break-all;
+  /* 글자 첫줄 들여쓰기 ti -> text-indent: */
+  text-indent: 10px; /* ti */
 }
 /* 이미지 오른쪽으로 보내고 옆에 글자 흘러가기 */
 .quote-box blockquote img{
@@ -202,12 +210,44 @@ figcaption 는 블럭요소이다! */
   float: right; /* flr */
   /* ta */
   margin-left: 15px; /* ml15 */
-
+  margin-top: 10px;
+  border-radius: 10px; /* brs10 */  
 }
-
-
-
 /* 2-6. 기자정보 */
 /* 2-7. 기사원문 */
+.article-link {
+  text-align: right;
+
+}
+/* 자식요소 a는 인라인이므로 크기 적용안됨
+따라서 디자인 적용되는 인라인 요소인 inline-block을 사용한다! */
+.article-link a {
+  display: inline-block; /* dib */
+  width: 100px;
+  height: 100px;
+  /* 가로중앙정렬 tac */
+  text-align: center;
+  /* 세로중앙정렬 vam (옆에오는 애들 영향받음 여기서 적용 안됨) */
+  /* vertical-align: middle; */
+  /* 인라인 요소간 세로정렬 가능 
+  -> 세로중앙정렬은 table-cell 디스플레이에서만 적용됨! 
+  여기서는 line-height를 높이값과 같이 줌! */
+  line-height: 100px;
+
+  /* 밑줄없앰 tdn */
+  text-decoration: none;
+
+  border-radius: 50%;
+  background-color: lightcyan; /* bgc */
+  color: darkcyan; /* c */
+  font-size: 20px; /* fz */
+  font-weight: bold; /* fwb */
+  border: 2px solid darkcyan;
+}
+/* 기사원문 오버시 변경 */
+.article-link a:hover {
+  background-color: yellow;
+}
 /* 주해영역 */
+
 /* 오늘의 작품 & 느낌 */
