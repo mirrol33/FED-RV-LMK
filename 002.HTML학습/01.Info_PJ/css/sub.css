@@ -9,11 +9,11 @@ h2.sub-title {
     두껍게 bold / 보통 normal(fwn) */
   font-weight: normal;
   /* 텍스트 중앙 정렬 tac */
-  text-align: center; 
+  text-align: center;
   /* 배경색 bgc */
   /* background-color: #b1b40052; */
-  /* ts */ 
-  text-shadow: 3px 3px 3px #00000094;  
+  /* ts */
+  text-shadow: 3px 3px 3px #00000094;
   /* p20 */
   padding: 20px;
   /* brad */
@@ -31,11 +31,8 @@ h2.sub-title {
     블러 뒤에 확장옵션에 px값을 주면 그림자가 더 커진다 박스 그림자에만 이 옵션이 있음
   */
   box-shadow:
-  /* 내부 그림자 */ 
-  inset 0 0 10px 5px #00000075,
-  /* 바깥쪽 그림자 */
-  0 0 20px 3px blue;
-  
+  /* 내부 그림자 */ inset 0 0 10px 5px #00000075,
+    /* 바깥쪽 그림자 */ 0 0 20px 3px blue;
 }
 
 /* 
@@ -50,41 +47,32 @@ h2.sub-title {
 
 /* 페이지별 타이틀 박스 디자인 변경 */
 /* 정치뉴스 */
-h2.politics{
+h2.politics {
   background-image: url(../images/titbg1_2.jpg);
   box-shadow:
-  /* 내부 그림자 */ 
-  inset 0 0 10px 5px #00000075,
-  /* 바깥쪽 그림자 */
-  0 0 20px 3px orange;
-
+  /* 내부 그림자 */ inset 0 0 10px 5px #00000075,
+    /* 바깥쪽 그림자 */ 0 0 20px 3px orange;
 }
 /* 경제뉴스 */
-h2.economics{
+h2.economics {
   background-image: url(../images/titbg2_2.jpg);
   box-shadow:
-  /* 내부 그림자 */ 
-  inset 0 0 10px 5px #00000075,
-  /* 바깥쪽 그림자 */
-  0 0 20px 3px green;
+  /* 내부 그림자 */ inset 0 0 10px 5px #00000075,
+    /* 바깥쪽 그림자 */ 0 0 20px 3px green;
 }
 /* 사회뉴스 */
-h2.social{
+h2.social {
   background-image: url(../images/titbg3_2.jpg);
   box-shadow:
-  /* 내부 그림자 */ 
-  inset 0 0 10px 5px #00000075,
-  /* 바깥쪽 그림자 */
-  0 0 20px 3px yellow;
+  /* 내부 그림자 */ inset 0 0 10px 5px #00000075,
+    /* 바깥쪽 그림자 */ 0 0 20px 3px yellow;
 }
 /* TV/연예뉴스 */
-h2.tv{
+h2.tv {
   background-image: url(../images/titbg5.jpg);
   box-shadow:
-  /* 내부 그림자 */ 
-  inset 0 0 10px 5px #00000075,
-  /* 바깥쪽 그림자 */
-  0 0 20px 3px red;
+  /* 내부 그림자 */ inset 0 0 10px 5px #00000075,
+    /* 바깥쪽 그림자 */ 0 0 20px 3px red;
 }
 
 /*
@@ -112,17 +100,17 @@ h2.tv{
 */
 
 /* 2-2. 언론사로고 */
-.press-logo img{
+.press-logo img {
   /* 이미지 높이값 고정 (가로 크기는 자동) */
   height: 32px;
 }
 /* 2-3. 기사제목 */
-.article-title{
+.article-title {
   font-size: 30px;
   color: #222;
 }
 /* 2-4. 기사사진 */
-.article-picture{
+.article-picture {
   margin: 0 auto;
 }
 /* 기사이미지 */
@@ -131,12 +119,12 @@ h2.tv{
 }
 /* 이미지 설명 
 figcaption 는 블럭요소이다! */
-.article-picture figcaption{
+.article-picture figcaption {
   text-align: center; /* tac */
 }
 /* 하위요소에 지정된 속성은 그 요소에서 재정의 해야 적용됨! 
 예컨데 글자크기가 이미 small 태그에 적용되어 있어서 small 재정의 해야함 */
-.article-picture figcaption small{
+.article-picture figcaption small {
   font-size: 15px; /* fz15 */
 }
 /* 2-5. 기사내용 */
@@ -147,7 +135,7 @@ figcaption 는 블럭요소이다! */
 
   font-size: 20px;
   line-height: 2.1;
-  
+
   /* 
   [ 줄간격 : line-height ]
    - 박스요소의 글자의 간격 높이를 지정하는 속성
@@ -156,7 +144,7 @@ figcaption 는 블럭요소이다! */
    - 단위없는 숫자로 표현하면 글자크기의 배수로 상대적 크기가 적용됨
    - 젠코딩시 숫자만쓰면 배수로 표현되므로 주의 요망! ex) lh20 -> line-height: 20px; 
    */
-   color: #303830;
+  color: #303830;
 }
 .contents p strong {
   color: darkmagenta;
@@ -172,7 +160,9 @@ figcaption 는 블럭요소이다! */
 /* 공통 보더박스 디자인: .bd-box */
 .bd-box {
   border-top: 2px dashed gray; /* bt */
-  margin-top: 20px; /* mt */
+  border-bottom: 2px dashed gray; /* bdb */
+  margin: 20px 0; /* m */
+  padding: 15px; /* p15 */
 }
 .bd-box h4 {
   /* 가로크기 내용만큼 설정위해 display변경!
@@ -180,16 +170,14 @@ figcaption 는 블럭요소이다! */
   line-block (블록처럼 디자인적용되는 인라인요소)
   */
   display: inline-block; /* dib */
-  
+
   /* di */
   /* display: inline;  */
   padding: 15px; /* p */
-  background-color: #e6e6e6; /* bc */ 
+  background-color: #e6e6e6; /* bc */
   border-radius: 15px; /* brad */
-  box-shadow: inset 0 0 10px #7b7b7b; /* bxsh */  
-
+  box-shadow: inset 0 0 10px #7b7b7b; /* bxsh */
 }
-
 
 /* 2-5.5. 인용블록영역 */
 /* 인용구 박스 : blockquote */
@@ -205,19 +193,31 @@ figcaption 는 블럭요소이다! */
   text-indent: 10px; /* ti */
 }
 /* 이미지 오른쪽으로 보내고 옆에 글자 흘러가기 */
-.quote-box blockquote img{
+.quote-box blockquote img {
   /* 나는 오른쪽에 있고(글자는 왼쪽에 흘러감) */
   float: right; /* flr */
+  /* 
+  기본적으로 이미지는 인라인요소이며 글자가 왼쪽으로 한줄 하단에 나열됨!
+  글자가 옆에 올라와서 흘러가게 하려면 float속성을 사용해야 한다!
+  float:left 이미지는 왼쪽에 글자는 오른쪽에 
+  float:right 이미지는 오른쪽에 글자는 왼쪽에 
+  */
   /* ta */
   margin-left: 15px; /* ml15 */
-  margin-top: 10px;
-  border-radius: 10px; /* brs10 */  
+  /* margin-top: 10px; 아래쪽에 영향으로 주석! */
+  border-radius: 10px; /* brs10 */
 }
 /* 2-6. 기자정보 */
+.reporter {
+  /* 글자크기 : fz */
+  font-size: 20px; /* fz20 */
+  /* 위아래 패딩 : p15 */
+  padding: 15px 0; /* 값 세개만 쓰면 위, 양쪽, 아래 */
+}
 /* 2-7. 기사원문 */
 .article-link {
+  /* 텍스트 오른쪽 정렬 */
   text-align: right;
-
 }
 /* 자식요소 a는 인라인이므로 크기 적용안됨
 따라서 디자인 적용되는 인라인 요소인 inline-block을 사용한다! */
@@ -244,10 +244,83 @@ figcaption 는 블럭요소이다! */
   font-weight: bold; /* fwb */
   border: 2px solid darkcyan;
 }
-/* 기사원문 오버시 변경 */
+/* 
+기사원문 오버시 변경
+:hover는 마우스 오버시 가상클래스임!
+선택요소에 붙여서 사용함!
+가상클래스란 마치 클래스를 준것 같다는 의미 
+*/
 .article-link a:hover {
+  /* 배경색 변경 : bgc */
   background-color: yellow;
+  /* 글자색 변경 : c */
+  color: red;
+  /* 박스그림자 : bxsh */
+  box-shadow: 0 0 5px 1px darkred;
+  /* box-shadow: x축 y축 블러 확대 색 */
 }
 /* 주해영역 */
 
 /* 오늘의 작품 & 느낌 */
+.work {
+  /* 전체정렬중앙 : tac */
+  text-align: center;
+  /* 박스 그림자 
+      box-shadow: x축 y축 blur spread 색
+      1.x축 - 가로축 이동
+      2.y축 - 세로축 이동
+      3.blur - 경계선 흐림
+      4.spread - 그림자 기존크기 보다 더한크기
+      5.색 - 그림자 색
+      ->> 내부 그림자일 경우 inset 키워드를 앞에씀
+      box-shadow: inset x축 y축 blur spread 색
+      ->> spread는 필요시에 작성함
+  */
+  /* bxsh */
+  box-shadow: inset 0 0 10px 10px #00000046;
+  /* bgl */
+  background: linear-gradient(-45deg, #fa8181 40%, #f0ee80, #b7f37f);
+}
+.work h4 {
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 30px;
+  color: #444;
+  font-weight: bold;
+  margin: 0;
+  padding-top:30px;
+}
+.work figure {
+  /* 기본 마진 없앰 */
+  margin: 0;
+  padding: 15px 0;
+}
+/* 작품 이미지 */
+.work img {
+  border: 15px ridge khaki;
+}
+/* 이미지 설명 */
+.work figcaption {
+  /* 글자관련설정 */
+  font-size: 20px;
+  font-family: 'Hi Melody', sans-serif;
+  font-weight: bold;
+  color: #333;
+}
+/* 작품명만 따로 디자인 */
+/* cite는 작품명요소(시멘틱 구조화다!)  */
+.work figcaption cite {
+  color: darkorchid;
+  /* 기본 이태릭체 해제 fsn */
+  font-style: normal;
+}
+
+/* 그라데이션 
+        [ 선형 그라데이션 : linear-gradient ]
+        linear-gradient(방향,색1,색2,...);
+        linear-gradient(방향,색1 몇%,색2 몇%,...);
+        linear-gradient(각도,색1 몇%,색2 몇%,...);
+        - 옵션 : 
+        1. 방향: to top, to bottom, to left, to right
+        2. 각도: 각도deg
+        3. 콤마로 나열된 색상 뒤에 %수치를 쓰면 비율조정가능
+    */

@@ -206,9 +206,8 @@
       <div class="article-link">
         <a
           href="https://n.news.naver.com/mnews/hotissue/article/081/0003484894?type=series&cid=1064685"
-          target="_blank"
-          >기사원문</a
-        >
+          target="_blank">기사원문
+        </a>
       </div>
       <!-- <hr /> -->
       <!-- hr 요소 horizontal line 수평선 보통 CSS 디자인 요소로 사용하지 않음! -->
@@ -229,9 +228,92 @@
         <h4>오늘의 작품 &amp; 느낌</h4>
         <figure>
           <img src="./images/img_the_scream.jpg" alt="뭉크의 절규" />
-          <figcaption>뭉크의 &lt;절규&gt;</figcaption>
+          <figcaption>뭉크의 &lt;<cite>절규</cite>&gt;</figcaption>
         </figure>
       </article>
+
+      <!-- 
+          [ 순서없는 리스트 : ul ]
+          unordered list
+
+          (참고: 블릿옵션
+          https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_ul_type_css)
+
+          [ 순서있는 리스트 : ol ]
+          ordered list
+
+          (참고: 순서표시옵션
+          https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_ol_type_all_css)
+
+          [ ul/ol 공통사항 ]
+          - 하위필수요소 : li (개별리스트)
+          - 주의 : 하위에 li 이외의 블록요소나 
+          그 어떤 요소도 직계자식으로 사용할 수 없다!
+          예) <ul><li></li><div></div></ul> -> 사용불가!
+
+         -->
+          <!-- 
+          [ 용어정의리스트 : dl ]
+          
+          dl > dt + dd
+          __________________
+
+          dl : 용어 리스트
+          (defines the description list)
+          dt : 용어정의
+          (defines the term)
+          dd : 용어설명
+          (description each term)
+          ________________________
+          주의 - dl은 반드시 자식요소로 dt와 dd가
+          반드시 한번이상 사용되어야 함!!!
+          또 주의 - dt와 dd는 형제관계임!(자식아님!)
+          -->
+
+          <!-- 주요뉴스 : ul -->
+          <article class="main-news news-box">
+            <h3>주요뉴스</h3>
+            <ul>
+              <li>
+                <a href="https://n.news.naver.com/mnews/article/081/0003489026" target="_blank">명태균, 김건희 여사와 나눈 대화 또 공개…이번엔 텔레그램</a>
+              </li>
+              <li>
+                <a href="https://n.news.naver.com/mnews/article/081/0003489033" target="_blank">대통령실 “우크라 무기 지원, 단계별로 공격용도 고려 가능”</a>
+              </li>
+              <li>
+                <a href="https://n.news.naver.com/mnews/article/081/0003489040" target="_blank">목사가 미성년자를 강제로…하나님 이름 팔아 인신매매죄, 필리핀서 종신형</a>
+              </li>
+            </ul>
+          </article>
+
+          <!-- 랭킹뉴스 : ol -->
+          <article class="rank-news news-box">
+            <h3>랭킹뉴스</h3>
+            <ol>
+              <li>
+                <a href="https://n.news.naver.com/mnews/article/081/0003489111" target="_blank">“아직 안 했어?” 내년 추석 ‘황금연휴’ 항공권 예매 전쟁…‘이 도시’ 벌써 매진</a>
+              </li>
+              <li>
+                <a href="https://n.news.naver.com/mnews/article/081/0003489102" target="_blank">“대통령이 국가 속였다”…징역 20년 선고한 ‘이 나라’</a>
+              </li>
+              <li>
+                <a href="https://n.news.naver.com/mnews/article/081/0003489083" target="_blank">한동훈, 尹 면담 뒤 첫 입장…“오직 국민만 보고 피하지 않겠다”</a>
+              </li>
+            </ol>
+          </article>
+
+          <article class="sec-news news-box">
+            <h3>분야별 뉴스</h3>
+            <!-- 경제파트 -->
+             <dt>경제</dt>
+              <dd><a href="" target="_blank"></a></dd>              
+              <!-- 사회파트 -->
+              <dt>사회</dt>
+               <dd><a href="" target="_blank"></a></dd>
+              <!-- TV/연예파트 -->
+              <dt>연예</dt>
+               <dd><a href="" target="_blank"></a></dd>
+          </article>
 
       <!-- 
          [html요소에서 특수문자 처리] 
