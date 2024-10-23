@@ -337,7 +337,7 @@ figcaption 는 블럭요소이다! */
   font-family: "Do Hyeon", sans-serif; /* ff */
   font-weight: normal; /* fwn */
   font-size: 30px; /* fz30 */
-  background: linear-gradient(to right, lightblue, transparent);
+  background: linear-gradient(to right, #ddd, transparent);
   padding: 10px;
 }
 /* 뉴스파트 공통a요소 */
@@ -347,7 +347,6 @@ figcaption 는 블럭요소이다! */
   line-height: 2.5;
   color: #222;
   text-decoration: none;
-  transition: all 1s ease-in;
 
   /* [한줄 말줄임 세팅하기] */
   /* 줄바꿈 방지 */
@@ -361,7 +360,7 @@ figcaption 는 블럭요소이다! */
 }
 /* 공통 a요소 오버시 가상클래스 (:hover) */
 .news-box a:hover {
-  color: lightblue;
+  color: #996699;
   text-shadow: 1px 1px 1px #aaa;
 }
 /* 뉴스파트 공통 초기화하기
@@ -478,7 +477,14 @@ dt앞에 dd가 있는 모든 dt를 선택함!
   /* 글자 중앙 tac */
   text-align: center;
   /* 배경색 bgc */
-  background-color: #eee;
+  background-color: #ddd;
+}
+.photo-news td:nth-child(2){
+  background-color: #fefefe;
+  padding: 0 20px;
+}
+.photo-news td:last-child {
+  background-color: #fefefe;
 }
 .photo-news a {
   /* 줄바꿈방지 설정 해제 whn
@@ -490,5 +496,10 @@ dt앞에 dd가 있는 모든 dt를 선택함!
   width: 100px;
   height: 70px;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 10px 0 0 10px;
+  margin-right: 10px;
+}
+/* 사이구분선 넣기 :두번째 tr부터 */
+.photo-news tr+tr td {
+  border-top: 1px dashed #ccc;
 }
