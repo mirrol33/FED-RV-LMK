@@ -18,8 +18,7 @@
     <!--  공통 CSS -->
     <link rel="stylesheet" href="./css/common.css" />
     <!-- 서브용 CSS -->
-    <link rel="stylesheet" href="./css/sub.css">
-
+    <link rel="stylesheet" href="./css/sub.css" />
   </head>
   <body>
     <!-- 1. 상단영역 -->
@@ -180,7 +179,7 @@
 
         <!-- 반대방향 출력 (예: 아랍어) -->
         <bdo dir="rtl">우리나라대한민국만세</bdo>
-      </section>      
+      </section>
 
       <!-- 2-5.5. 인용블록영역 -->
       <article class="quote-box bd-box">
@@ -201,12 +200,13 @@
 
       <!-- 2-6. 기자정보 -->
       <div class="reporter">송현서 기자</div>
-      
-          <!-- 2-7. 기사원문 -->
+
+      <!-- 2-7. 기사원문 -->
       <div class="article-link">
         <a
           href="https://n.news.naver.com/mnews/hotissue/article/081/0003484894?type=series&cid=1064685"
-          target="_blank">기사원문
+          target="_blank"
+          >기사원문
         </a>
       </div>
       <!-- <hr /> -->
@@ -252,7 +252,7 @@
           예) <ul><li></li><div></div></ul> -> 사용불가!
 
          -->
-          <!-- 
+      <!-- 
           [ 용어정의리스트 : dl ]
           
           dl > dt + dd
@@ -270,50 +270,96 @@
           또 주의 - dt와 dd는 형제관계임!(자식아님!)
           -->
 
-          <!-- 주요뉴스 : ul -->
-          <article class="main-news news-box">
-            <h3>주요뉴스</h3>
-            <ul>
-              <li>
-                <a href="https://n.news.naver.com/mnews/article/081/0003489026" target="_blank">명태균, 김건희 여사와 나눈 대화 또 공개…이번엔 텔레그램</a>
-              </li>
-              <li>
-                <a href="https://n.news.naver.com/mnews/article/081/0003489033" target="_blank">대통령실 “우크라 무기 지원, 단계별로 공격용도 고려 가능”</a>
-              </li>
-              <li>
-                <a href="https://n.news.naver.com/mnews/article/081/0003489040" target="_blank">목사가 미성년자를 강제로…하나님 이름 팔아 인신매매죄, 필리핀서 종신형</a>
-              </li>
-            </ul>
-          </article>
+      <!-- 주요뉴스 : ul -->
+      <article class="main-news news-box">
+        <h3>주요뉴스</h3>
+        <ul>
+          <li>
+            <a
+              href="https://n.news.naver.com/mnews/article/081/0003489026"
+              target="_blank"
+              >명태균, 김건희 여사와 나눈 대화 또 공개…이번엔 텔레그램</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://n.news.naver.com/mnews/article/081/0003489033"
+              target="_blank"
+              >대통령실 “우크라 무기 지원, 단계별로 공격용도 고려 가능”</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://n.news.naver.com/mnews/article/025/0003395156"
+              target="_blank"
+              >비만치료제 '위고비' 해외직구 막는다…"SNS 불법판매 단속"</a
+            >
+          </li>
+        </ul>
+      </article>
 
-          <!-- 랭킹뉴스 : ol -->
-          <article class="rank-news news-box">
-            <h3>랭킹뉴스</h3>
-            <ol>
-              <li>
-                <a href="https://n.news.naver.com/mnews/article/081/0003489111" target="_blank">“아직 안 했어?” 내년 추석 ‘황금연휴’ 항공권 예매 전쟁…‘이 도시’ 벌써 매진</a>
-              </li>
-              <li>
-                <a href="https://n.news.naver.com/mnews/article/081/0003489102" target="_blank">“대통령이 국가 속였다”…징역 20년 선고한 ‘이 나라’</a>
-              </li>
-              <li>
-                <a href="https://n.news.naver.com/mnews/article/081/0003489083" target="_blank">한동훈, 尹 면담 뒤 첫 입장…“오직 국민만 보고 피하지 않겠다”</a>
-              </li>
-            </ol>
-          </article>
+      <!-- 랭킹뉴스 : ol -->
+      <article class="rank-news news-box">
+        <h3>랭킹뉴스</h3>
+        <ol>
+          <li>
+            <a
+              href="https://n.news.naver.com/mnews/article/081/0003489111"
+              target="_blank"
+              >“아직 안 했어?” 내년 추석 ‘황금연휴’ 항공권 예매 전쟁…‘이 도시’
+              벌써 매진</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://n.news.naver.com/mnews/article/081/0003489102"
+              target="_blank"
+              >“대통령이 국가 속였다”…징역 20년 선고한 ‘이 나라’</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://n.news.naver.com/mnews/article/081/0003489083"
+              target="_blank"
+              >한동훈, 尹 면담 뒤 첫 입장…“오직 국민만 보고 피하지 않겠다”</a
+            >
+          </li>
+        </ol>
+      </article>
 
-          <article class="sec-news news-box">
-            <h3>분야별 뉴스</h3>
-            <!-- 경제파트 -->
-             <dt>경제</dt>
-              <dd><a href="" target="_blank"></a></dd>              
-              <!-- 사회파트 -->
-              <dt>사회</dt>
-               <dd><a href="" target="_blank"></a></dd>
-              <!-- TV/연예파트 -->
-              <dt>연예</dt>
-               <dd><a href="" target="_blank"></a></dd>
-          </article>
+      <article class="sec-news news-box">
+        <h3>분야별뉴스</h3>
+        <!-- 경제파트 -->
+        <dl>
+          <dt>경제</dt>
+          <dd>
+            <a
+              href="https://n.news.naver.com/mnews/article/008/00051038171"
+              target="_blank"
+              >포스코인터, 농협사료와 협력 강화…"식량안보 정부 정책 부응"</a
+            >
+          </dd>
+          <!-- 사회파트 -->
+          <dt>사회</dt>
+          <dd>
+            <a
+              href="https://n.news.naver.com/mnews/article/277/0005488082"
+              target="_blank"
+              >한동훈 "여야의정 협의체에 의료계 참여…결단에 감사"</a
+            >
+          </dd>
+          <!-- TV/연예파트 -->
+          <dt>TV/연예</dt>
+          <dd>
+            <a
+              href="https://m.entertain.naver.com/article/076/0004207738?cid=1073788"
+              target="_blank"
+              >[공식]백종원, 요리하는 돌아이x철가방 요리사 재회…'레미제라블'
+              30일 첫방송</a
+            >
+          </dd>
+        </dl>
+      </article>
 
       <!-- 
          [html요소에서 특수문자 처리] 
@@ -321,6 +367,48 @@
          < 여는꺽쇠 &lt; (lt less than ~ 보다 작은)
          > 닫는꺽쇠 &gt; (gt는 greater than ~ 보다 큰)
          -->
+
+      <!-- 
+            [ 테이블 요소 : table ]
+            table > tbody > tr > td
+
+            -> tbody는 안쓰고 tr부터 구현해도
+            브라우저가 자동으로 그려준다!
+
+            주의) table > tr 로 직계선택하게 되면
+            위와 같은 구조적인 이유로 선택되지 않는다!
+
+            _______________________________
+
+            ((간단한 테이블 작성시 필수요소 3가지!))
+            table : 테이블 박스 부모요소
+            tr : 테이블 행요소(table row)
+            td : 테이블 데이터요소(table data)
+           -->
+      <!-- 사진뉴스 :table -->
+      <article class="photo-news news-box">
+        <h3>사진뉴스</h3>
+        <!-- <table border="1"> : 테이블 기본간격 확인 위해 -->
+        <table>
+          <!-- <tbody></tbody> : 생략 -->
+          <tr>
+            <td>1</td>
+            <td><a href="https://n.news.naver.com/mnews/hotissue/article/031/0000878743?type=series&cid=1087779"target="_blank">
+              펄펄 끓는 도시, '녹지 공간' 중요하다</a></td>
+            <td><a href="https://n.news.naver.com/mnews/hotissue/article/031/0000878743?type=series&cid=1087779"><img src="./images/poto_news_01.jpg" alt="녹지공간중요"></a></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><a href="https://n.news.naver.com/mnews/hotissue/article/029/0002910587?type=series&cid=1089878"target="_blank">채소값 폭등에 가꿔보는 미니텃밭…`우리집 텃밭세트`</a></td>
+            <td><a href="https://n.news.naver.com/mnews/hotissue/article/029/0002910587?type=series&cid=1089878"><img src="./images/poto_news_02.jpg" alt="미니텃밭세트"></a></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><a href="https://n.news.naver.com/mnews/article/009/0005383392"target="_blank">카톡처럼 국민앱 될까…카카오 비밀병기 ‘카나나’ 뭐길래</a></td>
+            <td><a href="https://n.news.naver.com/mnews/article/009/0005383392"><img src="./images/poto_news_03.png" alt="카카오비밀병기카나나"></a></td>
+          </tr>
+        </table>
+      </article>
     </main>
     <!-- <div id="main"></div> -->
 

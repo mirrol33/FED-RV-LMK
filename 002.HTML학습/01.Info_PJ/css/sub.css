@@ -281,10 +281,20 @@ figcaption 는 블럭요소이다! */
   /* bgl */
   background: linear-gradient(-45deg, #fa8181 40%, #f0ee80, #b7f37f);
 }
+/* 그라데이션 
+        [ 선형 그라데이션 : linear-gradient ]
+        linear-gradient(방향,색1,색2,...);
+        linear-gradient(방향,색1 몇%,색2 몇%,...);
+        linear-gradient(각도,색1 몇%,색2 몇%,...);
+        - 옵션 : 
+        1. 방향: to top, to bottom, to left, to right
+        2. 각도: 각도deg
+        3. 콤마로 나열된 색상 뒤에 %수치를 쓰면 비율조정가능
+    */
 .work h4 {
   font-family: "Do Hyeon", sans-serif;
   font-size: 30px;
-  color: #444;
+  color: #333;
   font-weight: bold;
   margin: 0;
   padding-top:30px;
@@ -314,13 +324,171 @@ figcaption 는 블럭요소이다! */
   font-style: normal;
 }
 
-/* 그라데이션 
-        [ 선형 그라데이션 : linear-gradient ]
-        linear-gradient(방향,색1,색2,...);
-        linear-gradient(방향,색1 몇%,색2 몇%,...);
-        linear-gradient(각도,색1 몇%,색2 몇%,...);
-        - 옵션 : 
-        1. 방향: to top, to bottom, to left, to right
-        2. 각도: 각도deg
-        3. 콤마로 나열된 색상 뒤에 %수치를 쓰면 비율조정가능
-    */
+/* 뉴스파트 공통 클래스: .news-box */
+.news-box {
+  /* 상단보더넣기 : bdt */
+  border-top: 2px dashed #ccc;
+  /* 상단마진 : m */
+  margin: 20px 0;
+  padding: 20px 0;
+}
+/* 뉴스 타이틀 공통 */
+.news-box h3 {
+  font-family: "Do Hyeon", sans-serif; /* ff */
+  font-weight: normal; /* fwn */
+  font-size: 30px; /* fz30 */
+  background: linear-gradient(to right, lightblue, transparent);
+  padding: 10px;
+}
+/* 뉴스파트 공통a요소 */
+.news-box a {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 2.5;
+  color: #222;
+  text-decoration: none;
+  transition: all 1s ease-in;
+
+  /* [한줄 말줄임 세팅하기] */
+  /* 줄바꿈 방지 */
+  white-space: nowrap; /* wh */
+  /* 넘치는 요소 숨기기 (전제조건inline아닐것!) */
+  overflow: hidden; /* oh */
+  /* a요소는 인라인요소이므로 overflow가 안먹힘 */
+  display: block; /* db */
+  /* 넘치는 글자 말줄임 표시 */
+  text-overflow: ellipsis; /* tov */
+}
+/* 공통 a요소 오버시 가상클래스 (:hover) */
+.news-box a:hover {
+  color: lightblue;
+  text-shadow: 1px 1px 1px #aaa;
+}
+/* 뉴스파트 공통 초기화하기
+ul, ol은 기본마진, 패딩, 블릿, 번호 등 초기화 필요함 */
+.news-box ul, .news-box ol {
+  margin: 0; /* m0 */
+  padding: 0; /* p0 */
+  list-style: none; /* lin */
+}
+/* ol은 숫자값 살리기 */
+.news-box ol {
+  /* 숫자표시 기본값 살리기 */
+  list-style: decimal; /* lide */
+  padding-left: 20px; /* pl20 */
+
+}
+/* dl, dd는 기본마진있음 */
+.news-box dl, .news-box dl dd {
+  margin: 0;
+}
+/* 
+가상요소로 아이콘 넣기 이미지같은 요소를 css에서 
+가상으로 넣을 수 있음(가상은 실제 태그요소 아님)
+앞에 넣는 가상요소는 ::before
+뒤에 넣는 가상요소는 ::after
+(기본필수속성은 content 속성) 
+[ CSS의 가상요소 : before, after ]
+  - 모든 요소는 맨앞과 맨뒤에 가상요소를 사용할 수 있다!
+  - 가상요소 표기법은 요소명 뒤에 콜론2개를 겹쳐씀(::)
+  - 맨앞은 before, 맨뒤는 after
+  - 필수속성 : content
+  - 이미지는 content 속성값으로 url() 사용!
+*/
+.main-news a::before { /* 맨앞 */
+  /* 가상요소 필수속성 content : (ct) */
+  content: '😎'; /* ct */
+  margin-right: 5px;
+  font-size: 20px;  
+}
+.main-news a::after { /* 맨뒤 */
+  /* content: url(https://w7.pngwing.com/pngs/634/843/png-transparent-check-in-box-mark-ui-interface-icon.png); */
+  /* url을 사용하면 이미지를 넣을 수 있으나 크기 조정 안됨 */
+}
+/* 주요뉴스의 li 순서에서 개별 선택하기!
+글자색 변경하기!
+[ 같은 종류의 형제요소 선택법 ]
+ :first-child
+ :last-child
+ :nth-child(n) */
+.main-news li:first-child a {
+  color: #996699;
+}
+.main-news li:nth-child(2) a::before {
+  content: '😤';
+}
+.main-news li:last-child a::before {
+  content: '😱';
+}
+/* 분야별 뉴스 */
+.sec-news dt {
+  font-family: 'Hi Melody', sans-serif;
+  font-size: 30px;
+  border: 2px dashed #669966;
+  border-radius: 50%; /* brs */
+  /* ★내용만큼 가로크기 되도록
+  display 변경 inline-block */
+  display: inline-block; /* dib */
+  padding: 10px;
+}
+
+/* dt 따로 순서별 디자인 설정 */
+.sec-news dt:first-of-type{
+  background-color: #eee;
+  border-color: #996699;
+}
+.sec-news dt:nth-of-type(2){
+  background-color: #66996633;
+}
+.sec-news dt:last-of-type{ 
+  color: white;
+  background-color: #996699;
+  border-color: #ccc;
+}
+/* 두번째 dt부터 마진탑 주기 
+dt앞에 dd가 있는 모든 dt를 선택함!
+형제선택자 :dd+dt */
+.sec-news dd+dt{
+  margin-top: 24px;
+}
+/* [여러종류의 태그에서 순서별 선택법]
+:first-of-type 같은 종류중 첫번째요소
+:last-of-type 같은 종류중 마지막요소
+:nth-of-type(n) 같은 종류중 n번째요소
+(가상클래스)
+*/
+/* 사진뉴스 */
+.photo-news table{
+  /* 최대가로크기 maw
+  최대크기보다 작아지면 auto로 전환됨 */
+  max-width: 500px; /* maw */
+  /* 테이블 기본간격 없앰! 
+  separate가 기본값임(사이간격있음) */
+  border-collapse: collapse;
+  /* 테두리 */
+  border: 1px solid #ccc;
+  /* 중앙정렬 */
+  margin: 0 auto;
+}
+.photo-news td:first-child {
+  /* 가로크기 w */
+  width: 50px;
+  /* 세로크기 h */
+  height: 84px;
+  /* 글자 중앙 tac */
+  text-align: center;
+  /* 배경색 bgc */
+  background-color: #eee;
+}
+.photo-news a {
+  /* 줄바꿈방지 설정 해제 whn
+  -> 기본줄바꿈으로 바꿈 */
+  white-space: normal;
+  line-height: 1.2;
+}
+.photo-news img {
+  width: 100px;
+  height: 70px;
+  overflow: hidden;
+  border-radius: 10px;
+}
