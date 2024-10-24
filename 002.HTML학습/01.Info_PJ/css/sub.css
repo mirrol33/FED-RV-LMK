@@ -456,6 +456,28 @@ dt앞에 dd가 있는 모든 dt를 선택함!
 :nth-of-type(n) 같은 종류중 n번째요소
 (가상클래스)
 */
+/* 포토뉴스 파트 */
+/* 타이틀 */
+.pnews h3{
+  /* 배경그라데이션 없앰 */
+  background-image: none;
+  /* 중앙정렬 */
+  text-align: center;
+}
+
+/* 가상요소로 사진기 아이콘 넣기 */
+.pnews h3::before{
+  content: '📷';
+  vertical-align: -1px;
+  font-size: 31px;
+  margin-right: 8px;
+}
+.pnews h3::after{
+  content: '📺';
+  vertical-align: -1px;
+  font-size: 31px;
+  margin-left: 8px;
+}
 /* 사진뉴스 */
 .photo-news table{
   /* 최대가로크기 maw
@@ -469,6 +491,7 @@ dt앞에 dd가 있는 모든 dt를 선택함!
   /* 중앙정렬 */
   margin: 0 auto;
 }
+
 .photo-news td:first-child {
   /* 가로크기 w */
   width: 50px;
@@ -491,7 +514,31 @@ dt앞에 dd가 있는 모든 dt를 선택함!
   -> 기본줄바꿈으로 바꿈 */
   white-space: normal;
   line-height: 1.2;
+  /* 여러줄일 때 말줄임 설정하기 */
+  /* 1 여러줄 말줄임시 필요한 display */
+  display: -webkit-box;
+  /* 2 넘치는 요소 숨기기 */
+  overflow: hidden;
+  /* 3 텍스트 말줄임 표시 */
+  text-overflow: ellipsis;
+  /* 4 말줄임 처리 줄수 : 여기선 2줄처리 */
+  -webkit-line-clamp: 2;
+  /* 5 말줄임 처리 방향설정 : 수직방향 */
+  -webkit-box-orient: vertical;
+  /* 6 높이값 제한설정 (이유:숨겨야하니까) 필요시에만 사용 */
+  /* max-height: 2.5em; */
+  /* 7 줄바꿈 방지를 일반으로 변경 (줄바꿈상태) */
+  /* white-space: normal; -> 위에서 이미줌 */
 }
+/*
+[css속성이나 값에 벤터사 접두어]
+브라우저 제작사별로 특정 속성을 지원할 경우 특정 버전부터 지원하게 되고
+그때 브라우저사 접두어를 사용함!
+1 -webket : 크롬, 사파리
+2 -ms- : 익스플로러/엣지
+3 -o- : 오페라
+4 -moz- : (모질라)파이어폭스
+*/
 .photo-news img {
   width: 100px;
   height: 70px;
@@ -503,6 +550,7 @@ dt앞에 dd가 있는 모든 dt를 선택함!
 .photo-news tr+tr td {
   border-top: 1px dashed #ccc;
 }
+/* ***************************************** */
 /* 비디오박스 */
 .mv-box iframe {
   width: 100%;
