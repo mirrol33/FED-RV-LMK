@@ -287,6 +287,64 @@
         background-color: yellow;
         font-size: 30px;
       }
+
+      /* 포스터 보기 박스 */
+      .fixed-poster{
+        position: fixed;
+        top: 250px;
+        right: -209px;
+        /* 부모는 당연히 window~ */
+        z-index: 999999;
+
+        /* 트랜지션 : trs 속시이지 */
+        transition: .4s ease-out;
+      }
+      /* 글자 span */
+      .fixed-poster span {
+        position: absolute;
+        top: 0;
+        left: -50px;
+        /* 나의 부모는? fixed-poster */
+        width: 50px;
+        height: 300px;
+        background: lightblue;
+        border-radius: 10px 0 0 10px;
+        /* 글자 세로모드 */
+        writing-mode: vertical-lr; /* wm */
+        font-size: 25px;/* fz */
+        text-align: center; /* tac */
+        padding: 0 10px; /* pl */
+        box-sizing: border-box;
+        /* 자간 : letter-spacing */
+        letter-spacing: normal; /* ls */
+        /* 참고) 단어간격 : word-spacing */
+      }
+      /* 포스터 이미지 */
+      .fixed-poster img{
+        height: 300px;
+        vertical-align: middle;
+      }
+      /* 포스터에 마우스 오버시
+      right값 변경으로 포스터 보이기 */
+      .fixed-poster:hover{
+        right: 0;
+      }
+
+      /* 부모가 많은 요소를 fixed처리하기
+      - display: inline요소가 자동block처리됨
+      - 가로,세로크기 내용만큼 생김!
+      - 부모가 아무리 많아도 fixed는 보이는 화면이 그 기준이 된다 
+      */
+      .iamfixed{
+        position: fixed; /* pof */
+        right: 200px;
+        top: 200px;
+        z-index: 9999999; /* z9999999 */
+        background-color: yellow;
+        border: 4px double blue;
+        border-radius: 50%;
+        padding: 24px;
+      }
     </style>
   </head>
   <body>
@@ -300,6 +358,12 @@
     <div class="bx" id="f1">
       나는 젠틀픽스드다!!!
     </div>
+
+    <!-- 포스터보기 fixed적용박스 -->
+     <div class="fixed-poster">
+      <img src="./images/ab0.jpg" alt="포스터">
+      <span>포스터보기</span>
+     </div>
 
     <!-- 첫번째 앱솔루트 박스 -->
     <div class="bx" id="a1">a1</div>
@@ -361,6 +425,10 @@
             >
               나는 span앱솔루트다!
             </span>
+            <!-- 부모가 많은 요소를 fixed 처리하기 -->
+             <span class="iamfixed">
+              .s8 😢개발자🤓
+             </span>
           </div>
         </div>
       </div>
