@@ -4,6 +4,8 @@
 
 /* 외부CSS 불러오기 */
 @import url(./reset.css);
+/* 공통CSS */
+@import url(./core.css);
 
 /* 전체 디자인 */
 body{
@@ -13,14 +15,6 @@ body{
 /* 공사중 표시 : 구현시 박스표시 */
 body * {
     /* outline: 2px dashed #ccc; */
-}
-
-/* 레이아웃 공통 클래스 */
-.part{
-    /* 가로크기 공통 */
-    width: 1200px;
-    /* 마.영.오 - 블록박스 중앙정렬 */
-    margin: 0 auto;
 }
 
 /******************* 1. 상단영역 *******************/
@@ -41,7 +35,7 @@ body * {
     /* 나의 부모는? */
     width: 701px;
     height: 397px;
-    background-color: red;
+    /* background-color: red; */
 }
 /* 유튜브 아이프레임 */
 .screen iframe#ifr{
@@ -61,6 +55,9 @@ body * {
     position: relative;
     /* 블록 옆으로 흐르게 : float */
     float: left;
+    border-radius: 10px;
+    overflow: hidden; /* oh */
+    
 }
 /* ul>li 사이간격 li+li 앞에 li가 있는 li선택
 즉, 첫번째 li빼고 다 선택 */
@@ -71,35 +68,37 @@ body * {
 /* 포스터 이미지 */
 .poster-menu img{
     height: 170px;
-    bottom: 0;
-    left: 0;
     /* 나의 부모는? .main-area */
 }
+/* 영화정보박스 */
 .mv-info{
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -60%;
+    /* left: 0; */
+    /* 나의 부모는? .poster-menu ul>li */
     width: 100%;
     height: 100%;
-    background-color:rgba(0,0,0,.8);
+    background-color:rgb(0 0 0 / 75%); /* 신규방식 */
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: 1s ease;
+    transition: .4s ease-out;
+    box-sizing: border-box; /* bxb */
+    font-family: 'Cute Font', cursive;
 }
-.mv-info:hover{
+.poster-menu ul>li:hover .mv-info{
+    top: 0;
     opacity: 1;
 }
 .mv-info ol>li:first-child{
     color: yellow;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 20px;
 }
 .mv-info ol>li+li{
-    margin-top: 10px;
-    font-size: 12px;
+    margin-top: 6px;
+    font-size: 14px;
     
 }
 /******************* 3. 하단영역 *******************/
