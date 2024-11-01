@@ -12,8 +12,7 @@ body{
 
 /* 공사중 표시 : 구현시 박스표시 */
 body * {
-    border: 1px solid #fff;
-
+    /* outline: 2px dashed #ccc; */
 }
 
 /* 레이아웃 공통 클래스 */
@@ -54,6 +53,20 @@ body * {
 /* 2-2. 포스터 메뉴 */
 .poster-menu{
     position: absolute;
+    bottom: 43px;
+    left: 226px;
+}
+/* 메뉴 리스트 ul>li 상위 li만 선택 */
+.poster-menu ul>li{
+    position: relative;
+    /* 블록 옆으로 흐르게 : float */
+    float: left;
+}
+/* ul>li 사이간격 li+li 앞에 li가 있는 li선택
+즉, 첫번째 li빼고 다 선택 */
+.poster-menu ul>li+li{
+    /* 왼쪽마진 : ml */
+    margin-left: 10px;
 }
 /* 포스터 이미지 */
 .poster-menu img{
@@ -62,10 +75,32 @@ body * {
     left: 0;
     /* 나의 부모는? .main-area */
 }
-/* 메뉴리스트 li */
-.poster-menu li{
-    /* 블록 옆으로 흐르게 : float */
-    float: left;
+.mv-info{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0,0,0,.8);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 1s ease;
+}
+.mv-info:hover{
+    opacity: 1;
+}
+.mv-info ol>li:first-child{
+    color: yellow;
+    font-size: 14px;
+    font-weight: bold;
+}
+.mv-info ol>li+li{
+    margin-top: 10px;
+    font-size: 12px;
+    
 }
 /******************* 3. 하단영역 *******************/
 .footer-area{
