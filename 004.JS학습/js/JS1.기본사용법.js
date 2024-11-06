@@ -95,7 +95,13 @@ function 김비서나와라(){
     // 대상: body
     // Js에서 body는 특별히 취급하여 
     // document.body로 선택
-    var 나바디 = document.body;
-    나바디.style.backgroundColor = "lime";
+    // var 나바디 = document.body;
+    // 나바디.style.backgroundColor = "lime";
+
+    const overlay = document.querySelector('.background-overlay');
+    overlay.style.opacity = '1';
+    
+
+
 
 } //////////// 김비서나와라 함수 //////////
