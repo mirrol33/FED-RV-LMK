@@ -22,7 +22,14 @@ function 김비서나와라(){
     // getElementsByClassName(클래스명)
     // 0,1,2....이런 순서로 수집함
     // 하나뿐이어도 0번째라고 해야함!
-    console.log(document.getElementsByClassName('pbox'));
+    console.log(
+        "클래스선택 HTML 컬렉션객체:",
+        document.getElementsByClassName('pbox'),"\n",
+        "요소선택 HTML 컬렉션객체:",
+        document.getElementsByTagName('span'),"\n",
+        "아이디선택 HTML 요소객체:",
+        document.getElementById('name'),"\n"
+        );
 
     //변수에 대상 할당하기!
     var 나변수 = document.getElementsByClassName('pbox').item(0);
@@ -83,7 +90,7 @@ function 김비서나와라(){
     // 3-10 트랜스폼 변경 : 중앙이동, 360도회전, 스케일변경
     나변수.style.translate = "-50% -50%";
     나변수.style.rotate = "360deg";
-    나변수.style.scale = "1.4";
+    나변수.style.scale = "1.2";
     
     // 트랜스폼 속성 한번에 쓰기
     // 나변수.style.transform = "translate(-50%, -50%) rotate(360deg) scale(1.4)";
@@ -100,8 +107,45 @@ function 김비서나와라(){
 
     const overlay = document.querySelector('.background-overlay');
     overlay.style.opacity = '1';
-    
+    overlay.style.transition = 'opacity 1s 3s ease';
 
+    /*****************************************
+    [JS DOM의 요소 선택 메서드]
+    1. id 선택 메서드 : getElementById(아이디명)
+    document.getElementById('id명')
 
+    2. class 선택 메서드 : getElementsByClassName(클래스명)
+    document.getElementsByClassName('class명')
+    ((하위속성))
+    length - 클래스개수
+    ((순번선택 하위메서드))
+    item(순번) - 구체적인 순번요소 선택 (0부터 시작)
+
+    3. tag 선택 메서드 : getElementsByTagName(태그명)
+    document.getElementsByTagName('tag명')
+    ((하위속성))
+    length - 클래스개수
+    ((순번선택 하위메서드))
+    item(순번) - 구체적인 순번요소 선택 (0부터 시작)
+
+    [ HTML 컬렉션은 무엇인가? ]
+    - DOM을 통하여 선택된 다중선택요소인
+    class/tag 를 메모리상 수집하는 공간
+    - 상세 선택시 순번선택 메서드인 item()을
+    사용하여 선택한다
+    - 배열처럼 순서대로 메모리를 사용하기 때문에
+    '유사배열'이라고 불리우며 배열처럼 대괄호순번
+    을 사용하여 선택할 수 있다!
+    - document
+    .getElementsByClassName(클래스명).item(0)
+    -> 아래처럼 점안찍고 대괄호 순번사용가능!
+    .getElementsByClassName(클래스명)[0]
+
+    - 컬렉션 전체 개수정보는 length 속성으로 
+    알 수 있다!
+
+    참고) 
+    https://www.w3schools.com/js/js_htmldom_collections.asp
+    *****************************************/
 
 } //////////// 김비서나와라 함수 //////////
