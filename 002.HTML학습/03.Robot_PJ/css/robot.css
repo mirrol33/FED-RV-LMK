@@ -14,7 +14,7 @@ body {
 
 /* 공사중 표시 */
 body *, *::before, *::after {
-  outline: 2px dashed yellow;
+  /* outline: 2px dashed yellow; */
 }
 
 body {
