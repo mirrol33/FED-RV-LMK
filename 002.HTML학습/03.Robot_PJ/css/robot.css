@@ -1,6 +1,10 @@
 @charset "utf-8";
 /* 로봇 PJ CSS - robot.css */
 
+/* 외부 CSS합치기 */
+@import url(./core.css);
+@import url(./reset.css);
+
 /* 초기화 */
 html, body{
     margin: 0;
@@ -12,7 +16,10 @@ html, body{
 body * {outline: 2px dashed yellow;}
 
 body{
-    background: url(../images/bg.jpg) no-repeat center/cover;
+    /* 배경이미지 */
+    background: url(../images/bg.jpg) no-repeat top/cover;
+    /* 커서 이미지로 변경하기 */
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🐇</text></svg>"), auto;
 }
 
 /************** 1. 상단영역 **************/
@@ -26,18 +33,20 @@ body{
 .head{
     position: relative; 
     margin:0 auto; 
-    width: 250px; 
+    width: 214px; 
     height: 250px;
+    /* 얼굴모양 만들기 */
+    border-radius: 80px 80px 100px 100px;
 }
-/*********** 공통클래스 ***********/
-/* 메탈배경 클래스 */
-.metal1{background: url(../images/metal01.jpg) no-repeat center/cover;}
-.metal2{background: url(../images/metal02.jpg) no-repeat center/cover;}
 
+/* 로봇머리 하위 공통 앱솔루트 */
+.head > div {
+    position: absolute;
+}
 /* 눈공통 */
 .eye{
     position: absolute;
-    top: 50px;
+    top: 60px;
     /* 나의 부모는? .head */
     width: 50px;
     height: 50px;
@@ -50,21 +59,55 @@ body{
 /* 왼눈 */
 .eye1{
     /* 개별위치값 */
-    left: 50px;
+    left: 16%;
     /* 이미지만 변경 */
     background-image: url(../images/e1.jpg);
 }
 /* 오른눈 */
 .eye2{
     /* 개별위치값 */
-    right: 50px;
+    right: 16%;
     /* 이미지만 변경 */
     background-image: url(../images/e2.jpg);
 }
 /* 코 */
+.nose{
+    top: 50%;
+    left: 50%;
+    /* transform: translate(-35px, -40px); */
+    translate: -35px -40px;
+    width: 70px;
+    height: 80px;
+    background: url(../images/nose2.png) no-repeat 0/100% 120%;
+    border-radius: 20px;
+}
 /* 입 */
+.mouth{
+    bottom: 15%;
+    left: 50%;
+    /* transform: translate(-45px); */
+    translate: -45px;
+    width: 90px;
+    height: 35px;
+    background: url(../images/mouth2.png) no-repeat 0/100%;
+}
+/* 귀공통 */
+.ear{
+    top: 80px;
+    width: 50px;
+    height: 80px;
+    background: url(../images/metal02.jpg) repeat 0/100%;
+}
 /* 왼귀 */
+.ear1 {
+    left:-50px;
+    border-radius: 20px 0 0 20px;
+}
 /* 오른귀 */
+.ear2 {
+    right: -50px;
+    border-radius: 0 20px 20px 0;
+}
 /* 2-1-2. 로봇몸통 */
 /* 2-2 설명박스 */
 /************** 3. 하단영역 **************/
