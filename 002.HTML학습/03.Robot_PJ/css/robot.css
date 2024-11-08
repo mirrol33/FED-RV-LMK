@@ -13,7 +13,7 @@ body {
 }
 
 /* 공사중 표시 */
-body * {
+body *, *::before, *::after {
   outline: 2px dashed yellow;
 }
 
@@ -30,7 +30,7 @@ body {
 /* 2-1. 로봇박스 */
 .robot-box {
   padding-top: 100px;
-  padding-bottom: 500px;
+  padding-bottom: 600px;
 }
 /* 2-1-1. 로봇머리 */
 .head {
@@ -202,6 +202,7 @@ body {
   width: 50px;
   height: 180px;
 }
+
 /* 왼팔 */
 .arm1 {
   left: -65px;
@@ -221,11 +222,45 @@ body {
     width: 80%;
     height: 80%;
 }
+/* 왼손: span의 가상요소로 만들기 */
+.arm span::after{
+    content: '';
+    position: absolute;
+    top: 100%;
+    width: 80px;
+    height: 110px;
+    /* 배경공통 */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    /* 손박스위로 */
+    z-index: 1;
+}
+.arm1 span::after{
+    background-image: url(../images/hand_left.png);
+    left: -12px;
+}
+.arm2 span::after{
+    background-image: url(../images/hand_right.png);
+    right: -12px;
+}
 /* 다리공통 */
 .leg {
   top: 100%;
   width: 70px;
-  height: 200px;
+  height: 280px;
+}
+/* 다리관절 가상요소로 만들기 */
+.leg::after{
+    content: '';
+    position: absolute;
+    top: 90%;
+    left: -10%;
+    width: 120%;
+    height: 20%;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-image: linear-gradient(45deg, #ccc, #222);
+    border: 3px solid #ccc;
 }
 /* 왼다리 */
 .leg1 {
@@ -242,7 +277,33 @@ body {
     top: 100%;
     left: 10%;
     width: 80%;
-    height: 80%;v
+    height: 80%;
+}
+.leg span::before{
+    content:'';
+    position: absolute;
+    top: 20%;
+    left: -10%;
+    width: 120%;
+    height: 100%;
+    background-image: linear-gradient(to right, #ccc, #222);
+    border: 2px solid #222;
+    /* 패딩,보더 포함박스 bxb */
+    box-sizing: border-box;
+    border-top-width: 15px;
+}
+.leg span::after{
+    content: '';
+    position: absolute;
+    top: 100%;
+    bottom: 0;
+    left: -30%;
+    width: 160%;
+    height: 20%;
+    background-image: linear-gradient(to right, #ccc, #222);
+    border: 2px solid #222;
+    border-radius: 50% 50% 0 0;
+    border-bottom-width: 10px;
 }
 /* 어깨공통 */
 .shdr {
