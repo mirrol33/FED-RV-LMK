@@ -13,15 +13,15 @@ body {
 }
 
 /* 공사중 표시 */
-body *, *::before, *::after {
-  /* outline: 2px dashed yellow; */
-}
+/* body *, *::before, *::after {
+  outline: 2px dashed yellow;
+} */
 
 body {
   /* 배경이미지 */
   background: url(../images/bg.jpg) no-repeat fixed top/cover;
   /* 커서 이미지로 변경하기 */
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🐱</text></svg>"),
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🐶</text></svg>"),
     auto;
 }
 /************* 1. 상단영역 *************/
@@ -29,6 +29,7 @@ body {
 /************* 2. 메인영역 *************/
 /* 2-1. 로봇박스 */
 .robot-box {
+  display: none;
   padding-top: 100px;
   padding-bottom: 600px;
 }
@@ -65,7 +66,7 @@ body {
 /* 눈공통 */
 .eye {
   /* position: absolute; */
-  top: 80px;
+  top: 82px;
   /* 나의 부모는? .head */
   width: 50px;
   height: 50px;
@@ -92,7 +93,7 @@ body {
 }
 /* 코 */
 .nose {
-  top: 110px;
+  top: 115px;
   /* 가로방향 중앙이동설정
   -> left 절반밀고 자신크기절반 반대로이동 */
   left: 50%;
@@ -104,7 +105,7 @@ body {
 }
 /* 입 */
 .mouth {
-  bottom: 15%;
+  bottom: 12%;
   /* 가로방향 중앙이동설정
   -> left 절반밀고 자신크기절반 반대로이동 */
   left: 50%;
@@ -346,5 +347,174 @@ body {
   right: -77px;
   border-radius: 0 50% 50% 0;
 }
+/* TV 박스 */
+.tv{
+  top: 10%;
+  /* 앱솔루트 가로중앙 셋팅 */
+  left: 50%;
+  translate: -50%;
+  /* 트랜스폼의 트랜스레이트는
+  현재위치에서의 위치이동이며
+  %단위는 자신의 크기를 기준함
+  translate: 가로 세로 */
+
+  width: 140px;
+  height: 100px;
+  /* 가슴부분 가상요소보다 위 */
+  z-index: 2;
+  /* 배경이미지 */
+  background: url(../images/tv.jpg) no-repeat 0/100% 100%;
+}
+
+/* 스크린 */
+.screen{
+  position: absolute;
+  top: 10px;
+  left: 7px;
+  /* 부모는? .tv */
+  width: 100px;
+  height: 72px;
+  background-color: #000;
+  border-radius: 10px;
+  /* 넘치는 자식요소 숨기기 */
+  overflow: hidden;
+}
+/* 유튭동영상 아이프레임 */
+.screen iframe{
+  position: absolute;
+  top: -6%;
+  left: -41%;
+  /* 부모는? .screen */
+  width: 181%;
+  height: 113%;
+}
+
+/* 버튼박스 */
+.btns{
+  position: absolute;
+  bottom: 16px;
+  right: 6px;
+  /*부모는? .tv */
+}
+/* 버튼요소 */
+.btns button{
+  display: block;
+  /* 원래는 inline-block
+  한줄에 하나씩만 오도록 블록화! */
+  font-size: 9px;
+  padding: 0;
+  width: 20px;
+  height: 12px;
+  line-height: 12px;
+}
+
+
+
 /* 2-2. 설명박스 */
+.text-box{
+  max-width: 800px;
+  margin: 0 auto;
+  color: #fff;
+  background-color: #00000067;
+  border-radius: 20px;
+  padding: 15px 30px;
+  /* 박스 2중 글로우효과(그림자로줌) */
+  box-shadow: 
+  inset 0 0 20px blue,
+  inset 0 0 50px 10px cyan;
+
+  /* 백드롭 블러효과주기 */
+  backdrop-filter: blur(6px);
+  /* 
+  [백드롭 필터효과] 
+  - filter속성과 동일한 셋팅을 가지며
+  적용대상이 겹쳐지는 하단의 그래픽을 변경한다!
+
+  backdrop-filter: blur(2px); -> 흐림
+  backdrop-filter: brightness(60%); -> 밝기
+  backdrop-filter: contrast(40%); -> 대비
+  backdrop-filter: drop-shadow(4px 4px 10px blue);->그림자
+  backdrop-filter: grayscale(30%);-> 흑백
+  backdrop-filter: hue-rotate(120deg); -> 색상변경
+  backdrop-filter: invert(70%); -> 반전색
+  backdrop-filter: opacity(20%); -> 투명도
+  backdrop-filter: sepia(90%); -> 세피아효과
+  backdrop-filter: saturate(80%); -> 채도
+
+  -> 복합적용 가능!
+  backdrop-filter: blur(4px) saturate(150%);
+  */
+}
+
+/* 2-2-1. 제목 */
+.text-box h2{
+  /* 스티키 포지션 */
+  position: sticky;
+  /* top값이 고정위치값 */
+  top: 10px;
+
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 35px;
+  text-align: center;
+  background-color: #ffffff6a;
+  color: lime;
+  text-shadow: 2px 2px 2px #0000007b;
+  border-radius: 20px;
+  /* 기존 두꺼운체 해제 : fwn */
+  font-weight: normal;
+}
+/* 2-2-2. 출처 */
+.text-box small{
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 12px;
+  text-shadow: 1px 1px 1px #00000077;
+  color: #ff0;
+
+  /* 블록으로 변경해야 tac먹힘! */
+  display: block;
+  text-align: center;
+  padding: 10px;
+}
+
+/* 2-2-3.내용단락 */
+.text-box p{
+  font-family: 'Barlow', sans-serif;
+  font-size: 17px;
+  /* 줄간격 */
+  line-height: 1.7;
+  /* 자간 */
+  letter-spacing: 1px;
+  /* 단어간격 */
+  word-spacing: 2px;
+
+  /* 다단설정하기
+    -> 다중열속성
+    column-count : 다중열개수
+    column-rule : 다중열구분선
+    column-gap : 다중열사이간격
+  */
+  column-count: 3;
+  column-rule: 5px dotted lightgreen;
+  /* 다중열 구분선 값은 보더와 같음
+  -> 두종색! -> 두께 종류 색상 */
+  column-gap: 55px;
+
+  text-align: justify;
+  /* 영문에서 양쪽 정렬일 경우
+  단어단위로 줄바꿈이 되므로 중간에
+  구멍이 생김. 따라서 단어깨기설정필요! */
+  word-break: break-all;
+
+  /* 첫줄 들여쓰기 : text-indent (ti) */
+  text-indent: 40px;
+
+}
+/* 가상요소 첫글자 적용하기 */
+.text-box p::first-letter{
+  font-size: 30px;
+  font-weight: bold;
+  color: hotpink;
+}
+
+
 /************* 3. 하단영역 *************/
