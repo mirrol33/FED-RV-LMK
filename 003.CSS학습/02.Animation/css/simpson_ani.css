@@ -224,7 +224,7 @@
 /* 바트 일어섬 키프레임 */
 @keyframes bart-up-ani {
     to{
-        top: 60%;
+        top: 50%;
         left: 20%;
         z-index: 1;
     }
