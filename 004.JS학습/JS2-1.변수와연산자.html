@@ -2,14 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <title>
-      JS2-1. 변수(Variable)와
-      연산자(Operator)
-    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS2-1. 변수(Variable)와 연산자(Operator)</title>
     <style>
       body {
         font-size: 40px;
@@ -252,8 +246,7 @@
       var word1 = "쳥산(靑山)";
       var word2 = "멀위";
       var word3 = "ᄃᆞ래";
-      var word4 =
-        "얄리얄리 얄랑셩 얄라리 얄라";
+      var word4 = "얄리얄리 얄랑셩 얄라리 얄라";
       var word5 = "새";
 
       // 화면출력
@@ -278,8 +271,7 @@
       var todayWeather = "쨍하고 맑음";
 
       // 인사 메시지
-      var message =
-        "쿨하게 멋지게 자신있게!";
+      var message = "쿨하게 멋지게 자신있게!";
 
       // 화면출력
       document.write(`
@@ -393,9 +385,7 @@
     <br>
     1.0 === 1 의 결과는? ${1.0 === 1}
     <br>
-    "곰" == "곰" 의 결과는? ${
-      "곰" == "곰"
-    }
+    "곰" == "곰" 의 결과는? ${"곰" == "곰"}
     <br>
     "${animal1}" == "${animal2}" 의 결과는? 
     ${animal1 == animal2}
@@ -424,9 +414,7 @@
 **********************************************/
       var txt = "무궁화 꽃이 ";
 
-      document.write(
-        `<h1>4.대입연산자 : </h1>`
-      );
+      document.write(`<h1>4.대입연산자 : </h1>`);
       document.write(txt + "<br>");
 
       // 기존값에 더함! +=
@@ -475,9 +463,7 @@
 
       // 고양이 변수
       var cat = 33;
-      document.write(
-        `<h1>5. 증감연산자 : </h1>`
-      );
+      document.write(`<h1>5. 증감연산자 : </h1>`);
 
       document.write(`
     우리동네 고양이 수는 ${cat}마리 <br>
@@ -487,33 +473,19 @@
 
       // 고양이수 증가
       cat++;
-      document.write(
-        `한마리 추가요! 전체 ${cat}마리!<br>`
-      );
+      document.write(`한마리 추가요! 전체 ${cat}마리!<br>`);
       cat++;
-      document.write(
-        `한마리 추가요! 전체 ${cat}마리!<br>`
-      );
+      document.write(`한마리 추가요! 전체 ${cat}마리!<br>`);
       cat++;
-      document.write(
-        `한마리 추가요! 전체 ${cat}마리!<br>`
-      );
+      document.write(`한마리 추가요! 전체 ${cat}마리!<br>`);
       cat++;
-      document.write(
-        `한마리 추가요! 전체 ${cat}마리!<br>`
-      );
+      document.write(`한마리 추가요! 전체 ${cat}마리!<br>`);
       cat++;
-      document.write(
-        `한마리 추가요! 전체 ${cat}마리!<br>`
-      );
+      document.write(`한마리 추가요! 전체 ${cat}마리!<br>`);
       cat++;
-      document.write(
-        `한마리 추가요! 전체 ${cat}마리!<br>`
-      );
+      document.write(`한마리 추가요! 전체 ${cat}마리!<br>`);
       cat++;
-      document.write(
-        `한마리 추가요! 전체 ${cat}마리!<br>`
-      );
+      document.write(`한마리 추가요! 전체 ${cat}마리!<br>`);
 
       // 강아지 변수 : 변수에 변수를 할당하면?
 
@@ -599,11 +571,7 @@
           이 사람의 나이는 30살 미만입니까?
           ${age < 30} <br><br>
           ★회원가입조건으로 여자이고 20대입니까?
-          ${
-            gender == "여자" &&
-            age >= 20 &&
-            age < 30
-          }
+          ${gender == "여자" && age >= 20 && age < 30}
         
         `); // document.write ///
       }; /// showResult함수 ///////
@@ -623,49 +591,129 @@
 
       // -> 결과적으로 논리곱(&&)은 모두 true이면 true다!
 
-    //////////////////////////////////////
-    // 회원 가입조건 :
-    // 카카오 회원이거나 20살 미만인 남자
-    //////////////////////////////////////
-    var member = "카카오";
-    var gender2 = "여자";
-    var age2 = 19;
-    //////////////////////////////////////
+      //////////////////////////////////////
+      // 회원 가입조건 :
+      // 카카오 회원이거나 20살 미만인 남자
+      //////////////////////////////////////
+      var member = "카카오";
+      var gender2 = "여자";
+      var age2 = 19;
+      //////////////////////////////////////
 
-    // 화면에 출력하는 명령어를 함수로 만들고
-    // 변수에 할당하여 재사용하자!
+      // 화면에 출력하는 명령어를 함수로 만들고
+      // 변수에 할당하여 재사용하자!
 
-    var showMember = function () {
-      document.write(`
+      var showMember = function () {
+        document.write(`
           <br><br> ♣ 회원정보 ♣ <br>
           1) 회원소속 : ${member} <br>
           2) 회원성별 : ${gender2} <br>
           3) 회원나이 : ${age2} <br>
           4) 회원조건 검증 : <br>
-          - 카카오 회원입니까? ${
-            member === "카카오"
-          }<br>
-          - 남자입니까? ${
-            gender2 === "남자"
-          }<br>
-          - 20살 미만입니까? ${
-            age2 < 20
-          }<br>
+          - 카카오 회원입니까? ${member === "카카오"}<br>
+          - 남자입니까? ${gender2 === "남자"}<br>
+          - 20살 미만입니까? ${age2 < 20}<br>
           - 20살 미만인 남자입니까?
-          ${
-            gender2 === "남자" &&
-            age2 < 20
-          } <br>
+          ${gender2 === "남자" && age2 < 20} <br>
           5) 최종결과 : <br>
           - 카카오 회원이거나 20미만인 남자입니까?
-          ${
-            member === "카카오" ||
-            (gender2 === "남자" &&
-              age2 < 20)
-          }
+          ${member === "카카오" || (gender2 === "남자" && age2 < 20)}
           <br><br>
       `);
-    }; ////////// showMember 함수 ///////////
+      }; ////////// showMember 함수 ///////////
+
+      // 할당형 함수를 만들고 아래에서 호출!
+      showMember();
+
+      member = "네이버";
+      gender2 = "남자";
+      age2 = 52;
+
+      document.write(`
+    <button onclick="showMember()" style="font-size:30px">네이트/남자/52세</button>
+    `);
+
+      // 결과적으로 논리합은 조건중 하나만
+      // true여도 true가 나온다!
+
+      showMember();
+
+      // 논리부정 찍어보기 ///////////
+      var person = "여자";
+      document.write(`
+            <br><br> ★ 논리부정(!) <br>
+            한 사람의 성별은 ${person}입니다! <br>
+            이 사람의 성별이 여자가 맞으면 false라고 답하세요!
+            ${!person === "여자"} <br><br>
+      `);
+      // 논리 부정은 불린결과를 반대로 뒤집어준다!
+      // 예컨데 조건문에서 false일때 실행해야할 경우
+      // Not연산자로 결과를 반대로 적용되게 함!
+
+      /******************************************** 
+          7. 조건연산자(삼항연산자)
+          - if문과 유사하게 조건에 맞으면 실행할 수 있는
+          코드를 구분해 주는 연산자다!
+          -> 개발자들이 코드를 줄여쓸때 if문 대신에
+          많이 사용한다! 사랑한다!!!
+          ________________________________
+
+          형식:
+          조건식 ? 실행문1 : 실행문2 ;
+
+          -> 조건식이 true이면 실행문1을 실행하고
+          조건식이 false이면 실행문2를 실행한다!
+
+          예) 비?집:놀이동산;
+          -> 비가오면 집에 있고 안오면 놀이동산간다!
+          -> 항목이 3개여서 삼항연산자라고도 함!
+
+      ************************************************/
+
+      // 오늘의 날씨
+      var today = "비";
+
+      // 결과변수
+      var result;
+      console.log("할당안한 변수값은?", result);
+      // 할당안한 변수는 기본적으로 undefined가 셋팅됨! 이것도 데이터임!
+
+      // 함수에 담아서 변수값을 변경해 본다!
+      var showAction = function () {
+        today === "비" ? (result = "집에 있어요!") : (result = "놀이동산가요!");
+
+        document.write(`
+        <h1>7. 조건연산자(삼항연산자) : </h1>
+        오늘의 날씨는 어떤가요? ${today} <br>
+        오늘 집에 있을까요? 놀러갈까요? ${result}
+        <br><br>
+        `);
+      }; /////////// showAction 함수 /////////////
+
+      // 결과함수 처음호출
+      showAction();
+
+      // today 변수값을 변경하여 출력
+      today = "해";
+      showAction();
+
+      // 삼항 연산자는 출력자리에 바로 사용할 수 있다!!!
+      var answerNow = function(answer){
+        // answer는 함수내부의 전달함수
+
+        // 함수호출시 대답이 answer에 담긴다!
+        document.write(`
+        <h1>조건 연산자 자리출력</h1>
+        아빠, 아이스크림 사줘!<br>
+        아빠왈
+        ${answer == "좋아" ? "사줄께!" : "안돼!"}`);
+      }
+
+      // 조건연산자 자리출력1
+      answerNow("좋아");
+      
+      // 조건연산자 자리출력2
+      answerNow("여보야한테 혼나는데...");
     </script>
   </head>
   <body></body>
