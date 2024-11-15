@@ -246,3 +246,153 @@ showResult("테스트 4 : 비교연산자 [34 > 1]");
 // -> 에러발생
 // condition = mymymy;
 // showResult("선언되지 않은 변수 [mymymy]");
+
+// 상단 콘솔 지우기
+console.clear();
+
+////////////////////////////////////////////
+// switch 문 연습
+// 여기에서 직접 요소에 이벤트를 설정해보자
+// 함수바깥영역은 바로실행되므로 이 파일을 불러오는
+// 설정에서 속성으로 defer를 써서 코딩한다!
+
+// 대상선정
+// 1-1. 이벤트 대상 GamepadButton.btn-local
+var btnLocal = document.querySelector(".btn-local");
+// 1-2. 국번출력 : #info
+var infoLocal = document.querySelector("#info");
+// 1-3. 입력창 : input#local
+var inputLocal = document.querySelector("#local");
+
+// console.log("대상찍어 btnLocal:", btnLocal, infoLocal, inputLocal);
+
+// 2. 이벤트 설정하기
+btnLocal.onclick = showLocal;
+
+inputLocal.onkeypress = function(){
+  if(event.keyCode == 13){
+    showLocal();
+  }
+}
+
+// 주의! 선언된 함수를 할당할 때 뒤에 소괄호를 하지말자!
+// 바로 실행되니까~!
+
+/******************************************* 
+  함수명 : showLocal
+  기능 : 지역명을 입력하면 지역국번을 안내한다!
+*******************************************/
+function showLocal() {
+  // 1. 함수호출확인
+  // console.log("국번을 알려줘~~!");
+
+  // 2. 입력값 읽어오기
+  var inputText = inputLocal.value;
+  console.log("입력값:", inputText);
+
+  // 3. switch문으로 분기하여 메시지 만들기
+  var msg = "";
+  switch (inputText) {
+    case "서울":
+      msg = "02";
+      break;
+    case "경기":
+      msg = "031";
+      break;
+    case "부산":
+      msg = "051";
+      break;
+    case "제주":
+      msg = "064";
+      break;
+    case "인천":
+      msg = "032";
+      break;
+    case "대구":
+      msg = "053";
+      break;
+    case "광주":
+      msg = "062";
+      break;
+    case "전북":
+      msg = "063";
+      break;
+    case "전남":
+      msg = "061";
+      break;
+    case "경북":
+      msg = "054";
+      break;
+    case "경남":
+      msg = "055";
+      break;
+    case "세종":
+      msg = "044";
+      break;
+    case "울산":
+      msg = "052";
+      break;
+    case "대전":
+      msg = "042";
+      break;
+    case "충북":
+      msg = "043";
+      break;
+    case "충남":
+      msg = "041";
+      break;
+    case "나성":
+      msg = "나성에 가면 편지를 전해줘요~!";
+      break;
+    default:
+      msg = "etc";
+  }
+
+ // 4. 메시지 만들기
+  // 등록되지 않은 지역일 경우
+  if (msg == "etc") {
+    msg =
+      "입력하신 지역은 등록되지 않았습니다!";
+  }
+  // 등록된 지역일 경우
+  else {
+    msg = `${inputText}의 지역번호는 
+    <span 
+      style="
+      font-size:40px;
+      color:hotpink"
+      >${msg}</span>입니다!`;
+  }
+  // 5. #info에 출력
+  infoLocal.innerText = msg;
+} //// showLocal함수 ////
+
+/********************************************** 
+      [ switch case문 ]
+      - 단일조건을 분류하여 실행문을 만들어 줄때 사용하는 제어문
+
+      ((구문구조))
+      ________________________________________
+
+      switch(변수){
+          case 경우1: 실행코드; break;
+          case 경우2: 실행코드; break;
+          case 경우3: 실행코드; break;
+          ...
+          default: 실행문;
+      }
+      ________________________________________
+
+      ((구문해석))
+
+      1. 변수값에 해당하는 경우 그 값에 해당하는
+      case에 들어가서 실행코드를 실행함
+
+      2. 각 case 끝에 break 예약어를 반드시 써야함!
+      -> 안쓰면 다른 case에 또 들어가는 경우가 생김!
+      -> 일반적으로 break 키워드는 제어문을 빠져나갈때 씀!
+
+      3. default 는 if문의 else문과 비슷하여 해당 케이스가 
+      없으면 이 부분이 실행됨(단, 필요시 사용)
+      -> default문에는 break를 쓰지 않는다!
+  **********************************************/

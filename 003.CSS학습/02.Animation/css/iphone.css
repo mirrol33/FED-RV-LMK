@@ -1,6 +1,11 @@
 @charset "utf-8";
 /* 아이폰 회전 애니 CSS */
 
+/* 웹폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+/* font-family: 'Anton', sans-serif; */
+
 /* 
     [css의 변수사용]
     1. 최상위 영역에 변수를 셋팅하여
@@ -102,8 +107,6 @@ body {
     /* Z축 이동하기 */
     /* transform: translateZ(10px); */
     translate: 0 0 10px;
-
-    display: none;
 }
 /* 2. 뒷면 */
 .iphone span:nth-child(2){
@@ -168,3 +171,109 @@ body {
     /* x축회전 90도 */
     rotate: x 90deg;
 }
+
+/* 애니호출 클래스 */
+.ip-ani{
+    /* 애니메이션 : 이시이지반방마 */
+    animation: ip-rotate-ani 2s ease-in-out 1s 2 alternate;
+    /* 이름 시간(3초) 이징 지연(1초) 반복(2회) 방향(번갈아설정) */
+
+}
+/* 아이폰 회전 키프레임 */
+@keyframes ip-rotate-ani {
+    to {
+        transform: rotateX(370deg) rotateY(-330deg) rotateZ(360deg);
+    }
+    /* 각도 설정시 유의사항 */
+    /* 360도 설정시 이미 회전된 각도를 고려하여 같은 방향이면 + 반대방향이면 -로 쓰고 실제 각도를 더하거나 빼준다!! */
+}
+
+/* 흘러가는 글자박스 부모 */
+.fbx{
+    position: absolute;
+    width: 100vw;
+}
+/* 각각 위치 잡기 */
+.f1{
+    top: 5vh;
+}
+.f2{
+    bottom: 5vh;
+}
+.f2 .tbx{
+    translate: -50%;
+}
+/* 텍스트박스 */
+.tbx{
+    /* 플렉스박스 하위 ul이 흘러감 */
+    display: flex;
+    /* ul이 2개니까 2배 크기로 만들어서 바깥에 하나 나가있게 함! */
+    width: 200vw;
+}
+/* 텍스트박스 하위 ul 2개 공통 
+- 2개인 이유는 반복단위 최소 개수임
+*/
+.tbx ul {
+    /* 플렉스 박스 : 하위 li가 흘러감 */
+    display: flex;
+    /* 부모에게 플렉스하면 자식이 흘러감! */
+
+    outline: 1px dotted red;
+
+    /* ul은 또 플렉스 부모의 자식임 등분할 */
+    flex:1;
+
+    /* 기본초기화 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+/* 하위 li 공통셋팅 */
+
+.tbx li {
+    /* 플렉스 자식 등분할! */ 
+    flex: 1;
+
+    /* outline: 1px dashed blue; */
+
+    text-align: center;
+    font-family: 'Anton';
+    font-size: 4vw;
+}
+/* 글자애니 클래스 */
+.txt-ani1{
+    animation: txt-flow-ani1 4s linear infinite;
+}
+/* 글자 흐르게하기 키프레임 */
+@keyframes txt-flow-ani1 {
+    to{
+        translate: -50%;
+    }
+}
+
+/* 글자애니 클래스 */
+.txt-ani2{
+    animation: txt-flow-ani2 4s linear infinite;
+}
+/* 글자 흐르게하기 키프레임 */
+@keyframes txt-flow-ani2 {
+    to{
+        translate: 0%;
+    }
+}
+
+/* 3번째 박스(반대방향주기 다른방법) */
+.f3{
+    bottom: 15vh;
+}
+.f3:hover .tbx{
+    /* 마우스 오버시 멈추게하기 */
+    animation-play-state: paused;
+    /* running 애니진행상태 / paused 애니멈춤상태 */
+}
+/* 글자애니 클래스3 */
+.txt-ani3{
+    animation: txt-flow-ani1 5s linear infinite reverse;
+    /* 방향 속성 값을 reverse로 하면 기존 애니가 반대로 적용된다! */
+}
+
