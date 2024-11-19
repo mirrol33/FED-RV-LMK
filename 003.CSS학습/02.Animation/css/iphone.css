@@ -85,6 +85,9 @@ body {
 
     /* 회전적용 */
     transform: rotateX(10deg) rotateY(30deg);
+
+    /* 트렌지션 적용 */
+    transition: 2s ease-out;
 }
 
 /* 아이폰 각면 공통 */
@@ -108,6 +111,29 @@ body {
     /* transform: translateZ(10px); */
     translate: 0 0 10px;
 }
+/* 배경이미지 가상요소로 하나추가 */
+.iphone span:nth-child(1)::after{
+    content: '';
+  position: absolute;
+  /* 중앙위치 */
+  top: 50%;
+  left: 10%;
+  width: 80%;
+  /* 높이값 0 */
+  height: 0%;
+  background: url(../images/avatar.jpg) no-repeat center/cover;
+  /* 애니메이션 : 이시이지반방마 */
+    animation: avatar-ani .5s ease-in-out 5s forwards;
+}
+/* 아바타 가운데서 펼쳐짐 */
+@keyframes avatar-ani {
+    to{
+      /* 위로 올라가고 높이값 생김
+      - 중앙에서 펼쳐지는 모양 */
+      top: 20%;
+      height: 60%;
+    }
+  }
 /* 2. 뒷면 */
 .iphone span:nth-child(2){
     background-image: url(../images/ip02.png);
@@ -242,7 +268,7 @@ body {
 }
 /* 글자애니 클래스 */
 .txt-ani1{
-    animation: txt-flow-ani1 4s linear infinite;
+    animation: txt-flow-ani1 10s linear infinite;
 }
 /* 글자 흐르게하기 키프레임 */
 @keyframes txt-flow-ani1 {
@@ -253,7 +279,7 @@ body {
 
 /* 글자애니 클래스 */
 .txt-ani2{
-    animation: txt-flow-ani2 4s linear infinite;
+    animation: txt-flow-ani2 10s linear infinite;
 }
 /* 글자 흐르게하기 키프레임 */
 @keyframes txt-flow-ani2 {
@@ -273,7 +299,42 @@ body {
 }
 /* 글자애니 클래스3 */
 .txt-ani3{
-    animation: txt-flow-ani1 5s linear infinite reverse;
+    animation: txt-flow-ani1 10s linear infinite reverse;
     /* 방향 속성 값을 reverse로 하면 기존 애니가 반대로 적용된다! */
+}
+
+/* 아이폰 이벤트 박스 : 따라보기 */
+.evt-bx {
+    position: fixed;
+    /* 사방 당겨서 화면 채우기 */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    /* 맨위에 위치시키기 */
+    z-index: 999;
+    /* 처음에 안보임 */
+    display: none;
+}
+/* 하위 ul초기화 */
+.evt-bx ul {
+    /* 플렉스박스 */
+    display: flex;
+    /* 랩핑박스: 아래로 떨어져 계속감 */
+    flex-wrap: wrap;
+    
+
+    /* 기본초기화 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* 플렉스 자식 li셋팅 */
+.evt-bx li {
+    /* 가로 5등분 */
+    width: 20%;
+    height: 33.333vh;
+    /* outline: 2px dashed lightsalmon; */
 }
 
