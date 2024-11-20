@@ -39,7 +39,54 @@ const arr1 = new Array(
     "46kg",
     [2014, "더바디샵"],
     ["미스터션샤인", "리틀 포레스트", "정년이"],
-    "김태리"
+    "김태리",
+    function(){
+        // this는 누구? 호출한 요소 자신!!!
+        alert("김태리 멋찜!!");
+        // 1 호출한 요소 박스에 김태리 사진 이미지 넣고 (+= 대입연산자로 기존 데이터 살림!)
+        this.innerHTML += `<img src="https://static.inews24.com/v1/44fd683d5e90ae.jpg"  alt="김태리이미지" style="
+        position:absolute; 
+        top:0; 
+        left:0; 
+        width:200px;
+        height:auto;
+        border-radius:10px;
+        border:2px solid #eee;"
+        id="kim">`;
+        //앱솔루트의 부모자격을 this에게 준다!
+        this.style.position = "relative";
+        // 2 마우스 오버시 나타나고
+        this.onmouseenter = ()=>{
+            document.querySelector("#kim").style.display = "block";
+        };
+        // 3 마우스 아웃시 사라지고
+        this.onmouseleave = ()=>{
+            document.querySelector("#kim").style.display = "none";
+        }
+        // 4 마우스 움직이면 따라다니게 해요!
+        // mousemove 이벤트 :
+        // 마우스 포인터가 대상요소 위에서 움직일때 계속 발생
+        this.onmousemove = (e) => {
+            // e 변수는 이벤트 전달변수임
+            // 어떤 함수도 전달값이 없는데 변수 하나를 쓰면
+            // 곧 그것이 이벤트 전달변수가 됨!
+            // 그 요소에서 발생하는 이벤트를 객체로 가지고 있음
+            // 대체해서 event 라고 직접 전체 이벤트 객체를 쓸 수 있음!
+
+            // 이벤트 객체하위 pageX, pageY는 최상단, 최왼쪽으로부터
+            // 마우스 커서의 위치를 x,y축으로 단위없는 px값을 리턴한다!
+            // 이 값은 사이트 전체를 이동하는 어떤 요소를 구현할때
+            // 많이 사용함
+            console.log("pageX",e.pageX);
+            console.log("pageY",e.pageY);
+
+            // 여기서는 본 박스 안에서만 그 위치를 알면 되므로
+            // -> offsetX, offsetY -> 해당부모요소 박스로 부터 
+            // 위치를 리턴함!
+            console.log("offsetX",e.offsetX);
+            console.log("offsetY",e.offsetY);
+        };
+    }
 ); 
 
 // new 키워드로 선언과 할당을 동시에 할 수 있다!
@@ -48,6 +95,7 @@ const arr1 = new Array(
 // 배열변수에 할당한 데이터 불러오기
 // 호출방법 : 배열변수명[순번] -> 순번은 0부터 시작
 console.log("arr1:", arr1, typeof arr1, "배열이니?", Array.isArray(arr1)? "yes" : "no");
+
 // 삼항연산자(조건연산자)
 // typeof (변수) / typeof 변수 -> 데이터형 출력!
 // 배열의 데이터형을 찍으면 object라고 나옴
@@ -71,6 +119,10 @@ target[0].innerHTML = `
 // 배열안에 배열이 또 있으면 대괄호를 추가하여
 // 해당 순번을 써준다 변수[순번][순번]
 
+// 김태리 기능 추가
+// 함수호출! : 배열마지막 번호 == 배열개수-1
+target[0].onclick = arr1[arr1.length - 1];
+
 // 1-2 배열 리터럴 방식의 선언과 할당
 // 배열변수명 = [값1, 값2, ...]
 // new 키워드 없이 바로 쓸수있는 객체임
@@ -81,7 +133,22 @@ const arr2 = [
     "태극기",
     1919,
     function(){
-        alert("대한독립만세~!")
+        alert("대한독립만세~!");
+        // this는 누구인가? 호출한 요소자신!
+        console.log("this:", this);
+        // 배경넣기
+        this.style.background = `url(https://blog.kakaocdn.net/dn/H4k8p/btqUUqx7TLT/VAMfjsV79wqyKIfOGXn5P0/img.jpg) repeat-x 0/auto 100%;`;
+        // 트랜스폼 변경 : 스케일 1.5, 회전 720도
+        // 트랜지션 : 2초 ease-in-out
+        this.style.scale = "1.5";
+        this.style.rotate = "720deg";
+        this.style.transition = "2s ease-in-out";
+
+        //4초후에 다시 원래크기로 돌아가기
+        //setTimeout(함수, 시간)
+        setTimeout(() => {
+            this.style.scale = "1";
+        }, 4000);
     },
     // 끝에 콤마만 넣어도 에러나지 않음! 브라우저가 똑똑해짐
 ];
@@ -102,3 +169,13 @@ ${arr2[0]}은 ${arr2[2]}년에 일제에 항거하여
 ${arr2[1]}를 들고 일어난 민중봉기를 기념하는 날이다!
 `;
 
+// 두번째 출력박스를 클릭하면 배열 값에 있는 함수 호출하기
+// 대상.onclick = 함수;
+target[1].onclick = arr2[3];
+
+// 두번째 박스에 타이틀 출력
+target[1].title = "클릭하시면 만세를 합니다!";
+// 두번째 박스에 손가락 표시
+target[1].style.cursor = "pointer";
+
+// console.log("배열안의 함수:", arr2[3]);
