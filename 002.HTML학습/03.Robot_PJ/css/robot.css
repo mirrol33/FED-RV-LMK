@@ -214,7 +214,7 @@ h1.logo {
   left: -44%;
   width: 186%;
   height: 179%;
-  background: url(../images/hair2.png) no-repeat 0 / 100% 100%;
+  background: url(../images/hair_new5.png) no-repeat 0 / 100% 100%;
 }
 
 /* 로봇머리 하위 공통 앱솔루트 */
@@ -225,10 +225,10 @@ h1.logo {
 /* 눈공통 */
 .eye {
   /* position: absolute; */
-  top: 50px;
+  top: 70px;
   /* 나의 부모는? .head */
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   /* 배경공통 */
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -238,16 +238,16 @@ h1.logo {
 /* 왼눈 */
 .eye1 {
   /* 개별위치값 */
-  left: 16%;
+  left: 10%;
   /* 이미지만 변경 */
-  background-image: url(../images/e1.jpg);
+  background-image: url(../images/eye1.png);
 }
 /* 오른눈 */
 .eye2 {
   /* 개별위치값 */
-  right: 16%;
+  right: 10%;
   /* 이미지만 변경 */
-  background-image: url(../images/e2.jpg);
+  background-image: url(../images/eye1.png);
 }
 /* 코 */
 .nose {
@@ -257,9 +257,9 @@ h1.logo {
   left: 50%;
   translate: -50%;
 
-  width: 50px;
-  height: 70px;
-  background: url(../images/nose.jpg) no-repeat 0/110% 100%;
+  width: 80px;
+  height: 90px;
+  background: url(../images/nose2.png) no-repeat 0/110% 100%;
   border-radius: 20px;
 }
 /* 입 */
@@ -272,7 +272,7 @@ h1.logo {
 
   width: 90px;
   height: 40px;
-  background: url(../images/mouth.png) no-repeat 0/100% 100%;
+  background: url(../images/mouth2.png) no-repeat 0/100% 100%;
 }
 /* 귀공통 */
 .ear {
