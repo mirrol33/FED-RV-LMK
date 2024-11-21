@@ -317,21 +317,24 @@ target[2].innerHTML = arr3.join("★");
 // 객체는 셋팅시 반드시 중괄호{}를 사용함!!
 // 중괄호에는 {속성명:값, 속성명:값, ...}
 const SSG = new Object({
-  "너의 이름은?":"손석구", 생일:"1983년 2월 7일", 키: "178cm",
+  "너의 이름은?": "손석구",
+  생일: "1983년 2월 7일",
+  키: "178cm",
   몸무게: "80kg",
-  "혈액형": "C형",
+  혈액형: "C형",
   성별: "남성",
   대표작: "나의 해방일지, 범죄도시2",
   소속사: "셋별당엔터",
   비밀번호: 7777,
-  팬레터: function(){
+  팬레터: function () {
     alert("지금 뭐해???");
-    console.log("this:",this);
+    console.log("this:", this);
     //변경대상 : this.style
     let mycss = this.style;
 
     // 1. 배경변경
-    mycss.background = "url(https://file.mk.co.kr/meet/neds/2022/05/image_readtop_2022_456627_16533579475052374.jpeg) repeat-x top/auto 100%";
+    mycss.background =
+      "url(https://file.mk.co.kr/meet/neds/2022/05/image_readtop_2022_456627_16533579475052374.jpeg) repeat-x top/auto 100%";
     // 2. 글자색
     mycss.color = "#fff";
     // 3. 글자그림자
@@ -359,7 +362,7 @@ target[3].style.lineHeight = "40px";
 target[3].title = `여기를 클릭하여 ${SSG["너의 이름은?"]} 팬레터를 확인하세요!`;
 
 // 손가락모양 커서
-target[3].style.cursor = 'pointer';
+target[3].style.cursor = "pointer";
 
 // 출력하기
 target[3].innerHTML = `
@@ -373,4 +376,87 @@ ${SSG["너의 이름은?"]}
 
 // 객체의 함수를 이벤트에 연결하기
 // 특히 객체의 함수를 메서드라고 부른다!
-target[3].addEventListener('click', SSG.팬레터);
+target[3].addEventListener("click", SSG.팬레터);
+
+/***************************************
+          [ new 키워드 없이 바로 객체 생성하기 ]
+          -> 객체 리터럴 (추천방식!)
+
+          - 방법: 변수 선언 후 이퀄 뒤에 바로 중괄호 사용!
+          예) let obj = {속성명:값,속성명:값,...};
+
+          [ 객체의 속성 셋팅시
+          문자형 또는 변수형 사용하기 ]
+
+          1. 문자형 속성 - 따옴표로 싸는 방법
+
+          예) let obj = {"나는나":"호호호","너는너":"하하하"}
+          -> 문자형 속성의 객체 호출시
+          객체명[문자형속성명]
+          예) obj["나는나"]
+
+          2. 변수형 속성 - 따옴표로 안싸는 방법
+          예) let obj = {name:"김수현",tall:"186cm"};
+          -> 변수형 속성의 객체 호출시
+          객체명.속성명
+          예) obj.name
+
+          또는
+
+          객체명["속성명"]
+          예) obj["name"]
+          -> 반드시 변수형 속성명을 따옴표로 싸서
+          문자형으로 표시해야함!
+          obj[name] -> 에러남!
+
+          -> 만약 문자형으로 설정된 경우에도
+          변수형으로 사용될 수 있는 문자면 변수형호출가능!
+          예) var obj = {"하하하":"나나나"}
+              obj["하하하"] 또는 obj.하하하
+
+      ***************************************/
+
+// 2-2 객체리터럴로 객체 생성하기
+const GU = {
+  name: "공유",
+  tall : "184cm",
+  weight : "74kg",
+  com : "매니지먼트숲",
+  work : "도깨비, 부산행",
+  msgFn : function(txt){
+    // 1. 매세지 띄우기(호출확인!)
+    alert("팬레터:"+txt);
+    // this의 의미?
+    // 1) 만약 함수를 별도로 호출하였으면
+    // 객체안의 메서드이므로 객체자신임!
+    // 2) 만약 이벤트설정이 직접 할당되었으면
+    // 호출한 요소 자신이 this임!
+    console.log("this:", this);
+  },
+};
+console.log("GU객체:", GU);
+
+target[4].innerHTML = `
+저는${GU.name} 입니다. <br>
+몸무게는 비밀인데.. 말씀드리자면 ${GU.weight}입니다. ㅎㅎㅎ<br>
+제 대표작은 ${GU.work}이고, 제 소속사는 ${GU.com}입니다~!
+`;
+// 줄간격 조정
+target[4].style.lineHeight = "24px";
+
+target[4].title = `여기를 클릭하여 ${GU.name}의
+팬레터를 확인하세요~!`;
+
+// 손가락 모양
+target[4].style.cursor = "pointer";
+
+// 객체의 함수(메서드)를 클릭이벤트에 연결하기
+// 이벤트 대상: target[4]
+// 유의사항 : 함수에 값을 전달해야할 경우 
+// 소괄호를 사용해야하는데 바로 사용할경우
+// 소괄호를 한 함수는 바로 실행하므로
+// 이벤트 설정에 실패하게 되고 그 함수만
+// 바로 실행된다 따라서
+// 이 호출함수를 익명함수로 감싸준다
+
+// target[4].addEventListener("click", GU.msgFn('공유오빠~!'));
