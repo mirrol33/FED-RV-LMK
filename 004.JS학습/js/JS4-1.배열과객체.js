@@ -95,14 +95,14 @@ const arr1 = new Array(
       // 마우스 커서의 위치를 x,y축으로 단위없는 px값을 리턴한다!
       // 이 값은 사이트 전체를 이동하는 어떤 요소를 구현할때
       // 많이 사용함
-      console.log("pageX", e.pageX);
-      console.log("pageY", e.pageY);
+      // console.log("pageX", e.pageX);
+      // console.log("pageY", e.pageY);
 
       // 여기서는 본 박스 안에서만 그 위치를 알면 되므로
       // -> offsetX, offsetY -> 해당부모요소 박스로 부터
       // 위치를 리턴함!
-      console.log("offsetX", e.offsetX);
-      console.log("offsetY", e.offsetY);
+      // console.log("offsetX", e.offsetX);
+      // console.log("offsetY", e.offsetY);
 
       // 위치값 반영대상 : 김태리 이미지 -> #kim
       kim.style.left = e.offsetX + "px";
@@ -423,7 +423,8 @@ const GU = {
   weight : "74kg",
   com : "매니지먼트숲",
   work : "도깨비, 부산행",
-  msgFn : function(txt){
+  msgFn : function(txt, ele){
+    // txt 메세지 ele 호출요소
     // 1. 매세지 띄우기(호출확인!)
     alert("팬레터:"+txt);
     // this의 의미?
@@ -432,6 +433,31 @@ const GU = {
     // 2) 만약 이벤트설정이 직접 할당되었으면
     // 호출한 요소 자신이 this임!
     console.log("this:", this);
+
+    // 2. CSS변경하기
+    let mycss = ele.style;
+
+    // 2-1.배경이미지넣기
+    mycss.background =
+      "url(https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Gong_Yoo_%28Sep_2016%29.png/250px-Gong_Yoo_%28Sep_2016%29.png) repeat-x top/auto 100%";
+
+    //2-2. 글자색
+    mycss.color = "#fff";
+
+    //2-3. 글자그림자
+    mycss.textShadow = "0 0 5px #000";
+
+    //2-4. 줄간격
+    mycss.lineHeight = "30px";
+
+    //2-5. 높이값 변경
+    mycss.height = "100px";
+
+    //2-6. 상단패딩
+    mycss.paddingTop = "100px";
+
+    //2-7. 트랜지션
+    mycss.transition = "2s ease-in-out .5s";
   },
 };
 console.log("GU객체:", GU);
@@ -459,4 +485,170 @@ target[4].style.cursor = "pointer";
 // 바로 실행된다 따라서
 // 이 호출함수를 익명함수로 감싸준다
 
-// target[4].addEventListener("click", GU.msgFn('공유오빠~!'));
+target[4].addEventListener("click", function(){
+  // 이벤트에 바로 연결된 익명함수안에서
+  // this의 의미는?
+  console.log("원본함수내this:", this);
+  //메세지 변수
+  let msg = "공유오빠, 오징어게임 싸다구 멋쪘어요! \n 차기작도 기대해요! 화이팅!!";
+  // 호출시 this를 보내준다!
+  // 왜 객체의 메서드에서 this의미가 다르니까!
+  GU.msgFn(msg,this);
+  // GU.msgFn(값1,값2)
+  // 값1 - 메시지문자
+  // 값2 - this (호출요소)
+}); //// 이벤트 리스너 ////
+
+/****************************************
+    [ 미션 :  내가 만든 객체 활용하기 ]
+    1. 주제 : 영화정보
+
+@@ -565,6 +564,29 @@ target[4].addEventListener(
+    작성함. 단, 속성명을 동일하게 작성할것!
+    (속성명을 샘플에서 정해줄 예정)
+    3.  객체를 쌤과 모두에게 공유하기!(톡업!)
+****************************************/
+// 탐쌤의 오브젝트!
+// -> 변경가능하게 let으로 선언한다!
+let tomObj = {};
+// 오브젝트 형만 만들고 객체내용은 아래에서!
+
+// tomObj = lmkObj;
+
+// 1. 영화제목
+tomObj.title = "외계+인 2부";
+// 2. 감독
+tomObj.director = "최동훈";
+// 3. 배우
+tomObj.actor = "류준열, 김태리, 김우빈";
+// 4. 장르
+tomObj.genre =
+  " 액션,다크 판타지,코미디";
+// 5. 관람가
+tomObj.ratings = "12세";
+// 6. 예고편
+tomObj.trailer = function () {
+  console.log("예고편:영화아이디");
+  // 예고편 플레이 함수호출!
+  playMovie("4uSn4Dem9i0");
+}; ////// trailer 메서드 ////////
+
+// 객체확인
+console.log("나의객체:", tomObj);
+
+// 화면에 정보를 보여주는 함수
+const showMovieInfo = function () {
+  // 함수호출 확인
+  console.log("영화정보!!!");
+
+  // 1. 출력대상: target[5]
+  // 2. 내용넣기
+  target[5].innerHTML = `
+      ♣ 영화명 : ${tomObj.title}
+      ♣ 감독 : ${tomObj.director} <br>
+      ♣ 배우 : ${tomObj.actor}
+      ♣ 장르 : ${tomObj.genre}
+      ♣ 등급 : ${tomObj.ratings}
+    `;
+
+  // 툴팁 보이기
+  target[5].title = `클릭하시면 ${tomObj.title}예고편을 보실 수 있습니다!`;
+
+  // 예고편 메서드 호출
+  target[5].onclick = tomObj.trailer;
+}; ////// showMovieInfo 함수 //////////
+
+// 출력박스 CSS조정하기
+target[5].style.lineHeight = "34px";
+target[5].style.cursor = "pointer";
+target[5].style.fontSize = "20px";
+
+// 할당형 함수는 바로 호출시 하단에서 해야함!
+showMovieInfo();
+
+/*****************************************
+    함수명 : playMovie
+    기능 : 영화예고편 화면 띄우기
+*****************************************/
+function playMovie(mcode) {
+  // mcode 영화아이디
+  // 함수호출 및 전달값 확인
+  console.log(
+    "예고편상영이요~~!",
+    mcode
+  );
+
+  // 1. 대상선정 : #mvbox
+  let mvbox =
+    document.querySelector("#mvbox");
+
+  // 2. 영화박스에 아이프레임 넣기
+  mvbox.innerHTML = `
+    <div id="mv">
+      <!-- 유튜브 아이프레임 -->
+      <iframe src="https://www.youtube.com/embed/${mcode}?autoplay=1" allow="autoplay"></iframe>
+      <!-- 닫기버튼 -->
+      <button class="cbtn">×</button>
+    </div>
+            `;
+
+  // 3. 삽입된 동영상 박스 CSS설정하기
+  let mv =
+    document.querySelector("#mv");
+  let css = mv.style;
+
+  css.position = "fixed";
+  css.top = "50%";
+  css.left = "50%";
+  css.transform =
+    "translate(-50%, -50%)";
+  css.width = "700px";
+  css.height = "450px";
+  css.backgroundColor = "#000";
+
+  // 4. 아이프레임 CSS설정
+  let ifr = mv.querySelector("iframe");
+  let ifrcss = ifr.style;
+  ifrcss.border = "none";
+  ifrcss.width = "100%";
+  ifrcss.height = "100%";
+
+  // 5. 닫기버튼  CSS셋팅하기
+  let cbtn = mv.querySelector(".cbtn");
+  // style.cssText 로 셋팅하자!
+  // 개별셋팅과 차이점은 이 설정은 모든 style속성의
+  // CSS 설정을 덮어씀! 주의!!!
+  // 반면 한 속성씩 셋팅하는 것은 한껀씩 개별 업데이트됨!
+  cbtn.style.cssText = `
+    position : absolute;
+    top : 0;
+    right : -70px;
+    width : 50px;
+    height : 50px;
+    border : none;
+    color : #fff;
+    background-color : blue;
+    font-size : 40px;
+    font-weight : bold;
+    border-radius: 50%;
+    cursor : pointer;
+    line-height : 50px;
+  `;
+
+  // 6. 닫기버튼 클릭시 #mv 제거하기
+  cbtn.onclick = function () {
+    mv.remove();
+    // remove() 는 DOM 메서드임!
+    // 선택요소를 제거함!
+
+    // body 암전효과 클래스 on 제거하기
+    document.body.classList.remove(
+      "on"
+    );
+  }; //////// 닫기버튼 이벤트함수 ///////
+
+  // 7. body 요소에 클래스 on주기
+  // 동영상 배경 암전효과
+  document.body.classList.add("on");
+} ///////////// playMovie 함수 ///////////
+///////////////////////////////////////////
