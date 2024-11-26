@@ -9,61 +9,61 @@
 
 /* 전체 디자인 */
 body {
-  background-color: #000;
+    background-color: #000;
 }
 
 /* 공사중 표시 : 구현시 박스표시 */
 body * {
-  /* outline: 2px dashed #ccc; */
+    /* outline: 2px dashed #ccc; */
 }
 
 /******************* 1. 상단영역 *******************/
 .top-area {
-  position: relative;
-  height: 80px;
-  background: url(../images/curtain.jpg) repeat-x;
+    position: relative;
+    height: 80px;
+    background: url(../images/curtain.jpg) repeat-x;
 }
 /* 1-1 타이틀 */
 .tit {
-  font-family: "Jua", sans-serif;
-  font-size: 40px;
-  color: aquamarine;
-  text-align: center;
-  line-height: 80px;
-  text-shadow: 0 0 4px aquamarine;
-  /* 애니메이션: 이시이지반방마 */
-  animation: tit-ani 0.5s ease-in infinite alternate;
+    font-family: "Jua", sans-serif;
+    font-size: 40px;
+    color: aquamarine;
+    text-align: center;
+    line-height: 80px;
+    text-shadow: 0 0 4px aquamarine;
+    /* 애니메이션: 이시이지반방마 */
+    animation: tit-ani 0.5s ease-in infinite alternate;
 }
 /* 타이틀 애니 키프레임 */
 @keyframes tit-ani {
-  to {
-    text-shadow: 0 0 12px aquamarine;
-  }
+    to {
+        text-shadow: 0 0 12px aquamarine;
+    }
 }
 /* 1-2 GNB 메뉴 */
 .gnb {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  /* 부모는? .top-area */
-  z-index: 999;
-  /* 서브메뉴가 위로 올라오도록 위치 위로! */
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    /* 부모는? .top-area */
+    z-index: 999;
+    /* 서브메뉴가 위로 올라오도록 위치 위로! */
 }
 .gnb ul {
-  /* 플렉스 박스 */
-  display: flex;
-  gap: 0 1.5rem;
+    /* 플렉스 박스 */
+    display: flex;
+    gap: 0 1.5rem;
 
-  font-family: "Jua", sans-serif;
-  font-size: 2rem;
+    font-family: "Jua", sans-serif;
+    font-size: 2rem;
 }
 /* 리스트 옆으로 흐름 */
 .gnb ul > li {
-  /* float: left; */
-  /* 서브메뉴를 위한 부모자격 */
-  position: relative;
-  padding-bottom: 1rem;
-  /* 하단부분 서브메뉴와 연결되게
+    /* float: left; */
+    /* 서브메뉴를 위한 부모자격 */
+    position: relative;
+    padding-bottom: 1rem;
+    /* 하단부분 서브메뉴와 연결되게
     메인메뉴에서 마우스 내릴때 서브메뉴가 없어지지 않게 간격을 만듬 */
 }
 /* 리스트 사이간격
@@ -75,196 +75,277 @@ li+li 두번째 li부터 선택 */
 
 /******************* 2. 메인영역 *******************/
 .main-area {
-  position: relative;
-  height: 788px;
-  background: url(../images/bg.jpg) no-repeat center/cover;
+    position: relative;
+    /* 부모자격 - .screen */
+    /* 비율설정하기 : 이때 높이값 주면 안됨!! */
+    aspect-ratio: 1200 / 788;
+    /* height: 788px; */
+    /* 배경이미지 */
+    background: url(../images/bg.jpg) no-repeat center/cover;
 }
 .screen {
-  position: absolute;
-  top: 136px;
-  left: 257px;
-  /* 나의 부모는? */
-  width: 701px;
-  height: 397px;
-  /* background-color: red; */
+    position: absolute;
+    top: 17.2%;
+    left: 21.3%;
+    /* 나의 부모는? */
+    width: 58.6%;
+    height: 50.6%;
+    /* background-color: red; */
 }
 /* 유튜브 아이프레임 */
 .screen iframe#ifr {
-  width: 100%;
-  height: 100%;
-  /* 기본 보더 없애기 bdn */
-  border: none;
+    width: 100%;
+    height: 100%;
+    /* 기본 보더 없애기 bdn */
+    border: none;
 }
 /* 2-2. 포스터 메뉴 */
 .poster-menu {
-  position: absolute;
-  bottom: 43px;
-  left: 226px;
+    position: absolute;
+    bottom: 3.5%;
+    left: 50%;
+    /* 나의 부모는? .main-area */
+    translate: -50%;
+    width: 63%;
+    aspect-ratio: 4.5/1;
+}
+.poster-menu ul {
+    display: flex;
+    gap: 0 1%;
+    height: 100%;
+    /* 비율유지 부모박스 높이값 채우기 */
 }
 /* 메뉴 리스트 ul>li 상위 li만 선택 */
 .poster-menu ul > li {
-  position: relative;
-  /* 블록 옆으로 흐르게 : float */
-  float: left;
-  border-radius: 10px;
-  overflow: hidden; /* oh */
+    position: relative;
+    /* 블록 옆으로 흐르게 : float 사용안함! */
+    /* float: left; */
+    border-radius: 10px;
+    overflow: hidden; /* oh */
+    /* 플렉스박스 자식요소 등분할(높이는 자동채움) */
+    flex: 1;
 }
 /* ul>li 사이간격 li+li 앞에 li가 있는 li선택
 즉, 첫번째 li빼고 다 선택 */
 .poster-menu ul > li + li {
-  /* 왼쪽마진 : ml */
-  margin-left: 10px;
+    /* 왼쪽마진 : ml */
+    /* margin-left: 10px; */
 }
 /* 포스터 이미지 */
 .poster-menu img {
-  height: 170px;
-  /* 나의 부모는? .main-area */
+    height: 100%;
+    /* 나의 부모는? .main-area */
+    width: 100%;
+    /* 이미지 비율로 채우기 */
+    object-fit: cover;
 }
 /* 영화정보박스 */
 .mv-info {
-  position: absolute;
-  top: -60%;
-  /* left: 0; */
-  /* 나의 부모는? .poster-menu ul>li */
-  width: 100%;
-  height: 100%;
-  background-color: rgb(0 0 0 / 75%); /* 신규방식 */
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: 0.4s ease-out;
-  box-sizing: border-box; /* bxb */
-  font-family: "Cute Font", cursive;
+    position: absolute;
+    top: -60%;
+    /* left: 0; */
+    /* 나의 부모는? .poster-menu ul>li */
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 75%); /* 신규방식 */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.4s ease-out;
+    font-family: "Cute Font", cursive;
+    /* 패딩탑 : pt35 */
+  padding-top: min(3.5rem,2vw);
+  /* 패딩,보더 크기포함박스 : bxb */
+  box-sizing: border-box;
+    /* 글자크기 */
+    font-size: min(1.6rem, 1.3vw);
 }
 .poster-menu ul > li:hover .mv-info {
-  top: 0;
-  opacity: 1;
+    top: 0;
+    opacity: 1;
 }
 .mv-info ol > li:first-child {
-  color: yellow;
-  font-size: 20px;
+    color: yellow;
+    font-size: min(2rem, 1.5vw);
 }
 .mv-info ol > li + li {
-  margin-top: 6px;
-  font-size: 14px;
+    margin-top: 6px;
+    /* font-size: 14px; */
 }
 /* 서브메뉴 */
 .smenu {
-  position: absolute;
-  top: 35px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 147px;
-  /* outline: 2px solid yellow; */
-  /* box-shadow: 0 0 5px #fff; */
-  /* 모든 외곽선에 그림자(글로우)효과를 주려면 filter 드랍쉐도우를 사용함! */
-  filter: drop-shadow(0 0 5px #fff);
-  border-radius: 5px;
-  font-size: 1.7rem;
-  line-height: 1.6;
-  padding: 3px;
-  background: url(../images/bg_smenu.png) no-repeat center/cover;
-  /* 처음에 안보임 */
-  display: none;
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 147px;
+    /* outline: 2px solid yellow; */
+    /* box-shadow: 0 0 5px #fff; */
+    /* 모든 외곽선에 그림자(글로우)효과를 주려면 filter 드랍쉐도우를 사용함! */
+    filter: drop-shadow(0 0 5px #fff);
+    border-radius: 5px;
+    font-size: 1.7rem;
+    line-height: 1.6;
+    padding: 3px;
+    background: url(../images/bg_smenu.png) no-repeat center/cover;
+    /* 처음에 안보임 */
+    display: none;
 }
 /* 상위메뉴 오버시 서브보이기 */
 .gnb ul > li:hover .smenu {
-  display: block;
+    display: block;
 }
 /* 가상요소로 삼각형 만들기 */
 .smenu::before {
-  content: "";
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 15px;
-  background-color: #303030;
-  /* 클립패쓰로 자르기 */
-  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 15px;
+    background-color: #303030;
+    /* 클립패쓰로 자르기 */
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
 }
 /* 서브메뉴 ol */
 .smenu ol {
-  border: 1px solid #ccc;
-  padding: 10px;
-  white-space: nowrap;
+    border: 1px solid #ccc;
+    padding: 10px;
+    white-space: nowrap;
 }
 /* 사이구분선 클래스 */
 .bd-top {
-  border-top: 1px solid #ccc;
+    border-top: 1px solid #ccc;
 }
 /* 서브메뉴 오버시 글자색 */
 .smenu li:hover a {
-  color: red;
+    color: red;
 }
 /* 서브메뉴 오버시 아이콘 */
 .smenu li:hover a::after {
-  content: "🧛‍♂️";
-  /* 오른쪽 끝에 위치 */
-  float: right;
+    content: "🧛‍♂️";
+    /* 오른쪽 끝에 위치 */
+    float: right;
 }
 /* 예매 */
 .gnb ul > li:nth-child(2) .smenu li:hover a::after {
-  content: "🍋";
+    content: "🍋";
 }
 /* 극장 */
 .gnb ul > li:nth-child(3) .smenu li:hover a::after {
-  content: "🌞";
+    content: "🌞";
 }
 /* 이벤트&컬처 */
 .gnb ul > li:nth-child(4) .smenu li:hover a::after {
-  content: "📣";
+    content: "📣";
 }
 /* 영사기 박스 */
 .cam {
-  position: absolute;
-  top: -10px;
-  right: -65px;
+    position: absolute;
+    top: -10px;
+    right: -65px;
+}
+.cam img {
+    width: 50px;
+    rotate: 30deg;
+    /* 트랜지션:trs 양방향공통 */
+    transition: 0.3s 0.3s;
+}
+/* GNB 오버시 영사기 이미지 회전 */
+.gnb:hover .cam img {
+    rotate: 0deg;
+    /* 트랜지션 지연시간 오버시엔 없앰! */
+    transition-delay: 0s;
 }
 /* 빔박스 */
 .beam {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 200px;
-  height: 70px;
-  background: url(../images/bim.png) no-repeat right/auto 100%;
+    position: absolute;
+    z-index: -1;
+    /* 스테틱 이미지보다 아래 */
+    top: -16px;
+    right: 9px;
+    width: 0px;
+    height: 70px;
+    background: url(../images/bim.png) no-repeat right/auto 100%;
+    /* 트랜지션: trs */
+    transition: 0.3s;
+}
+/* GNB에 오버시 빔박스 보이기 */
+.gnb:hover .beam {
+    width: 200px;
+    /* 영사기 이미지 .3s 돌동안 대기하기 */
+    transition-delay: 0.3s;
+    /* 빔떨림 애니메이션 호출 */
+    animation: beam-ani 0.05s linear infinite alternate;
+    /* 0.05초 등속도(linear)로 계속(infinite) 번갈아(alternate) */
+}
+/* 빔떨림 애니 키프레임 */
+@keyframes beam-ani {
+    to {
+        opacity: 0.5;
+    }
+}
+/* 가상요소로 상영스크린 만들기 */
+.cam::after {
+    content: ""; /* ct */
+    position: absolute; /* poa */
+    /* 메뉴,빔보다 아래 */
+    z-index: -2;
+
+    top: -15px;
+    right: 120px;
+
+    /* 트랜지션 대상 opacity */
+    width: 0;
+    opacity: 0;
+
+    height: 66px;
+    background: url(../images/screen.gif) no-repeat -50% center/auto 80%;
+    /* 트랜지션 */
+    transition: opacity 0.3s;
+}
+/* GNB오버시 스크린 보이기 */
+.gnb:hover .cam::after {
+    width: 129px;
+    opacity: 1;
+    /* 트랜지션 딜레이 */
+    transition-delay: 0.6s;
 }
 /******************* 3. 하단영역 *******************/
 .footer-area {
-  /* 플렉스 박스 */
-  display: flex;
-  /* 진행방향 수직정렬(한줄) */
-  align-items: center;
-  gap: 0 20px;
-  padding: 30px;
+    /* 플렉스 박스 */
+    display: flex;
+    /* 진행방향 수직정렬(한줄) */
+    align-items: center;
+    gap: 0 20px;
+    padding: 30px;
 
-  /* height: 100px; */
+    /* height: 100px; */
 }
 /* 3-1.하단로고 */
 /* 3-2.회사정보 */
 .co-info address {
-  font-family: "cute font";
-  font-size: 1.6rem;
-  color: #fff;
-  /* 이탤릭해제 */
-  font-style: normal;
+    font-family: "cute font";
+    font-size: 1.6rem;
+    color: #fff;
+    /* 이탤릭해제 */
+    font-style: normal;
 }
 /* 3-3.SNS */
 .sns-box {
-  /* 플렉스 자식에서 왼쪽마진을
+    /* 플렉스 자식에서 왼쪽마진을
     auto로 주면 오른쪽 끝으로 이동함 */
-  margin-left: auto;
+    margin-left: auto;
 }
 .sns-box ol {
-  /* 플렉스박스 */
-  display: flex;
-  gap: 0 10px;
+    /* 플렉스박스 */
+    display: flex;
+    gap: 0 10px;
 }
 .sns-box a {
-  font-size: 4rem;
-  color: #fff;
+    font-size: 4rem;
+    color: #fff;
 }
