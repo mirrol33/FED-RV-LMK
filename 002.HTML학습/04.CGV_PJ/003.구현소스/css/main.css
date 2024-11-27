@@ -112,8 +112,11 @@ li+li 두번째 li부터 선택 */
 .poster-menu ul {
     display: flex;
     gap: 0 1%;
-    height: 100%;
     /* 비율유지 부모박스 높이값 채우기 */
+    height: 100%;
+    /* 직계자식요소를 3d원근 설정하기 */
+    perspective: 100vh;
+
 }
 /* 메뉴 리스트 ul>li 상위 li만 선택 */
 .poster-menu ul > li {
@@ -124,7 +127,28 @@ li+li 두번째 li부터 선택 */
     overflow: hidden; /* oh */
     /* 플렉스박스 자식요소 등분할(높이는 자동채움) */
     flex: 1;
+
+    /* x축 회전하여 누워있게 셋팅 */
+    /* transform: rotateX(45deg); */
+    rotate: x 45deg;
+    /* 회전축 변경하기: bottom(하단) */
+    transform-origin: bottom;
+
+    /* 트랜지션: trs 속시이지 */
+    transition:rotate .4s ease-out;
 }
+/* li에 오버시 x축회전하여 일어나기
++ li의 클래스가 "on"일 경우 동일 디자인 */
+.poster-menu ul > li:hover,
+.poster-menu ul > li.on {
+    /* x축 0도 회전 */
+    rotate: x 0deg;
+    /* 다른 li보다 위 */
+    z-index: 1;
+    /* 선택요소 외곽선 보이기 */
+    outline: 1px solid yellow;
+}
+
 /* ul>li 사이간격 li+li 앞에 li가 있는 li선택
 즉, 첫번째 li빼고 다 선택 */
 .poster-menu ul > li + li {
@@ -162,9 +186,13 @@ li+li 두번째 li부터 선택 */
     /* 글자크기 */
     font-size: min(1.6rem, 1.3vw);
 }
-.poster-menu ul > li:hover .mv-info {
+/* 상위 ul>li 오버시 영화정보 보이기
++li가 클래스 "on"일 경우도 동일 디자인 */
+.poster-menu ul > li:hover .mv-info,
+.poster-menu ul > li.on .mv-info {
     top: 0;
-    opacity: 1;
+    /* 값이 100% ->0 으로 변경됨! */
+    /* opacity: 1; */
 }
 .mv-info ol > li:first-child {
     color: yellow;
