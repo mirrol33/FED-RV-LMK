@@ -1,4 +1,4 @@
-// if문 연습 - 알라딘 스틸컷 변경하기 /////
+// switch문 연습 - 알라딘 스틸컷 변경하기 /////
 
 // [기능 요구사항:]
 // (1) 버튼을 클릭하면 메인 이미지가 변경된다
@@ -31,21 +31,15 @@ function changeImage() {
     console.log("버튼텍스트:",bTxt);
 
     // 3. 이미지 경로 if문으로 분기하여 만들기
-    // 아니~! switch문으로 변경해라~    
+    // 아니~! switch문으로 변경하시오~!
+    var isrc = "";
     switch(bTxt){
-        case "포스터":
-            isrc = "./images/ala1.jpg";
-            break;
-        case "장면1":
-            isrc = "./images/ala4.jpg";
-            break;
-        case "장면2":
-            isrc = "./images/ala2.jpg";
-            break;
-        case "장면3":
-            isrc = "./images/ala3.jpg";
-            break;
+        case "포스터": isrc = "./images/ala1.jpg";break;
+        case "장면1": isrc = "./images/ala4.jpg";break;
+        case "장면2": isrc = "./images/ala2.jpg";break;
+        case "장면3": isrc = "./images/ala3.jpg";break;
     }
+
 
     // 4. 이미지 나가게 하기 : 클래스 off 넣기
     scene.classList.add("off");
@@ -73,6 +67,8 @@ function changeImage() {
 
 } /////// changeImage함수 ///////
 
+
+
  /********************************* 
     [ 클래스를 컨트롤하는 JS classList 객체 ]
     1. 클래스 넣기 : add(클래스명)
@@ -90,3 +86,4 @@ function changeImage() {
       ->시간에 s단위를 쓰지 않는다!
 
   *********************************/
+

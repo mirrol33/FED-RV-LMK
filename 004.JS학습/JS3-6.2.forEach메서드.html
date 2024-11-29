@@ -148,18 +148,17 @@
         // console.log(btns, boxes);
 
         //2. 이벤트 설정하기
-        // 원래 for문으로 셋팅해야함 그러나 for of 있음!
-        for(let x of btns){
-          // x는 누구? 각 버튼요소
-          // console.log("x는?",x);
+        // btns.forEach((ele,idx,obj)=>{
+        //   console.log(ele,idx,obj);
+        // });
+        btns.forEach((ele)=>{
+          // console.log(ele);
 
-          // 2-1 클릭이벤트 설정
-          x.onclick = () => {
-            // (1) 클릭된 버튼 텍스트 읽기
-            let btxt = x.innerText;
-            console.log("나클릭!",x);
-            //(2) 버튼 텍스트로 데이터 매칭하기
-            let selData;
+          // 2-1 클릭이벤트 설정하기
+          ele.onclick = ()=>{
+            //(1) 클릭한 버튼 텍스트 읽기
+            let btxt = ele.innerText;
+            console.log(btxt);
             switch(btxt){
               case "조제": selData = mv1; break;
               case "원더 우먼 1984": selData = mv2; break;
@@ -170,19 +169,22 @@
               case "바빌론": selData = mv7; break;
               case "무빙": selData = mv8; break;
             } /// switch ////
-            console.log("선택배열:", selData, "배열인가", Array.isArray(selData));
 
-            //(3) 선택된 배열만큼 돌면서 화면에 넣기
-            let num = 0;
-            for(let y of selData){
-              console.log('배열돌아?', y, "순번", num);
-              // 넣을 대상요소 컬렉션은? boxes변수의 컬렉션
-              boxes[num].innerHTML = y;
-              num++; // 1씩증가(다음순번)
-            } //// for of ////
-          }; //// click이벤트 함수 ////
+            console.log('선택배열:',selData);
 
-        }////for of ////
+            // (3)qoduftnsqjrhk rkxdms tnsqjsdml .minfo
+            // 컬렉션 요소에 텍스트 데이터를 넣기
+            //.minfo는 boxes변수에 담김
+            selData.forEach((val,idx)=>{
+              // val - 배열값, idx - 배열순번
+              boxes[idx].innerText = val;
+              // 배열순번값으로 넣을 박스순번값을 넣어줌
+            })
+
+
+          }; //// click 클릭이벤트 ////
+
+        });
 
         // 따라오는 포스터 기능 셋팅함수 호출하기!!
         followPoster(boxes);
