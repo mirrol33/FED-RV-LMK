@@ -38,4 +38,7 @@ const mainImg = myFn.qsa('#cont img');
 // (3) 하단주소 : #info address
 const addrBox = myFn.qs('#info address');
 
-console.log('대상요소:',selBox, gnbList, mainImg, addrBox);
+// console.log('대상요소:',selBox, gnbList, mainImg, addrBox);
+
+// 3. 이벤트 설정 ////
+myFn.addEvt(selBox, 'change', 내가만든함수);
