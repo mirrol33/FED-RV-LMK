@@ -43,10 +43,35 @@
                             borderWidth: "13px",
                             borderColor: "yellow",
                             fontSize: "100px",
-                          },1000,
-                          "easeOutBounce"
-                        );
-                        }); /// animate ///
+                          },
+                          // (2) 시간
+                          1000,
+                          // (3) 이징
+                          "easeOutBounce",
+                          // (4) 콜백함수(애니후실행)
+                          () => {
+                            // 3. 아이디가 total인 요소의 글자를 "싸랑해요~!"라고 쓰고
+                            // 배경색은 검은색, 글자색은 빨간색, 테두리는 20px 보라색,
+                            // 글자크기는 152px로 변경하시오.
+                            $("#total").text("싸랑해요~!")
+                            .animate(
+                              // (1) css속성
+                              {
+                                backgroundColor: "black",
+                                color: "red",
+                                borderWidth: "20px",
+                                borderColor: "purple",
+                                fontSize: "152px",
+                              },
+                              // (2) 시간
+                              1000,
+                              // (3) 이징
+                              "easeOutBack"
+                            );
+                          } // 콜백함수
+                        );/// animate ///
+                        } // 콜백함수
+                      ); /// animate ///
                 }); /// click ///
             });
 
