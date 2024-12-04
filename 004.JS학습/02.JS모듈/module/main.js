@@ -2,8 +2,18 @@
 
 // 데이터 JS 가져오기
 // import { mTitle, sTitle } from "./text_data.js";
-import { mTitle as 큰제목, sTitle as 소제목 } from "./text_data.js";
+import { 
+    mTitle as 큰제목, 
+    sTitle as 소제목, 
+    personInfo as 개인정보,
+    mvData as 영화정보 
+} from "./text_data.js";
 // console.log(mTitle);
+
+// 메시지함수 불러오기
+import msgFn from "./msg_format.js"
+
+console.log(msgFn);
 
 // 나의 함수 가져오기
 // import myFn from "./my_function.js";
@@ -18,6 +28,42 @@ console.log(헐);
     <h3>${소제목}</h3>
 `;
 
+// 두번째 요소 #demo에 이름 나이 메시지 출력하기
+// 대상요소
+const demo = 헐.qs('#demo');
+// 코드변수
+let hCode = '';
+// 코드에 메시지 넣기(메시지 함수호출함!)
+hCode += msgFn('공유',46);
+hCode += msgFn('톰행크스',60);
+hCode += msgFn('안젤리나',49);
+// 개인정보 배열 데이터를 돌면서 메시지함수 호출하기
+개인정보.forEach(v=>hCode += msgFn(v[0],v[1]));
+console.log(개인정보);
+
+// 화면출력
+demo.innerHTML = hCode;
+
+// 세번째 요소 .mvpart에 영화정보 출력하기
+// 단 ol>li를 사용할 것
+// 대상:
+const mvBox = 헐.qs('.mvpart');
+// console.log("데이터:",영화정보);
+// 제목출력
+mvBox.innerHTML = "<h2>영화위시리스트</h2>";
+// 객체를 forEach() 메서드 사용하려면?
+// 객체를 배열화한다!!
+// object.keys(객체) -> 객체의 키값배열생성!!
+Object.keys(영화정보).forEach(v=>{
+    mvBox.innerHTML += `
+    <ol>
+        <li>🎪제목 : ${영화정보[v].제목}</li>
+        <li>🎪장르 : ${영화정보[v].개요}</li>
+        <li>🎪감독 : ${영화정보[v].감독}</li>
+        <li>🎪주연 : ${영화정보[v].출연}</li>
+        <li>🎪한마디 : ${영화정보[v].문구}</li>
+    </ol>`;
+});
 
 // HTML DOM요소에 접근
 // 첫번째 요소 .tpart에 타이틀 데이터 출력하기
