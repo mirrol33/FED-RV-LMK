@@ -1,5 +1,26 @@
 // 모듈 연습 메인 JS - main.js
 
+// 데이터 JS 가져오기
+// import { mTitle, sTitle } from "./text_data.js";
+import { mTitle as 큰제목, sTitle as 소제목 } from "./text_data.js";
+// console.log(mTitle);
+
+// 나의 함수 가져오기
+// import myFn from "./my_function.js";
+// console.log(myFn);
+// import {myFn} from "./my_function.js";
+// console.log(myFn);
+import 헐 from "./my_function.js";
+console.log(헐);
+
+헐.qs('.tpart').innerHTML = `
+    <h2>${큰제목}</h2>
+    <h3>${소제목}</h3>
+`;
+
+
+// HTML DOM요소에 접근
+// 첫번째 요소 .tpart에 타이틀 데이터 출력하기
 
 /**********************************************     
     [ import 형식 ]

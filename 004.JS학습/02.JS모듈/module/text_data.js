@@ -59,6 +59,17 @@ const myObj = {name:'수현',age:34};
 // 함수 예시
 const myFunc = x => `나는 ${x}다!`;
 
+// 내보내기
+
+export {
+    mTitle,
+    sTitle,
+    personInfo,
+    mvData,
+    myObj,
+    myFunc,
+}; ///// export /////
+
 
 
 /******************************************** 
