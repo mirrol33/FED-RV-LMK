@@ -5,6 +5,35 @@
 <title> Siblings(~) 틸드 선택자 </title>
 <!-- jQuery library -->
 <script src="../jquery-3.6.3.min.js"></script>
+<script>
+	$(()=>{
+		//미션: li중 하나를 클릭하면  그 뒤의 형제요소의 li들이 모두 width: 500px, height: 300px로 변경되고 배경이미지를 넣으시오.(배경이미지는 웹경로로 넣고 트랜지션 설정도 하시오.)
+		$('li').css({
+			width: '100px',
+			height: '50px',
+		})
+		.click(function(){		
+			// $('~li',this)
+			// 틸드(~) 다음형제들 선택자사용!
+			// 트레버싱 메서드 사용법
+			// nextAll() - 다음의 모든 형제들 선택
+			$(this).nextAll()
+			.css({
+				width: '500px',
+				height: '300px',
+				backgroundColor: 'yellow',
+				transition: 'all 0.5s',
+				backgroundImage: `url(https://i5.walmartimages.com/asr/8dd82ca6-adb0-4827-a6c4-c88aec06940d_1.ff23051db200c4ccd38a5e028ba659f6.jpeg)`
+			});///css///
+		});///click///
+
+		//js에서는 반드시 다수개이면 for문 돌려야함!!
+		document.querySelectorAll('.list li')
+		.forEach(el=>{
+			el.onclick=()=>{console.log('ㅎㅎㅎ');}
+		});
+	});
+</script>
 
 </head>
   
