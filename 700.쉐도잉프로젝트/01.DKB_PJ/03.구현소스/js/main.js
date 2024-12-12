@@ -4,5 +4,5 @@
 import slideFn from "./slide_fn.js";
 
 // console.log(slideFn);
-// 슬라이드 함수 호출하여 실행
+// 슬라이드함수 호출하여 실행하기
 slideFn();
