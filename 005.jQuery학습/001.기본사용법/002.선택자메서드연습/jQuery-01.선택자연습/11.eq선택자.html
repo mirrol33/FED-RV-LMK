@@ -20,13 +20,13 @@
         //////// jQB /////////////////
 
         // 글자변경
-        $("#selnum, .nav1").css({
+        $("#selnum,.nav1").css({
           fontSize: "42px",
           textShadow: "0 0 10px #333",
           cursor: "pointer",
           width: "400px",
           whiteSpace: "nowrap",
-          userSelect: "none" // 더블클릭, 드래그시 영역안잡힘
+          userSelect: "none", // 더블클릭, 드래그시 영역안잡힘
         });
 
         // 1차 미션: .nav1 아래 li를 클릭시 클릭된 li의
@@ -44,6 +44,17 @@
           "purple",
           "pink",
           "skyblue",
+        ];
+        const bgcolor = [
+          "lightblue",
+          "lightyellow",
+          "lightgreen",
+          "lightcoral",
+          "darkseagreen",
+          "lightgreen",
+          "aqua",
+          "bisque",
+          "cyan",
         ];
         // 배열순번변수
         let cseq = 0;
@@ -94,8 +105,9 @@
             // eq(n) -> 제이쿼리 트래버싱 메서드가
             // 더 많이 쓰임!
             // $(".nav1 li").eq(opt)
+
             .css({
-              backgroundColor: rcolor[opt],
+              backgroundColor: bgcolor[opt],
             });
 
           // 배경이미지 넣기
