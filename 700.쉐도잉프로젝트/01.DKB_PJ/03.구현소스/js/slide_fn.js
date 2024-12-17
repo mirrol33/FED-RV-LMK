@@ -49,8 +49,10 @@ export default function slideFn() {
     // 이동버튼 클릭시 인터발지우기함수 호출
     myFn.addEvt(el, "click", 
       (e)=>{
+        // a요소 기본이동기능 막기
         e.preventDefault();
-        clearAuto()});
+        clearAuto();
+      });
   }); //////////// forEach ////////////////
 
   // 광클금지 상태변수
