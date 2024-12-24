@@ -201,7 +201,7 @@ $btns
       }; //// fn 콜백함수 ////
 
     // (2) actMini() 함수 호출
-    actMini(this, 7, fn);
+    actMini(this, 9, fn);
   }) //////////// click ////////////
 
   // 6. "윗층으로 도망가!" 버튼 클릭시 ////////
@@ -216,7 +216,7 @@ $btns
       }; //// fn 콜백함수 ////
 
     // (2) actMini() 함수 호출
-    actMini(this, 6, fn);
+    actMini(this, 7, fn);
   }) //////////// click ////////////
 
   
@@ -232,7 +232,7 @@ $btns
       }; //// fn 콜백함수 ////
 
     // (2) actMini() 함수 호출
-    actMini(this, 5, fn);
+    actMini(this, 6, fn);
   }) //////////// click ////////////
   // 8. "다시옆방으로!" 버튼 클릭시 ////////
   .next() // 두번째버튼
@@ -260,7 +260,7 @@ $btns
       }; //// fn 콜백함수 ////
 
     // (2) actMini() 함수 호출
-    actMini(this, 3, fn);
+    actMini(this, 2, fn);
   }) //////////// click ////////////
   // 10. "3번방으로!" 버튼 클릭시 ////////
   .next() // 두번째버튼
@@ -274,7 +274,7 @@ $btns
       }; //// fn 콜백함수 ////
 
     // (2) actMini() 함수 호출
-    actMini(this, 2, fn);
+    actMini(this, 3, fn);
   }) //////////// click ////////////
   // 11. "1번방으로!" 버튼 클릭시 ////////
   .next() // 두번째버튼
@@ -304,3 +304,56 @@ $btns
     // (2) actMini() 함수 호출
     actMini(this, 0, fn);
   }) //////////// click ////////////
+
+//////////////////////////
+//  추가 애니 구현하기  //
+/////////////////////////
+
+// 1. 눈 내리는 박스 넣기
+$('body').append(`
+    <div class="snowing"></div>
+    <img class="santa" src="./images/santa.webp" alt="산타썰매">
+`);
+
+// 2. 눈내리는 박스 셋팅
+$('.snowing').css({
+    position: 'fixed',
+    // 맨위에 올때 아래쪽 이벤트 살리기
+    pointerEvents: 'none',
+    zIndex: 99999,
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: 'url("./images/snowing.gif")',
+});
+
+// 싼타변수
+const $santa = $('.santa');
+
+// 3. 싼타썰매 셋팅
+$('.santa').css({
+    position: 'fixed',
+    // 맨위에 올때 아래쪽 이벤트 살리기
+    pointerEvents: 'none',
+    zIndex: -1,
+    top: "20%",
+    left: "-20%",
+    width: '100%',
+});
+// 4. 싼타애니 함수 만들기
+const santaAni = ()=>{
+    $santa.animate({
+        top: "-10%",
+        left: "110%",
+    },10000,'linear',()=>{ // 콜백함수 ///
+        // 값의 초기화(반복할것이므로)
+        $santa.css({top: "20%", left: "-20%"});
+    });
+}; //// santaAni ////
+
+// 5. 싼타애니 최초호출
+santaAni();
+
+// 6. 인터발 함수로 계속 호출하기!
+setInterval(santaAni,11000);
