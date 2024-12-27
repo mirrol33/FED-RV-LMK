@@ -196,8 +196,18 @@ $btns
     const fn =
       // function(){ // -> this는 $mi
       () => {
-        // 다음버튼 보이기함수 호출
-        showNextBtn(this);
+        // 좀비 나타나기(2초후)
+        $room.eq(9) // 9번방
+        .find('.mz') // 이방의 좀비
+        .delay(2000) // 2초후
+        .fadeIn(400,()=>{ // 콜백함수 : 좀비 나타난후 액션
+          // 메시지넣기/위치조정하기/보이기
+          $msg.html(msgTxt[9])
+          .css({left:'-88%'}).fadeIn(300);
+          // 다음버튼 보이기함수 호출
+          showNextBtn(this);
+        }) /// fadeIn ///
+
       }; //// fn 콜백함수 ////
 
     // (2) actMini() 함수 호출
@@ -205,49 +215,102 @@ $btns
   }) //////////// click ////////////
 
   // 6. "윗층으로 도망가!" 버튼 클릭시 ////////
-  .next() // 두번째버튼
+  .next() // 세번째버튼
   .click(function () {
     // (1) 버튼별 기능구현 (콜백함수) //////
     const fn =
       // function(){ // -> this는 $mi
       () => {
-        // 다음버튼 보이기함수 호출
-        showNextBtn(this);
+        // 첫대사출력: 배열안의 배열(다차원배열)
+        $msg.text(msgTxt[7][0]).fadeIn(300);
+        // 좀비나타남(대사후 1초경과)
+        $room.eq(7) // 7번방
+        .find('.mz') // 안에 있는 좀비선택
+        .delay(1000) // 지연시간 1초
+        .fadeIn(400,()=>{
+          // 다음대사로 변경
+          $msg.text(msgTxt[7][1]);
+          // 다음버튼 보이기함수 호출
+          showNextBtn(this);
+        }); /// fadeIn ////
+
       }; //// fn 콜백함수 ////
 
     // (2) actMini() 함수 호출
     actMini(this, 7, fn);
   }) //////////// click ////////////
 
-  
   // 7. "다시옆방으로!" 버튼 클릭시 ////////
-  .next() // 두번째버튼
+  .next() // 네번째버튼
   .click(function () {
     // (1) 버튼별 기능구현 (콜백함수) //////
     const fn =
       // function(){ // -> this는 $mi
       () => {
-        // 다음버튼 보이기함수 호출
-        showNextBtn(this);
+        // 첫번째 대사
+        $msg.html(msgTxt[6][0])
+        .fadeIn(300)
+        .delay(2000) // 지연시간2초
+        // 지연시간을 주기위해 fadeIn을 다시줌!
+        .fadeIn(300,()=>{
+          // 쉬었다가 두번째 대사
+          $msg.html(msgTxt[6][1]);
+          // 다음버튼 보이기함수 호출
+          showNextBtn(this);
+        }); /// fadeIn ///
       }; //// fn 콜백함수 ////
 
     // (2) actMini() 함수 호출
     actMini(this, 6, fn);
   }) //////////// click ////////////
-  // 8. "다시옆방으로!" 버튼 클릭시 ////////
-  .next() // 두번째버튼
+
+  // 8. "무서우니 윗층으로!" 버튼 클릭시 ////////
+  .next() // 다섯번째버튼
   .click(function () {
     // (1) 버튼별 기능구현 (콜백함수) //////
     const fn =
       // function(){ // -> this는 $mi
       () => {
+        // 무.서.워... 메시지 시간차 업데이트
+        $msg
+        .html(msgTxt[4][0][0])
+        .fadeIn(200)
+        .delay(500)
+        .fadeIn(200,()=>$msg.html(msgTxt[4][0][1]))
+        .delay(500)
+        .fadeIn(200,()=>$msg.html(msgTxt[4][0][2]))
+        .delay(500)
+        .fadeIn(200,()=>$msg.html(msgTxt[4][0][3]))
+        .delay(500)
+        .fadeIn(200,()=>$msg.html(msgTxt[4][0][4]))
+        .delay(500)
+        .fadeIn(200,()=>$msg.html(msgTxt[4][0][5]))
+        .delay(500)
+        .fadeIn(200,()=>$msg.html(msgTxt[4][0][6]))
+        .delay(500)
+        .fadeIn(200,()=>$msg.html(msgTxt[4][0][7]))
+        .delay(500)
+        .fadeIn(200,()=>{
+          // 무.서.워...대사후 좀비 올라와 달겨들기!
+          // 7번방의 좀비가 올라옴!
+          $room.eq(7).find('.mz')
+          .animate({
+            // 위층으로 뛰어오르기
+            bottom: '100%'
+          },500,'easeOutBack')
+          .delay(500)
+          // .animate()
+          // 방까지 뛰어오기
+        })
+
         // 다음버튼 보이기함수 호출
-        showNextBtn(this);
+        // showNextBtn(this);
       }; //// fn 콜백함수 ////
 
     // (2) actMini() 함수 호출
     actMini(this, 4, fn);
   }) //////////// click ////////////
+
   // 9. "치료주사방으로!" 버튼 클릭시 ////////
   .next() // 두번째버튼
   .click(function () {
@@ -262,6 +325,7 @@ $btns
     // (2) actMini() 함수 호출
     actMini(this, 2, fn);
   }) //////////// click ////////////
+
   // 10. "3번방으로!" 버튼 클릭시 ////////
   .next() // 두번째버튼
   .click(function () {
@@ -276,6 +340,7 @@ $btns
     // (2) actMini() 함수 호출
     actMini(this, 3, fn);
   }) //////////// click ////////////
+
   // 11. "1번방으로!" 버튼 클릭시 ////////
   .next() // 두번째버튼
   .click(function () {
@@ -290,7 +355,8 @@ $btns
     // (2) actMini() 함수 호출
     actMini(this, 1, fn);
   }) //////////// click ////////////
-  // 12. "1번방으로!" 버튼 클릭시 ////////
+
+  // 12. "헬기를 호출!" 버튼 클릭시 ////////
   .next() // 두번째버튼
   .click(function () {
     // (1) 버튼별 기능구현 (콜백함수) //////
@@ -303,54 +369,60 @@ $btns
 
     // (2) actMini() 함수 호출
     actMini(this, 0, fn);
-  }) //////////// click ////////////
+  }); //////////// click ////////////
 
-//////////////////////////
-//  추가 애니 구현하기  //
-/////////////////////////
-
-// 1. 눈 내리는 박스 넣기
-$('body').append(`
+/////////////////////////////////////////
+///////// 추가 애니 구현하기 ///////////
+// 1. 눈내리는 박스 넣기 + 산타넣기
+$("body").append(`
     <div class="snowing"></div>
-    <img class="santa" src="./images/santa.webp" alt="산타썰매">
+    <img class="santa" 
+        src="./images/santa.png" 
+        alt="산타썰매">
 `);
 
 // 2. 눈내리는 박스 셋팅
-$('.snowing').css({
-    position: 'fixed',
-    // 맨위에 올때 아래쪽 이벤트 살리기
-    pointerEvents: 'none',
-    zIndex: 99999,
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    background: 'url("./images/snowing.gif")',
+$(".snowing").css({
+  position: "fixed",
+  // 맨위에 올때 아래쪽 이벤트살리기
+  pointerEvents: "none",
+  zIndex: 99999,
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  background: "url(./images/snowing.gif)",
 });
 
 // 싼타변수
-const $santa = $('.santa');
+const $santa = $(".santa");
 
 // 3. 싼타썰매 셋팅
-$('.santa').css({
-    position: 'fixed',
-    // 맨위에 올때 아래쪽 이벤트 살리기
-    pointerEvents: 'none',
-    zIndex: -1,
-    top: "20%",
-    left: "-20%",
-    width: '100%',
+$santa.css({
+  position: "fixed",
+  zIndex: -1,
+  top: "20%",
+  left: "-20%",
+  width: "20%",
 });
 // 4. 싼타애니 함수 만들기
-const santaAni = ()=>{
-    $santa.animate({
-        top: "-10%",
-        left: "110%",
-    },10000,'linear',()=>{ // 콜백함수 ///
-        // 값의 초기화(반복할것이므로)
-        $santa.css({top: "20%", left: "-20%"});
-    });
-}; //// santaAni ////
+const santaAni = () => {
+  $santa.animate(
+    {
+      top: "-10%",
+      left: "110%",
+    },
+    10000,
+    "linear",
+    () => { // 콜백함수 ///
+      // 값의 초기화(반복할것이므로)
+      $santa.css({
+        top: "20%",
+        left: "-20%",
+      }); /// css ///
+    }
+  ); /// animate ///
+}; ///// santaAni 함수 /////
 
 // 5. 싼타애니 최초호출
 santaAni();
