@@ -10,7 +10,41 @@ import * as dkbData from "../data/dkb_data.js";
 // 넘겨준것을 모두 받는 방법은 별(*)로 받고
 // as로 별칭을 지어주면 객체화되어 담겨진다
 
-console.log(dkbData);
+// console.log(dkbData);
+
+// 도깨비 gnb 데이터 불러오기
+import gnbData from "../data/gnb_data.js";
+console.log(gnbData);
+
+// 0. gnb 데이터 바인딩하기
+$('.gnb').html(`
+  <ul class="fx-box">
+  ${Object.keys(gnbData).map(v=>`
+    <li>
+      <a href="#">
+        ${v+(gnbData[v]=="없음"?'':'<i class="fa-solid fa-chevron-down"></i>')}
+      </a>
+      ${(gnbData[v]=="없음"?'':` 
+      <!-- 서브메뉴 -->
+      <aside class="smenu">
+        <div class="inbox">
+          <h2>${v}</h2>
+          <ol>
+          ${
+          gnbData[v].map(v2 =>`
+          <li>
+            <a href="#">${v2}</a>
+          </li>
+          `).join('')
+          }
+          </ol>
+        </div>
+      </aside>
+      `)}
+    </li>
+    `).join('')}
+  </ul>
+  `);
 
 // 1. 슬라이드함수 호출하여 실행하기
 slideFn();
