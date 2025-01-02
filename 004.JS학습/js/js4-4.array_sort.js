@@ -267,3 +267,29 @@ console.log(
   "문자값 배열원본sort()내림차순:",
   arrString.sort((a, b) => (a == b ? 0 : a > b ? -1 : 1))
 );
+
+// [1-1] 숫자로만된 배열의 정렬
+// 출력대상: .showNum()
+const showNum = myFn.qs(".showNum");
+// [1-2] 현재 숫자배열 출력하기
+// 배열대상: arrNumber
+const showNumFn = ()=>{
+    showNum.innerHTML = arrNumber
+      .map(
+        (v) => `
+        <img src="./images/num/num_0${v}.png" alt="숫자이미지${v}">
+        `
+      )
+      .join("");
+}; //// showNumFn ////
+showNumFn();
+// [1-3] 정렬 선택박스 이벤트 설정하기
+myFn.qs('#sel').addEventListener('change',function(){
+    console.log(this.value);
+    if(this.value==1) // 오름차순
+    arrNumber.sort((a,b)=>a==b?0:a<b?-1:1);
+    else if(this.value==2) // 내림차순
+    arrNumber.sort((a,b)=>a==b?0:a>b?-1:1);
+    //정렬후 화면호출
+    showNumFn();
+}); //// addEventListener ////
