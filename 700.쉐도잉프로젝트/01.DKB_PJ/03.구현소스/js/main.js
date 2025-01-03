@@ -14,7 +14,7 @@ import * as dkbData from "../data/dkb_data.js";
 
 // 도깨비 gnb 데이터 불러오기
 import gnbData from "../data/gnb_data.js";
-console.log(gnbData);
+// console.log(gnbData);
 
 // 0. gnb 데이터 바인딩하기
 $('.gnb').html(`
@@ -61,8 +61,22 @@ slideFn();
 // -> 제이쿼리 html() 메서드에서는 join()없이
 // 콤마없애고 출력해줌!!!
 
+// 데이터 변경하기 : 15화부터 나오게 idx 내림차순
+// -> 데이터는 8개만씀 -> slice(시작순번,끝순번)
+const newArrayData = 
+dkbData.previewData // 원본배열
+.slice() // 깊은복사
+.sort( // 배열정렬(idx를 숫자형변환!)
+  (a,b)=>Number(a.idx)==Number(b.idx)?0:Number(a.idx)>Number(b.idx)?-1:1)
+  .slice(0,8);
+  // 다시한번 정렬한 배열중 0부터 7번까지의 배열값만 딥카피 -> 총8개
+
+console.log('원본:',dkbData.previewData);
+console.log('미리보기변경:',newArrayData);
+
+// 화면에 배열 데이터 바인딩하기
 $(".preview-box ul").html(
-  dkbData.previewData.map(
+  newArrayData.map(
     (v) => `
         <li>
             <h3>${v.title}</h3>
@@ -157,7 +171,7 @@ const swiper = new Swiper(".clip-box", {
 // 스와이퍼 API를 이용한 개별 코딩
 // 내가 만든 버튼에 이동 기능 부여하기!
 const myBtns = document.querySelectorAll(".btn-box .abtn");
-console.log("대상:", myBtns);
+// console.log("대상:", myBtns);
 
 // 클릭이벤트 설정하기
 myBtns.forEach((el) => {
@@ -168,7 +182,7 @@ myBtns.forEach((el) => {
 function controlSwp() {
   // 버튼구분하기
   let isBtn = this.classList.contains("ab2");
-  console.log("나야나!", isBtn);
+  // console.log("나야나!", isBtn);
 
   // 분기하기
   // 다음버튼
@@ -194,7 +208,7 @@ $subCont.find(".cbtn").click(() => {
 // 1. 미리보기 영역 클릭시 세부내용 보기
 // 이벤트 대상 : .preview-box li
 $(".preview-box li").click(function () {
-  console.log("미리봐봐~!");
+  // console.log("미리봐봐~!");
   // 1. 클릭된 박스의 데이터 읽어오기
   let currTit = $(this).find().text();
   let currCont = $(this).find().text();
