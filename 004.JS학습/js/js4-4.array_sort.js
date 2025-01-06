@@ -634,7 +634,7 @@ const fbtn = myFn.qs(".fbtn");
 // (1) 버튼 클릭시 이벤트 설정하기
 myFn.addEvt(sbtn, "click", () => {
   console.log("검색해~!");
-  // 1) 검새가어가 없으면 경고창 띄우기
+  // 1) 검색어가 없으면 경고창 띄우기
   if (stxt.value.trim() == "") {
     alert("검색어를 입력해주세요!");
   } /// if ///
