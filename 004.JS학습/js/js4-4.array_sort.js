@@ -568,4 +568,38 @@ let searchText2 = list2.find(v=>{
 });
 console.log('검색테스트1:find():',searchText1); // true
 console.log('검색테스트2:find():',searchText2); // undefined
-console.log('like검색기초(indexOf)',list2[0].tit)
+console.log('like검색기초(indexOf)대상문자:',list2[0].tit);
+console.log('like검색기초(indexOf)대상문자의 "당"문자순번:',list2[0].tit.indexOf('당'));
+console.log('like검색기초(indexOf)대상문자의 "가"문자순번:',list2[0].tit.indexOf('가'));
+console.log('like검색기초(indexOf)대상문자의 "헐"문자순번:',list2[0].tit.indexOf('헐'));
+// 결과적으로 -1은 문자열이 없다는 리턴값이다!
+// 반대로 결과가 있으면 -1이 아닌것이다!
+// 검색테스트3
+let searchText3 = list2.filter(v=>{
+  if(v.tit.indexOf('당')!==-1) return true;
+});
+console.log('검색테스트3(filter)"당"이 있는제목:',searchText3);
+// 검색테스트4
+let searchText4 = list2.filter(v=>{
+  if(v.tit.indexOf('다')!==-1) return true;
+});
+console.log('검색테스트4(filter)"다"이 있는제목:',searchText4);
+// 검색테스트5
+let searchText5 = list2.filter(v=>{
+  if(v.tit.indexOf('멍')!==-1) return true;
+});
+console.log('검색테스트5(filter)"멍"이 있는제목:',searchText5);
+// 데이터가 없으면 빈배열을 리턴함
+// 따라서 없다는 것은 배열길이가 0이라는 말
+// 배열.length==0 이 값이 true면 검색결과가 없는것!
+
+// indexOf말고 배열값 중 어떤값을 포함하는지 여부를
+// 알아내는 함수는 includes(값) -> 있으면 true, 없으면 false
+
+// indexOf()와 includes()는 모두 배열에서도 사용하고
+// 문자열(String)에서도 사용하는 메서드이다!
+// 여기서는 배열값 중 특정 문자열값에서 찾는 역할을 한다!
+
+console.log("찾을대상:",list2[0].tit);
+console.log("includes('당'):",list2[0].tit.includes('당'));
+console.log("includes('멍'):",list2[0].tit.includes('멍'));
