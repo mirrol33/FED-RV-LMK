@@ -141,6 +141,25 @@ import myFn from "./my_function.js";
       조건문에 -1이 아닌경우가 검색결과가 있는 경우가 됨!
       예) 
       if(문자열.indexOf(검색문자열)!==-1){결과리턴}
+      _______________________________________
+
+        다른방법으로 찾기 : 전체문자열.includes(문자열)
+        -> 존재하면 true, 없으면 false를 리턴함
+        if(문자열.includes(검색문자열)){결과리턴}
+
+      *********************************************
+      (( 참고 : 배열과 문자열 객체의 indexOf() / include() 비교 ))
+
+      [ 배열(Array)의 indexOf() ]
+       -> 정확히 일치하는 값의 배열 순번을 리턴(없으면 -1 리턴)
+      [ 배열(Array)의 includes() ]
+       -> 정확히 일치하는 값의 배열이 존재할때 true 리턴
+
+      [ 문자열(String)의 indexOf() ]
+       -> 문자열중 찾는 문자열의 순번을 리턴(없으면 -1 리턴)
+      [ 문자열(String)의 includes() ]
+       -> 문자열중 찾는 문자열과 일치하는 것이 존재하면 true 리턴
+
 
 *************************************************
 
@@ -451,7 +470,6 @@ myFn.addEvt(sel3, "change", function () {
   console.log("객체배열원본:", list1);
 }); //////// change 이벤트함수 /////////
 
-
 // [4] 객체데이터 검색후 배열의 정렬 //
 // [4-1] 객체데이터 배열
 // - 객체구조 :
@@ -558,37 +576,36 @@ myFn.addEvt(sel4, "change", function () {
   console.log("객체배열원본:", list2);
 }); //////// change 이벤트함수 /////////
 
-
 // 검색전 테스트하기 ////
-let searchText1 = list2.find(v=>{
-  if(v.tit=="점심에 뭐먹지? 당근이지!") return true;
+let searchText1 = list2.find((v) => {
+  if (v.tit == "점심에 뭐먹지? 당근이지!") return true;
 });
-let searchText2 = list2.find(v=>{
-  if(v.tit=="점심에 뭐먹지? 당근이지") return true;
+let searchText2 = list2.find((v) => {
+  if (v.tit == "점심에 뭐먹지? 당근이지") return true;
 });
-console.log('검색테스트1:find():',searchText1); // true
-console.log('검색테스트2:find():',searchText2); // undefined
-console.log('like검색기초(indexOf)대상문자:',list2[0].tit);
-console.log('like검색기초(indexOf)대상문자의 "당"문자순번:',list2[0].tit.indexOf('당'));
-console.log('like검색기초(indexOf)대상문자의 "가"문자순번:',list2[0].tit.indexOf('가'));
-console.log('like검색기초(indexOf)대상문자의 "헐"문자순번:',list2[0].tit.indexOf('헐'));
+console.log("검색테스트1:find():", searchText1); // true
+console.log("검색테스트2:find():", searchText2); // undefined
+console.log("like검색기초(indexOf)대상문자:", list2[0].tit);
+console.log('like검색기초(indexOf)대상문자의 "당"문자순번:', list2[0].tit.indexOf("당"));
+console.log('like검색기초(indexOf)대상문자의 "가"문자순번:', list2[0].tit.indexOf("가"));
+console.log('like검색기초(indexOf)대상문자의 "헐"문자순번:', list2[0].tit.indexOf("헐"));
 // 결과적으로 -1은 문자열이 없다는 리턴값이다!
 // 반대로 결과가 있으면 -1이 아닌것이다!
 // 검색테스트3
-let searchText3 = list2.filter(v=>{
-  if(v.tit.indexOf('당')!==-1) return true;
+let searchText3 = list2.filter((v) => {
+  if (v.tit.indexOf("당") !== -1) return true;
 });
-console.log('검색테스트3(filter)"당"이 있는제목:',searchText3);
+console.log('검색테스트3(filter)"당"이 있는제목:', searchText3);
 // 검색테스트4
-let searchText4 = list2.filter(v=>{
-  if(v.tit.indexOf('다')!==-1) return true;
+let searchText4 = list2.filter((v) => {
+  if (v.tit.indexOf("다") !== -1) return true;
 });
-console.log('검색테스트4(filter)"다"이 있는제목:',searchText4);
+console.log('검색테스트4(filter)"다"이 있는제목:', searchText4);
 // 검색테스트5
-let searchText5 = list2.filter(v=>{
-  if(v.tit.indexOf('멍')!==-1) return true;
+let searchText5 = list2.filter((v) => {
+  if (v.tit.indexOf("멍") !== -1) return true;
 });
-console.log('검색테스트5(filter)"멍"이 있는제목:',searchText5);
+console.log('검색테스트5(filter)"멍"이 있는제목:', searchText5);
 // 데이터가 없으면 빈배열을 리턴함
 // 따라서 없다는 것은 배열길이가 0이라는 말
 // 배열.length==0 이 값이 true면 검색결과가 없는것!
@@ -600,6 +617,56 @@ console.log('검색테스트5(filter)"멍"이 있는제목:',searchText5);
 // 문자열(String)에서도 사용하는 메서드이다!
 // 여기서는 배열값 중 특정 문자열값에서 찾는 역할을 한다!
 
-console.log("찾을대상:",list2[0].tit);
-console.log("includes('당'):",list2[0].tit.includes('당'));
-console.log("includes('멍'):",list2[0].tit.includes('멍'));
+console.log("찾을대상:", list2[0].tit);
+console.log("includes('당'):", list2[0].tit.includes("당"));
+console.log("includes('멍'):", list2[0].tit.includes("멍"));
+
+// [4-4] 검색하기
+// 대상 :
+// 검색항목: #search-cta4
+const sCta4 = myFn.qs("#search-cta4");
+// 검색입력창 : #stxt
+const stxt = myFn.qs("#stxt");
+// 검색버튼 : .sbtn
+const sbtn = myFn.qs(".sbtn");
+// 전체버튼 : .fbtn
+const fbtn = myFn.qs(".fbtn");
+// (1) 버튼 클릭시 이벤트 설정하기
+myFn.addEvt(sbtn, "click", () => {
+  console.log("검색해~!");
+  // 1) 검새가어가 없으면 경고창 띄우기
+  if (stxt.value.trim() == "") {
+    alert("검색어를 입력해주세요!");
+  } /// if ///
+  // 2) 검색어가 있으면 filter로 검색결과 배열만들기
+  else {
+    console.log("검색어:", stxt.value.trim());
+    let result = list2.filter((v) => String(v[sCta4.value]).includes(stxt.value.trim()));
+
+    // let result = list2.filter(v=>{
+    // 숫자형이 들어오면 indexOf()에러남!
+    // 따라서 데이터를 문자형변환해야함 String()
+    // if(String(v[sCta4.value])
+    //   .indexOf(stxt.value.trim()) !== -1) return true;
+    // });
+    // if(String(v[sCta4.value])
+    //    .includes(stxt.value.trim())) return true;
+    // });
+    console.log("검색결과:", result);
+    // (3) 결과배열을 화면 바인딩 함수를 호출시 보내준다!
+    showList4Fn(result);
+  } /// else ///
+
+}); //// click 이벤트 함수 ////
+
+// [4-5] 전체 버튼 클릭시 전체리스트 보이기
+myFn.addEvt(fbtn,'click',()=>{
+  // 1) 검색입력값 지우기
+  stxt.value = "";
+  // 2) 검색항목 초기화
+  sCta4.value = "tit";
+  // 3) 실제 전체항목 리스트보이기
+  showList4Fn(list2);
+})
+
+
