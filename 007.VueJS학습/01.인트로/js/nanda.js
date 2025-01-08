@@ -23,7 +23,7 @@
 ***************************************/
 
 // [상품정보를 만들어주는 생성자함수 만들기]
-function GetList(idx, name, img, price){
+function GetList(idx, name, img, price) {
   // 객체 {속성:값} 생성하기
   this.idx = idx;
   this.name = name;
@@ -32,14 +32,25 @@ function GetList(idx, name, img, price){
 } //// GetList 생성자함수 ////
 
 // 배열로 상품이름 임의생성할 것 셋팅
-const goods = ["프레이컷","아일렛기모","베어블클","포멀믹스톤"];
+const goods = ["프레이컷", "아일렛기모", "베어블클", "포멀믹스톤"];
 // 객체 18개를 생성하자!
 const items = [];
 
-for(let i=0; i<19; i++){
-  let rdm = Math.floor(Math.random()*4);
-  items.push(new GetList(i,goods[rdm],"",(52470*i)+"원"));
-}
+for (let i = 0; i < 19; i++) {
+  // 상품명 배열 랜덤번호(0~3)
+  let rdm = Math.floor(Math.random() * 4);
+  // 가격 랜덤 곱할 수(4~20 -> 1~17 + 3)
+  let rdm2 = Math.ceil(Math.random() * 17) + 3;
+  // 배열변수에 값 넣기
+  items.push(
+    new GetList(
+      i, // 일렬번호
+      goods[rdm], // 상품명
+      `nanda_${i}`, // 이미지명
+      2000 * rdm2 // 상품가격
+    )
+  ); // push //
+} /// for ///
 console.log(items);
 
 // 1. 뷰JS 인스턴스 생성하기
@@ -60,5 +71,52 @@ const vm = new Vue({
     <h2>오늘도 당신은 날고 싶다~!</h2>
     <img src="./images/sub_banner_e.jpg" alt="스난다 배너">
     `,
+    // (2-4) 상품정보배열
+    items:[],
   },
+  // (3) 메서드 설정하기
+  methods: {
+    // (3-1) 이미지 태그를 리턴하는 메서드
+    makeImg(val){
+      return `
+      <img src="./images/fashion1/${val}.jpg" alt="아이템이미지1">
+      <img src="./images/fashion2/${val}.png" alt="아이템이미지2">
+      `;
+    },
+    // (3-2) 숫자 3자릿수 콤마찍어주는 메서드
+    addCommas(x){},
+  },
+
+ // (4) 뷰인스턴스 초기화 단계 : created
+ created() {
+  // 상품 데이터 생성자 함수를 호출하여 데이터생성함
+  // 배열로 상품이름 임의생성할 것 셋팅
+  const goods = ["프레이컷", "아일렛기모", "베어블클", "포멀믹스톤"];
+
+  // 객체 18개를 생성하자! -> data파트에 생성함
+  // const items = [];
+
+  for (let i = 1; i < 19; i++) {
+    // 상품명 배열 랜덤번호(0~3)
+    let rdm = Math.floor(Math.random() * 4);
+
+    // 가격 랜덤 곱할 수(4~20 -> 1~17 + 3)
+    let rdm2 = Math.ceil(Math.random() * 17) + 3;
+
+    // 배열변수에 값 넣기 ///
+    this.items.push(
+      new GetList(
+        i, // 일련번호
+        goods[rdm] + i, // 상품명
+        `nanda_${i}`, // 이미지명
+        2000 * rdm2 // 상품가격
+      )
+    ); // push ///
+  } /// for ///
+
+  console.log(this.items);
+}, /////// created /////////////
+
+// (5) 뷰 랜더링 완료단계 : mounted
+mounted() {}, ///////// mounted ///////////
 });
