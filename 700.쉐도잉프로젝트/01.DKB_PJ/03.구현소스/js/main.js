@@ -2,7 +2,7 @@
 
 // 메뉴를 넣기위한 공통함수 불러오기
 import comFn from "./common.js";
-comFn();
+comFn();//실행!
 
 // 메인배너 슬라이드 기능함수 불러오기
 import slideFn from "./slide_fn.js";
@@ -17,38 +17,38 @@ import * as dkbData from "../data/dkb_data.js";
 // console.log(dkbData);
 
 // 도깨비 gnb 데이터 불러오기
-import gnbData from "../data/gnb_data.js";
+// import gnbData from "../data/gnb_data.js";
 // console.log(gnbData);
 
 // 0. gnb 데이터 바인딩하기
-$('.gnb').html(`
-  <ul class="fx-box">
-  ${Object.keys(gnbData).map(v=>`
-    <li>
-      <a href="#">
-        ${v+(gnbData[v]=="없음"?'':'<i class="fa-solid fa-chevron-down"></i>')}
-      </a>
-      ${(gnbData[v]=="없음"?'':` 
-      <!-- 서브메뉴 -->
-      <aside class="smenu">
-        <div class="inbox">
-          <h2>${v}</h2>
-          <ol>
-          ${
-          gnbData[v].map(v2 =>`
-          <li>
-            <a href="#">${v2}</a>
-          </li>
-          `).join('')
-          }
-          </ol>
-        </div>
-      </aside>
-      `)}
-    </li>
-    `).join('')}
-  </ul>
-  `);
+// $('.gnb').html(`
+//   <ul class="fx-box">
+//   ${Object.keys(gnbData).map(v=>`
+//     <li>
+//       <a href="#">
+//         ${v+(gnbData[v]=="없음"?'':'<i class="fa-solid fa-chevron-down"></i>')}
+//       </a>
+//       ${(gnbData[v]=="없음"?'':` 
+//       <!-- 서브메뉴 -->
+//       <aside class="smenu">
+//         <div class="inbox">
+//           <h2>${v}</h2>
+//           <ol>
+//           ${
+//           gnbData[v].map(v2 =>`
+//           <li>
+//             <a href="#">${v2}</a>
+//           </li>
+//           `).join('')
+//           }
+//           </ol>
+//         </div>
+//       </aside>
+//       `)}
+//     </li>
+//     `).join('')}
+//   </ul>
+//   `);
 
 // 1. 슬라이드함수 호출하여 실행하기
 slideFn();
@@ -75,8 +75,8 @@ dkbData.previewData // 원본배열
   .slice(0,8);
   // 다시한번 정렬한 배열중 0부터 7번까지의 배열값만 딥카피 -> 총8개
 
-console.log('원본:',dkbData.previewData);
-console.log('미리보기변경:',newArrayData);
+// console.log('원본:',dkbData.previewData);
+// console.log('미리보기변경:',newArrayData);
 
 // 화면에 배열 데이터 바인딩하기
 $(".preview-box ul").html(
