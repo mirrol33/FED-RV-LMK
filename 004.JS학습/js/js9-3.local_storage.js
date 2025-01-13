@@ -163,6 +163,40 @@ const tit = myFn.qs('#tit');
 const cont = myFn.qs('#cont');
 // 이벤트 함수 설정하기 
 myFn.qs('#sbtn').onclick = () => {
+  console.log('입력하라',tit,cont);
+  // 1. 입력데이터 유효성 검사 : try~catch사용!
+  try{
+    // trim() 앞뒤공백 제거 처리해야 공백만 넣기막음!
+    if(tit.value.trim()==''||cont.value.trim()==''){
+      throw "제목과 내용은 반드시 입력해야합니다!";
+    }
+  } /// try ///
+  catch(err){
+    // catch문에 들어온 경우는 에러상황임!
+    alert(err);
+    // 함수 아랫부분 실행 못하도록 리턴함!
+    return;
+  } /// catch ///
+
+  // [로컬쓰 처리 기본과정]
+  // 로컬쓰읽기 -> 로컬쓰파싱 -> 데이터변경->로컬쓰문자변경후 업데이트!
+
+  // 2. 로컬쓰 minfo 데이터 읽어오기 : 문자형 데이터임!
+  let locals = localStorage.getItem('minfo');
+
+  // 3. 로컬쓰 minfo 파싱후 데이터 넣기
+  locals = JSON.parse(locals);
+  locals.push({
+    idx: locals.length+1,
+    tit: tit.value,
+    cont: cont.value,
+  });
+
+  // 4. 로컬쓰 변경된 데이터 다시 넣기 : 넣을땐 문자화(stringify)
+  localStorage.setItem('minfo', JSON.stringify(locals));
+
+  // 5. 다시 데이터 바인딩하기
+  bindData();
 
 }; // click 이벤트 함수 //
 
