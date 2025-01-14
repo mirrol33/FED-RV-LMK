@@ -140,4 +140,10 @@ img {
 }
 .ban-box ul li .post-content h3 {
   font-size: 42px;
+}
+
+@media (max-width: 1000px) {
+  .ban-box ul li {
+    aspect-ratio: 979/931;
+  }
 }/*# sourceMappingURL=main.css.map */

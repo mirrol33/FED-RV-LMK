@@ -300,10 +300,17 @@ function setLS(obj) {
   locals = JSON.parse(locals);
   // 문자형 로컬쓰를 파싱하여 배열객체로 변환함!
 
+  console.log('Math.max(1,50,24)',Math.max(1,50,24));
+  console.log('locals.map(v=>v.idx)',locals.map(v=>v.idx));
+
   // 3-1. 'add'일때 데이터 추가하기
   if(obj.opt == 'add'){
     locals.push({
-      idx: locals.length + 1,
+      // 고유번호는 데이터 중 최대값에 1을 더해야함
+      // Math.max(1,50,24) -> 결과는 50!
+      // Math.max.apply(보낼객체,배열) -> 보낼객체가 없으면 null
+      // -> max하위 apply는 배열값 대상으로 최대값을 적용함!
+      idx: Math.max.apply(null,locals.map(v=>v.idx)) + 1,
       tit: tit.value,
       cont: cont.value,
     });

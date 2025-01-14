@@ -69,7 +69,7 @@ font-family: 'Roboto Condensed', sans-serif;
   }
   
   @mixin mobile {
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: $breakpoint-mobile) {
       @content;
     }
   }
