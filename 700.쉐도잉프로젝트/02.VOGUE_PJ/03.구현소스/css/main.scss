@@ -148,59 +148,29 @@
   }
 }
 
-// 7. Fashion 영역 ////
-.sub-tit {
-  font-size: $font-size-x-large;
-  padding-bottom: 15px;
+// 3. 투데이 영역 /////////////
+
+// 투데이영역 속박스
+.today-area {
+  @extend .common-box;
 }
-// 영역박스 공통
-.common-box {
-  padding: $spacing-40;
+
+
+// 리스트 박스
+.post-list-today {
+  // left-type 왼쪽큰박스
+  @include list-type("left-type");
 }
+
+// 7. Fashion 영역 /////////////
+
+// 패션영역 속박스
+.fashion-area {
+  @extend .common-box;
+}
+
 // 리스트 박스
 .post-list {
-  ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-
-    li:nth-child(3) {
-      grid-area: 1/3/3/4;
-
-      figcaption {
-        translate: 0 -100%;
-        padding: 20px;
-        color: #fff;
-        background: linear-gradient(to top, #000, transparent);
-
-        // 날짜 글쓴이는 숨김
-        p.date{
-          display: none;
-        }
-      }
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    // 아이템 설명박스
-    figcaption {
-      padding: 20px 0;
-
-      p.category {
-        font-size: $font-size-cat-date;
-      }
-      h3.s-tit {
-        font-size: $font-size-small-tit;
-        margin: 10px 0;
-      }
-      p.date {
-        font-size: $font-size-cat-date;
-        color: #999;
-      }
-    }
-  }
+  // right-type 오른쪽큰박스
+  @include list-type("right-type");
 }
