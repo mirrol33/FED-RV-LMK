@@ -7,6 +7,8 @@
 
 // 1. 상단영역 ////////////////
 .top-area {
+  /* 부모자격 */
+  position: relative;
   padding: $spacing-40;
 }
 // 1-1. 로고박스
@@ -24,11 +26,14 @@
 
   ul {
     display: flex;
-    gap: 20px;
+    gap: 3em;
     justify-content: center;
 
     li {
-      font-size: $font-size-common;
+      // font-size: $font-size-common;
+      font-size: 1.6em;
+      font-weight: 600;
+      letter-spacing: 0.2em;
     }
   }
 }
@@ -44,6 +49,46 @@
   .gnb {
     ul {
       justify-content: flex-start;
+    }
+  }
+}
+
+// 1-3 요약메뉴
+.sum-menu {
+  position: absolute;
+  // 부모는? .top-area
+  right: $spacing-40;
+  /* 세로방향 정중앙 */
+  top: $spacing-40;
+
+  font-size: $font-size-common;
+
+  // 하위리스트
+  ol {
+    display: flex;
+    align-items: center;
+    gap: 3em;
+    li {
+      // 언어선택
+      &:nth-child(1) a {
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-decoration: underline;
+        text-underline-offset: 10px;
+      }
+      // 구독하기
+      &:nth-child(2) a {
+        padding: 5px 10px;
+        background-color: #000;
+        color: #fff;
+      }
+      // 햄버거버튼
+      &:nth-child(3) a {
+        font-size: $font-size-medium;
+        font-weight: 100;
+        transform: scaleX(0.7);
+        display: inline-block;
+      }
     }
   }
 }
@@ -93,12 +138,68 @@
 
 @include tablet-medium {
   // 배너박스
-  // 배너박스
   .ban-box {
     ul {
       li {
         // 비율박스
         aspect-ratio: 979/931;
+      }
+    }
+  }
+}
+
+// 7. Fashion 영역 ////
+.sub-tit {
+  font-size: $font-size-x-large;
+  padding-bottom: 15px;
+}
+// 영역박스 공통
+.common-box {
+  padding: $spacing-40;
+}
+// 리스트 박스
+.post-list {
+  ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    li:nth-child(3) {
+      grid-area: 1/3/3/4;
+
+      figcaption {
+        translate: 0 -100%;
+        padding: 20px;
+        color: #fff;
+        background: linear-gradient(to top, #000, transparent);
+
+        // 날짜 글쓴이는 숨김
+        p.date{
+          display: none;
+        }
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    // 아이템 설명박스
+    figcaption {
+      padding: 20px 0;
+
+      p.category {
+        font-size: $font-size-cat-date;
+      }
+      h3.s-tit {
+        font-size: $font-size-small-tit;
+        margin: 10px 0;
+      }
+      p.date {
+        font-size: $font-size-cat-date;
+        color: #999;
       }
     }
   }
