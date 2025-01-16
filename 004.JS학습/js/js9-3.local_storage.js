@@ -61,21 +61,95 @@ import myFn from "./my_function.js";
 // localStorage.setItem('your-name','제이슨');
 // console.log(localStorage.getItem('my-name'));
 // console.log(localStorage.getItem('your-name'));
-// myFn.qs('body').onclick = ()=>{localStorage.clear()};
-// myFn.qs('body').onclick = ()=>{localStorage.removeItem('your-name')};
+// myFn.qs('body').onclick =
+// ()=>{localStorage.clear()};
+// myFn.qs('body').onclick =
+// ()=>{localStorage.removeItem('your-name')};
 
 // 세션스토리지 테스트
 // sessionStorage.setItem('my-dog','포메라니안');
 // sessionStorage.setItem('your-dog','요키');
 // console.log(sessionStorage.getItem('my-dog'));
 // console.log(sessionStorage.getItem('your-dog'));
-// myFn.qs('body').onclick = ()=>{sessionStorage.clear()};
-// myFn.qs('body').onclick = ()=>{sessionStorage.removeItem('my-dog')};
+// myFn.qs('body').onclick =
+// ()=>{sessionStorage.clear()};
+// myFn.qs('body').onclick =
+// ()=>{sessionStorage.removeItem('my-dog')};
 
 // [ 1. 로컬 스토리지 연습 ] ////////////////////
 // 1. 버튼 기능 이벤트 대상 : .local-box button
+const btnLocal = myFn.qsa(".local-box button");
+
+// -> 추가대상 수정하기 선택박스요소
+const selBox = myFn.qs('select#sel');
+console.log("대상:", btnLocal, selBox);
+
 // 2. 버튼에 이벤트 설정하기
+btnLocal.forEach((ele) => myFn.addEvt(ele, "click", localsFn));
+
 // 3. 로컬쓰 처리 함수 만들기 ///////
+function localsFn() {
+  // 1. 버튼 텍스트 읽기
+  let btxt = this.innerText;
+  console.log("로컬쓰~!", btxt);
+
+  // 2. 버튼별 기능 분기하기 //////
+  if (btxt == "처음") {
+    // (1) 로컬 스토리지 셋팅하기
+    // -> localStorage.setItem(키,값)
+    localStorage.setItem("actor-name", "이정재");
+    localStorage.setItem("actor-role", "박평호역");
+    localStorage.setItem(
+      "actor-cat",
+      "조직내 스파이를 색출하는 해외팀 안기부장"
+    );
+  } /// if ////
+  else if (btxt == "보여줘") {
+    // 배우이름 출력
+    myFn.qs(".local .nm").innerText = localStorage.getItem("actor-name");
+    // 역할이름 출력
+    myFn.qs(".local .role").innerText = localStorage.getItem("actor-role");
+    // 캐릭터소개 출력
+    myFn.qs(".local .cat").innerText = localStorage.getItem("actor-cat");
+  } /// else if ////
+  else if (btxt == "전체삭제") {
+    // 로컬스토리지 전체 삭제
+    // 해당 url 스토리지만 대상으로 모두 지움
+    localStorage.clear();
+
+    // 개별삭제는 removeItem(키)
+    // localStorage.removeItem("actor-name");
+  } //// else if ////
+  else if (btxt == "처리") {
+    // 배열/객체 만들기
+    // 1. 로컬쓰에 "minfo"키가 없으면 새로만들기
+    // 만약 키가 없으면 null값을 리턴함
+    // 이것은 if문에서 false처리됨!
+    // false일때 처리해야하므로 NOT(!)연산자사용
+    // 또는 빈 배열값일 경우도 생성함수호출 처리
+    // if (
+    //   !localStorage.getItem("minfo") ||
+    //   localStorage.getItem("minfo") == "[]"
+    // ) {
+    //   // 최초 객체데이터 만들기 함수 호출
+    //   makeObj();
+    // } /// if ///
+    // console.log(localStorage.getItem("minfo"));
+    // // 2. 화면에 출력하기 : 데이터 바인딩하기
+    // bindData();
+  } //// else if ////
+} /////////// localsFn //////////
+
+// 추가로 각 출력 영역을 클릭하면 해당 로컬쓰만 지우기셋팅
+// 배우이름 삭제
+myFn.qs(".local .nm").onclick = () => localStorage.removeItem("actor-name");
+
+// 역할이름 삭제
+myFn.qs(".local .role").onclick = () => localStorage.removeItem("actor-role");
+
+// 캐릭터소개 삭제
+myFn.qs(".local .cat").onclick = () => localStorage.removeItem("actor-cat");
+
 // "minfo" 로컬쓰 키가 없으면 객체를 만들어 넣기 함수 //
 function makeObj() {
   console.log("minfo만들기!");
@@ -98,6 +172,7 @@ function makeObj() {
   // 넣어야 로컬쓰에 들어간다!
   // -> JSON.stringify(배열/객체)
   localStorage.setItem("minfo", JSON.stringify(obj));
+  // 화면에 게시판 바인딩하기
   bindData();
 } ///////// makeObj //////
 
@@ -111,7 +186,6 @@ function bindData() {
   localData = JSON.parse(localData);
   console.log("로컬쓰 파싱후!", localData);
 
-  console.log("게시판 화면 뿌리기!", localData);
   // 출력대상 : .board
   // 3. 화면에 출력하기 ////////
   myFn.qs(".board").innerHTML = `
@@ -139,15 +213,34 @@ function bindData() {
           .join("")}
     </table>
 `;
-  // 삭제버튼 링크함수 호출!
+
+  // 4. 삭제버튼 링크함수 호출!
   setDelLink();
+
+  // 5. 수정을 위한 선택박스 바인딩하기!
+  // 대상 : #sel -> selBox변수
+  // 데이터 : 파싱된 로컬쓰 (배열) 중 idx만 사용! -> map()
+  selBox.innerHTML = 
+    `<option value="sel">선택하세요</option>` +
+  localData.map(v=>
+    `<option value="${v.idx}">${v.idx}</option>`
+  ).join('');
+  
 } ////////////// bindData //////////////////
 
-////////////////////////////////////
-// 게시판 최초호출 및 데이터 셋업 //
-///////////////////////////////////
+// 수정항목 선택박스 변경시 함수구현
+myFn.addEvt(selBox,'change',function(){
+  console.log('선택변경:',this.value);
+});
+
+
+/////////////////////////////////////////////////
+////// [ 게시판 최초호출 및 데이터 셋업 ] //////////
+//////////////////////////////////////////////////
+
 // 게시판 최초호출 : 로컬쓰 minfo 존재여부에 따라처리
-console.log("최초minfo로컬쓰가 있는가?", localStorage.getItem("minfo"));
+console.log("최초minfo로컬쓰가 있는가?", 
+  localStorage.getItem("minfo"));
 // 만약 결과가 null이면 이 로컬쓰는 없는것임!
 // 따라서 if문의 조건문에 사용하면 코드를 지정할 수 있다!
 
@@ -156,145 +249,93 @@ if (localStorage.getItem("minfo")) bindData();
 // 만약 minfo 로컬쓰가 없으면 생성하라!
 else makeObj();
 
-/////////////////////////////////////////////
-// 데이터 추가 버튼 클릭시 데이터 추가하기 //
-///////////////////////////////////////////
-// 대상: # sbtn (입력버튼)
+/////////////////////////////////////////////////
+/// [ 데이터 추가 버튼 클릭시 데이터 추가하기 ] ////
+/////////////////////////////////////////////////
+// 대상 : #sbtn (입력버튼)
 // 데이터 읽어올 대상 : #tit, #cont
 const tit = myFn.qs("#tit");
 const cont = myFn.qs("#cont");
-// 이벤트 함수 설정하기
+
+// 이벤트 함수 설정하기 /////
 myFn.qs("#sbtn").onclick = () => {
-  console.log("입력하라", tit, cont);
-  // 1. 입력데이터 유효성 검사 : try~catch사용!
+  console.log("입력하라!", tit, cont);
+  // 1. 입력데이터 유효성 검사 : try ~ catch사용!
   try {
     // trim() 앞뒤공백 제거 처리해야 공백만 넣기막음!
     if (tit.value.trim() == "" || cont.value.trim() == "") {
       throw "제목과 내용은 반드시 입력해야합니다!";
     }
   } catch (err) {
-    /// try ///
+    /// try ////
     // catch문에 들어온 경우는 에러상황임!
     alert(err);
     // 함수 아랫부분 실행 못하도록 리턴함!
     return;
   } /// catch ///
 
-  // 로컬쓰 처리함수 호출!
-  setLS({key:'minfo',opt:'add'});
-}; // click 이벤트 함수 //
+  // 로컬쓰 처리함수 호출! : call() 대리호출
+  setLS.call({ key: "minfo", opt: "add" });
+}; ///////////// click 이벤트 함수 ///////////////
 
-/////////////////////////////////////////////
-// 데이터 추가 버튼 클릭시 데이터 삭제하기 //
-///////////////////////////////////////////
-// 대상: .del-link a (삭제버튼)
+/////////////////////////////////////////////////
+/// [ 데이터 삭제 버튼 클릭시 데이터 삭제하기 ] ////
+/////////////////////////////////////////////////
+// 대상 : .del-link a (삭제버튼)
 // 처음 로딩시 삭제버튼에 클릭이벤트를 설정하게 되면
-// 삭제후 리스트가 변경됨에따라 기존에 설정도니 이벤트가 사라짐!
-// -> 주의!중요!! 일반적으로 형제요소중 DOM구조가 변경될 시
-// -> 기존 이벤트가 리셋되는것이 기본임! 따라서 DOM이 변경될때
-// -> 그 형제요소의 이벤트를 다시 설정해야한다
-// -> 이런 이유로 아래 이벤트설정 코드는 함수로 만들어준다!
+// 삭제후 리스트가 변경됨에따라 기존에 설정된 이벤트가 사라짐!
+// ->>> ((주의!중요!!!)) 일반적으로 형제요소중 DOM구조가 변경될시
+// ->>> 기존 이벤트가 리셋되는것이 기본임! 따라서 DOM이 변경될때
+// ->>> 그 형제요소의 이벤트를 다시 설정해야한다!
+// ->>> 이런 이유로 아래 이벤트설정 코드는 함수로 만들어준다!
 
-
-// 삭제버튼 링크함수 최초호출!
-function setDelLink(){
-  myFn.qsa('.del-link a').forEach(el=>{
-    myFn.addEvt(el,'click',function(e){
+function setDelLink() {
+  // 삭제코드 a링크를 순회하여 이벤트 및 기능넣기!
+  myFn.qsa(".del-link a").forEach((el) => {
+    myFn.addEvt(el, "click", function (e) {
       // a요소 기본이동막기
       e.preventDefault();
-  
-      // 1. 지울순번 읽어오기 : data-idx 속성값
-      let delIdx = this.getAttribute('data-idx');
-      console.log('지울순번',delIdx);
-  
-      // 2. 로컬쓰처리함수호출
-      setLS({key:'minfo',opt:'delete',delSeq:delIdx});
-    }); /// addEvt ///
-  }); //// forEach ////
-} //// setDelLink 함수 ////
 
-// 1. 버튼 기능 이벤트 대상 : .local-box button
-const btnLocal = myFn.qsa(".local-box button");
-console.log("대상:", btnLocal);
+      // 1. 지울순번 읽어오기 : data-idx속성값
+      let delIdx = this.getAttribute("data-idx");
+      console.log("지울순번:", delIdx);
 
-// 2. 버튼에 이벤트 설정하기
-btnLocal.forEach((ele) => myFn.addEvt(ele, "click", localsFn));
+      // 2. 로컬쓰처리함수 호출 : call() 대리호출!
+      setLS.call({ key: "minfo", opt: "delete", delSeq: delIdx });
+    }); //// addEvt ////
+  }); ////// forEach /////
+} ////// setDelLink 함수 ////////////////////////////
 
-// 3. 로컬쓰 처리 함수 만들기 ///////
-function localsFn() {
-  // 1. 버튼 텍스트 읽기
-  let btxt = this.innerText;
-  console.log("로컬쓰~!", btxt);
-
-  // 2. 버튼별 기능 분기하기 //////
-  if (btxt == "처음") {
-    // (1) 로컬 스토리지 셋팅하기
-    // -> localStorage.setItem(키,값)
-    localStorage.setItem("actor-name", "이정재");
-    localStorage.setItem("actor-role", "박평호역");
-    localStorage.setItem("actor-cat", "조직내 스파이를 색출하는 해외팀 안기부장");
-  } /// if ////
-  else if (btxt == "보여줘") {
-    // 배우이름 출력
-    myFn.qs(".local .nm").innerText = localStorage.getItem("actor-name");
-    // 역할이름 출력
-    myFn.qs(".local .role").innerText = localStorage.getItem("actor-role");
-    // 캐릭터소개 출력
-    myFn.qs(".local .cat").innerText = localStorage.getItem("actor-cat");
-  } /// else if ////
-  else if (btxt == "전체삭제") {
-    // 로컬스토리지 전체 삭제
-    // 해당 url 스토리지만 대상으로 모두 지움
-    localStorage.clear();
-
-    // 개별삭제는 removeItem(키)
-    // localStorage.removeItem("actor-name");
-  } //// else if ////
-  else if (btxt == "처리") {
-    // 배열/객체 만들기
-    // 1. 로컬쓰에 "minfo"키가 없으면 새로만들기
-    // 만약 키가 없으면 null값을 리턴함
-    // 이것은 if문에서 false처리됨!
-    // false일때 처리해야하므로 NOT(!)연산자사용
-    // 또는 빈 배열값일 경우도 생성함수호출 처리
-    if (!localStorage.getItem("minfo") || localStorage.getItem("minfo") == "[]") {
-      // 최초 객체데이터 만들기 함수 호출
-      makeObj();
-    } /// if ///
-    console.log(localStorage.getItem("minfo"));
-
-    // 2. 화면에 출력하기 : 데이터 바인딩하기
-    bindData();
-  } //// else if ////
-} /////////// localsFn //////////
-
-/********************************************
-//// 로컬스토리지 처리 공통함수 ////
-// 함수명 : setLS
-// 기능 : 로컬스토리지 데이터를 처리하는 함수
-********************************************/
-function setLS(obj) {
-  // obj - 단 하나의 객체전달변수!
-  // 전달변수를 하나만 받고 그 값을 객체로 정의한다!
-  // -> 이렇게 하면 확정성이 좋아진다!
+////////// 로컬스토리지 처리 공통함수 //////////////
+/************************************************* 
+  함수명 : setLS
+  기능 : 로컬스토리지 데이터를 처리하는 함수
+*************************************************/
+function setLS() {
+  // 전달변수를 하나만 받고 그값을 객체로 정의한다!
+  // -> 이렇게 하면 확장성이 좋아진다!
   // -> 예컨데 지울때는 지울순번을 더 보내야한다! 이럴때 좋음!
+  // ->>> 전달변수 없이 객체를 받는 방법이 있음!!!
+  // 바로 call(객체) / apply(객체) 로 대리호출해줌!
+  // 받을때는 this.속성명 으로 받아준다!!!
 
-  // 아래 속성명정의! //////
-  // obj = {key:값, opt:값, delIdx:값}
-  // obj.key - 로컬스토리지 키명
-  // obj.opt - 처리옵션(add/delete/update)
-  // obj.delSeq - 지울순번
+  // 아래 속성명정의! /////////
+  // {key:값, opt:값, delIdx:값}
+  // -> call(객체)로 호출하면 this로 받아라!
+  // this.key - 로컬스토리지 키명
+  // this.opt - 처리옵션(add/delete/update)
+  // this.delSeq - 지울순번
   // -> 일반적으로 데이터 처리는 4가지를 말한다!
-  // -> 크루드!(CRUD) -> Create/Read/Update/Delete
+  // ->>> 크루드!(CRUD) -> Create/Read/Update/Delete
 
   // [ 로컬쓰 처리 기본과정 ]
   // 로컬쓰읽기->로컬쓰파싱->데이터변경->로컬쓰문자변경후 업데이트!
 
   // 1. 전달값 및 호출확인
-  console.log("로컬쓰처리!", obj.key);
+  console.log("로컬쓰처리!", this.key);
 
   // 2. 로컬쓰 minfo 데이터 읽어오기 : 문자형 데이터임!
-  let locals = localStorage.getItem(obj.key);
+  let locals = localStorage.getItem(this.key);
 
   // 3. 로컬쓰 minfo 파싱후 데이터 처리하기
   locals = JSON.parse(locals);
@@ -303,8 +344,8 @@ function setLS(obj) {
   console.log('Math.max(1,50,24)',Math.max(1,50,24));
   console.log('locals.map(v=>v.idx)',locals.map(v=>v.idx));
 
-  // 3-1. 'add'일때 데이터 추가하기
-  if(obj.opt == 'add'){
+  // 3-1. 'add'일때 데이터 추가하기 ////
+  if (this.opt == "add") {
     locals.push({
       // 고유번호는 데이터 중 최대값에 1을 더해야함
       // Math.max(1,50,24) -> 결과는 50!
@@ -315,29 +356,23 @@ function setLS(obj) {
       cont: cont.value,
     });
   } /// if ///
-  // 3-2. 'update' 일때 데이터 수정하기
-  else if(obj.opt == 'update'){
-  
+
+  // 3-2. 'update'일때 데이터 수정하기 ////
+  else if (this.opt == "update") {
   } /// else if ///
-  // 3-3. 'delete' 일때 데이터 삭제하기
-  else if(obj.opt == 'delete'){
-    locals.splice(obj.delSeq,1);
+
+  // 3-3. 'delete'일때 데이터 삭제하기 ////
+  else if (this.opt == "delete") {
+    // 삭제처리 배열함수 : splice(지울순번,1)
+    locals.splice(this.delSeq, 1);
   } /// else if ///
 
   // 4. 로컬쓰 변경된 데이터 다시 넣기 : 넣을땐 문자화(stringify)
-  localStorage.setItem(obj.key, JSON.stringify(locals));
+  localStorage.setItem(this.key, JSON.stringify(locals));
 
   // 5. 다시 데이터 바인딩하기
   bindData();
-}
-
-// 추가로 각 출력영역을 클릭하면 해당 로컬쓰만 지우기셋팅
-// 배우이름 삭제
-myFn.qs(".local .nm").onclick = () => localStorage.removeItem("actor-name");
-// 역할이름 삭제
-myFn.qs(".local .role").onclick = () => localStorage.removeItem("actor-role");
-// 캐릭터소개 삭제
-myFn.qs(".local .cat").onclick = () => localStorage.removeItem("actor-cat");
+} //////////// setLS 함수 //////////////////////
 
 //******************************************** */
 ///////////////////////////////////////////////
@@ -381,10 +416,11 @@ function sessionsFn() {
   } //// else if ////
 } /////////// sessionsFn //////////
 
-// 세션스토리지 개별 삭제 구현하기 ////
+// 세션스토리지 개별 삭제 구현하기 ///////
 // 배우이름 삭제
 myFn.qs(".session .nm").onclick = () => sessionStorage.removeItem("actor-name");
 // 역할이름 삭제
-myFn.qs(".session .role").onclick = () => sessionStorage.removeItem("actor-role");
+myFn.qs(".session .role").onclick = () =>
+  sessionStorage.removeItem("actor-role");
 // 캐릭터소개 삭제
 myFn.qs(".session .cat").onclick = () => sessionStorage.removeItem("actor-cat");
