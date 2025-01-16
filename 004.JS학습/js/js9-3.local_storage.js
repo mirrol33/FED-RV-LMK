@@ -84,6 +84,10 @@ const btnLocal = myFn.qsa(".local-box button");
 const selBox = myFn.qs('select#sel');
 console.log("대상:", btnLocal, selBox);
 
+// -> 추가대상: 수정항목 제목/내용
+const tit2 = myFn.qs('#tit2');
+const cont2 = myFn.qs('#cont2');
+
 // 2. 버튼에 이벤트 설정하기
 btnLocal.forEach((ele) => myFn.addEvt(ele, "click", localsFn));
 
@@ -223,15 +227,25 @@ function bindData() {
   selBox.innerHTML = 
     `<option value="sel">선택하세요</option>` +
   localData.map(v=>
-    `<option value="${v.idx}">${v.idx}</option>`
+    `<option value="${v.idx+'♣'+v.tit+'♣'+v.cont}">${v.idx}</option>`
   ).join('');
   
 } ////////////// bindData //////////////////
 
-// 수정항목 선택박스 변경시 함수구현
+//////////////////////////////////////
+// 수정항목 선택박스 변경시 함수구현////
+////////////////////////////////////
 myFn.addEvt(selBox,'change',function(){
-  console.log('선택변경:',this.value);
-});
+  
+  //읽어온 value값을 split으로 잘라서 넣기
+  let newVal = this.value.split('♣');
+
+  console.log('선택변경:',this.value, newVal);
+
+  // 수정할 데이터의 원본 제목/내용 보여주기!
+  tit2.value = newVal[0];
+  cont2.value = newVal[1];
+}); //// change 이벤트 함수 ////
 
 
 /////////////////////////////////////////////////
@@ -276,6 +290,38 @@ myFn.qs("#sbtn").onclick = () => {
 
   // 로컬쓰 처리함수 호출! : call() 대리호출
   setLS.call({ key: "minfo", opt: "add" });
+}; ///////////// click 이벤트 함수 ///////////////
+
+/////////////////////////////////////////////////
+/// [ 데이터 수정 버튼 클릭시 데이터 수정하기 ] ////
+/////////////////////////////////////////////////
+// 대상 : #mobtn (수정버튼)
+// 데이터 읽어올 대상 : #tit2, #cont2 -> tit2, cont2변수
+
+// 이벤트 함수 설정하기 /////
+myFn.qs("#mobtn").onclick = () => {
+  console.log("수정하라!");
+  // 1. 입력데이터 유효성 검사 : try ~ catch사용!
+  try {
+    // trim() 앞뒤공백 제거 처리해야 공백만 넣기막음!
+    if (tit2.value.trim() == "" || cont2.value.trim() == "") {
+      throw "제목과 내용은 반드시 입력해야합니다!";
+    }
+  } catch (err) {
+    /// try ////
+    // catch문에 들어온 경우는 에러상황임!
+    alert(err);
+    // 함수 아랫부분 실행 못하도록 리턴함!
+    return;
+  } /// catch ///
+
+  // 로컬쓰 처리함수 호출! : call() 대리호출
+  setLS.call({
+    key: "minfo",
+    opt: "update",
+    upSeq: selBox.value.split('♣')[0],
+    // 지울 순번은 선택박스의 value값 중 잘라서 첫번째값!
+  });
 }; ///////////// click 이벤트 함수 ///////////////
 
 /////////////////////////////////////////////////
@@ -324,6 +370,7 @@ function setLS() {
   // -> call(객체)로 호출하면 this로 받아라!
   // this.key - 로컬스토리지 키명
   // this.opt - 처리옵션(add/delete/update)
+  // this.upSeq - 수정할순번
   // this.delSeq - 지울순번
   // -> 일반적으로 데이터 처리는 4가지를 말한다!
   // ->>> 크루드!(CRUD) -> Create/Read/Update/Delete
@@ -359,6 +406,24 @@ function setLS() {
 
   // 3-2. 'update'일때 데이터 수정하기 ////
   else if (this.opt == "update") {
+    // 파싱된 객체값을 순회하여 해당순번idx값과
+    // 일치된 값을 찾아서 제목과 내용을 변경한다!
+    // 순회가능한 배열 메서드는 뭐가있지?
+    // -> forEach(), map(), find(), filter()
+    // ->> 위의 메서드들은 대상배열을 모두 순회한다!
+    // 그래서 효율성이 떨어진다!
+    // 찾으면 바로 순회를 끝내는 메서드가 있다! 
+    // ->>> 썸타는 메서드 : some()
+    locals.some(v=>{
+      console.log('배열순회중!');
+      if(v.idx == this.upSeq) {
+        // 데이터 업데이트
+        v.tit = tit2.value;
+        v.cont = cont2.value;
+        // 리턴 true하면 some메서드 끝내기!
+        return true;
+      } /// if ///
+    }); /// some ///
   } /// else if ///
 
   // 3-3. 'delete'일때 데이터 삭제하기 ////
