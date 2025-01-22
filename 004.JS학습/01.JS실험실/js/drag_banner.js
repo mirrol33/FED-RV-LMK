@@ -6,4 +6,4 @@ import setSlide from "./drag_slide.js";
 
 // [2] 기능구현 파트 ///////////////
 // 1. 드래그 슬라이드 기능 함수 호출하기
-setSlide("banbx");
+setSlide('banbx');
