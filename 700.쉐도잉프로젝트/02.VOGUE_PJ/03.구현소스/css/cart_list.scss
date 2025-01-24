@@ -9,14 +9,11 @@
 
 /* 전체부모박스 */
 #cartlist {
-  // position: fixed;
-  // top: 0px;
-  // right: -60%;
+  position: relative;
   margin: 0 auto;
-  width: 60vw;
-  height: 100dvh;/* vh -> dvh : 다이나믹 vh */
+  width: min(90vw,1000px);
+  // height: 100dvh;/* vh -> dvh : 다이나믹 vh */
   background-color: rgba(255, 255, 255, 0.8);
-  z-index: 99999999;
 }
 
 /* 닫기버튼 */
