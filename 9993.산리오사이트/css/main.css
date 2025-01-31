@@ -23,7 +23,7 @@
 }
 
 /* 전체글자 크기기준값 설정하기 : rem단위 */
-html{
+html {
   /* 계산 편의상 10px로 설정! */
   font-size: 10px;
 }
@@ -73,6 +73,7 @@ h1.logo img {
   align-items: center;
   gap: 8rem;
   font-weight: 500;
+  font-size: 1.6rem;
 
   /* 대문자 출력 */
   text-transform: uppercase;
@@ -191,6 +192,8 @@ h1.logo img {
 .cat-list figure {
   border: 1px solid #ccc;
   border-radius: 20px;
+  /* 이미지 나감 숨기기 */
+  overflow: hidden;
 }
 /* 이미지 설명 */
 .cat-list figcaption {
@@ -245,50 +248,3 @@ h1.logo img {
   background-color: var(--contact-area-color);
 }
 
-/************ 미디어쿼리 ************/
-@media screen and (max-width: 1024px) {
-  /* Mobile GNB 나타남! */
-  .gnb-mob {
-    display: block;
-  }
-
-  /* DB GNB메뉴 클래스 on 줄경우 
-    모바일용 숨김 메뉴로 변신 */
-  .gnb.on {
-    position: fixed;
-    top: 100px;
-    /* 오른쪽 바깥에 나가있음! */
-    left: 100vw;
-    width: 100vw;
-    height: calc(100vh - 100px);
-
-    background-color: #fff;
-    font-size: 5vw;
-
-    /* 투명, 트랜지션 */
-    opacity: 0;
-    transition: 0.8s ease-in-out, opacity 0.3s 0.5s;
-  }
-  .gnb.on ul {
-    /* 세로방향 플렉스 */
-    flex-direction: column;
-    gap: 3vh;
-  }
-  /* 보이기 클래스는 show */
-  .gnb.on.show {
-    left: 0;
-    opacity: 1;
-    border-top: 1px solid #ccc;
-    padding-top: 5vh;
-  }
-  /* 데스크탑용 박스 */
-  .dt-box {
-    translate: 0 -100%;
-    opacity: 0;
-  }
-  /* 모바일용 박스 */
-  .mob-box {
-    top: 0;
-    opacity: 1;
-  }
-} /* 미디어쿼리 */
