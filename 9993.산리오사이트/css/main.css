@@ -8,13 +8,14 @@
 @import url(./reset.css);
 @import url(./core.css);
 
-/* 공통변수 셋팅\ */
+/* 공통변수 셋팅 */
 :root {
   /* 색상변수 : --이름-color */
   --main-gray-color: #222;
   --character-area-color: #fefefe;
   --company-area-color: #f4f4f4;
   --contact-area-color: #4a679d;
+
   /* 사이즈변수 : --이름-size */
   --top-area-padding-size: 2rem 5rem;
   --bottom-area-padding-size: 5rem;
@@ -60,7 +61,7 @@ body {
 /* 로고 */
 h1.logo img {
   height: min(4rem, 4vw);
-  /* 최대사이즈 지정:40px이 최대크기 */
+  /* 최대사이즈 지정:4rem이 최대크기 */
 }
 
 /* GNB메뉴 */
@@ -72,8 +73,9 @@ h1.logo img {
   display: flex;
   align-items: center;
   gap: 8rem;
-  font-weight: 500;
+
   font-size: 1.6rem;
+  font-weight: 500;
 
   /* 대문자 출력 */
   text-transform: uppercase;
@@ -158,12 +160,12 @@ h1.logo img {
 }
 .cat-list ul li {
   flex-basis: 25%;
-  padding: 10px;
+  padding: 1rem;
   box-sizing: border-box;
   /* 글자 줄바꿈방지 */
   white-space: nowrap;
   /* 글자 줄바꿈방지시 옆의 li에 영향차단!
-  -> 안주면 같은 라인의 마지막 li가 아래줄로 
+  -> 안주면 같은 라인의 마지막 li가 아래줄로
   떨어지는 경우가 생길 수 있다! */
   overflow: hidden;
 }
@@ -216,9 +218,11 @@ h1.logo img {
 }
 /* 2-4. 리쿠르트영역 */
 .recruit {
-  background: var(--character-area-color) url(../images/bg_recruit.png) no-repeat center 10vh/90% auto;
+  background: var(--character-area-color) url(../images/bg_recruit.png)
+    no-repeat center 10vh/90%;
 }
-/* 컴퍼니 영역 & 리쿠르트 영역 공통 리스트 디자인 */
+/* 컴퍼니 영역 & 리쿠르트 영역 
+공통 리스트 디자인 */
 .com-type-list {
   display: flex;
   justify-content: space-evenly;
@@ -240,6 +244,7 @@ h1.logo img {
 }
 /* 2-5. 플레이스영역 */
 #main-area .place {
+  /* 공통 패딩 덮어쓰기 상위 부모넣어줌! */
   padding-bottom: 30vh;
   background: url(../images/bg_shop.jpg) no-repeat center/cover;
 }
@@ -247,25 +252,27 @@ h1.logo img {
 .contact-us {
   background-color: var(--contact-area-color);
 }
+
 /* 3. 컨텍어스 영역 */
-/* 3-1. 컨텍어스 내용박스 부모 */
+/* 3-1.컨텍어스 내용박스 부모 */
 .map-info {
   display: flex;
   padding: 5vh 3vh 20vh;
-  
 }
 /* 컨텍어스 자식 파티션 박스 등분할 */
-.map-info>div {
-  flex: 1;
+.map-info > div {
   /* 정확히 등분할 설정함! */
-  flex-basis: 50%;
+  flex-basis: 50%;  
 }
 /* 3-2. 지도박스 */
 .map-box {
   /* 박스 높이값 없이 비율설정 */
   aspect-ratio: 1.4;
+  /* 왼쪽 위아래만 둥근모서리 */
   border-radius: 20px 0 0 20px;
+  /* 지도 아이프레임 숨기기 */
   overflow: hidden;
+  background-color: #fff;
 }
 .map-box iframe {
   border: none;
@@ -278,6 +285,7 @@ h1.logo img {
   /* 부모자격 - 이미지의 부모 */
   position: relative;
   background-color: #fff;
+  /* 오른쪽 위아래만 둥근모서리 */
   border-radius: 0 20px 20px 0;
   padding: 5rem;
   box-sizing: border-box;
@@ -287,8 +295,8 @@ h1.logo img {
   position: absolute;
   bottom: 0;
   right: 0;
-  translate: -10% 30%;
   /* 부모는? .info-box */
+  translate: -10% 22%;
 }
 /* 한글주소 : h3 */
 .info-box h3 {
@@ -306,4 +314,37 @@ h1.logo img {
 /* 전화번호 : p */
 .info-box p {
   font-size: 1.4rem;
+  font-weight: bold;
+  line-height: 1.7;
+  color: var(--main-gray-color);
+}
+
+/* 4. 하단영역 */
+.bottom-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #222;
+  padding: 5rem;
+}
+/* 4-1. 카피라잇박스 */
+.copy-right img {
+  width: 197px;
+}
+/* 4-2. 버튼박스 */
+.btn-box .com-btn:hover {
+  background-color: #222;
+  color: #fff;
+  border-color: #fff;
+}
+/* 5. sns버튼 박스 */
+.q_btn {
+  position: fixed;
+  width: 60px;
+  top: 10vh;
+  right: 60px;
+  z-index: 998;
+}
+.q_btn img {
+  width: 100%;
 }

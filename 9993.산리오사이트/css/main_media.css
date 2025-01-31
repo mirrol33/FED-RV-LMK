@@ -1,6 +1,9 @@
+@charset "utf-8";
 /* 산리오 사이트 메인 페이지 미디어쿼리 - main_media.css */
+
 /************ 미디어쿼리 ************/
-/* 1024px 이하 미디어쿼리 시작 */
+
+/****** 1024px 이하 미디어쿼리 시작 ******/
 @media screen and (max-width: 1024px) {
   /* 전체 Root글자 크기 변경: rem영향 */
   html {
@@ -12,10 +15,10 @@
   }
 
   /* DB GNB메뉴 클래스 on 줄경우 
-    모바일용 숨김 메뉴로 변신 */
+      모바일용 숨김 메뉴로 변신 */
   .gnb.on {
     position: fixed;
-    top: 7rem;
+    top: 8rem;
     /* 오른쪽 바깥에 나가있음! */
     left: 100vw;
     width: 100vw;
@@ -32,6 +35,7 @@
     /* 세로방향 플렉스 */
     flex-direction: column;
     gap: 3vh;
+    /* 글자크기 변경 */
     font-size: 4vh;
   }
   /* 보이기 클래스는 show */
@@ -51,29 +55,37 @@
     top: 0;
     opacity: 1;
   }
+
   /* 캐릭터 영역 영문 타이틀 숨기기 */
   .cat-list figcaption p {
     display: none;
   }
-} /* 1024px 이하 미디어쿼리 종료 */
 
-/* 800px 이하 미디어쿼리 시작 */
+  /* 컨텍어스 이미지 */
+  .info-box img {
+    width: 130px;
+  }
+} /****** 1024px 이하 미디어쿼리 종료 ******/
+
+/****** 800px 이하 미디어쿼리 시작 ******/
 @media screen and (max-width: 800px) {
   /* 루트 글자크기 변경 */
   html {
     font-size: 7px;
   }
-  /* 캐릭터 영역 레이아웃 변경 */
+  /* 캐릭터 영역 레이아웃 변경 : 25% -> 50% */
   .cat-list ul li {
     flex-basis: 50%;
   }
   /* 햄버거 버튼 크기변경 */
   .gnb-mob {
     scale: 0.8;
+    translate: 50% -20%;
     /* 가로방향 오른쪽 기준 */
     transform-origin: right;
   }
-  /* 컴퍼니 영역 & 리쿠르트 영역 공통 리스트 디자인 */
+  /* 컴퍼니 영역 & 리쿠르트 영역 
+  공통 리스트 디자인 변경 */
   .com-type-list {
     flex-direction: column;
     gap: 5vh;
@@ -86,6 +98,7 @@
   .com-type-list p {
     display: none;
   }
+  /* 리쿠르트 영역만 변경 : 가로방향설명박스 */
   .recruit-list figure {
     display: flex;
     justify-content: center;
@@ -104,20 +117,29 @@
   .view-btn {
     margin-bottom: 4vh;
   }
+
   /* 컨텍어스 이미지 */
   .info-box img {
-    width: 130px;
+    width: 170px;
   }
   /* 컨텍어스 레이아웃 변경 */
   .map-info {
     flex-direction: column;
   }
+  /* 맵박스 둥근모서리 변경 */
   .map-box {
     border-radius: 20px 20px 0 0;
+    /* 비율도 변경 */
     aspect-ratio: 2;
   }
+  /* 정보박스 둥근모서리 변경 */
   .info-box {
     border-radius: 0 0 20px 20px;
   }
+  /* 하단영역 세로방향 플렉스 정렬 */
+  .bottom-area {
+    flex-direction: column-reverse;
+    gap: 2vh;
+  }
 }
-/* 800px 이하 미디어쿼리 종료 */
+/****** 800px 이하 미디어쿼리 종료 ******/
