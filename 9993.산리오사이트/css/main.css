@@ -239,7 +239,7 @@ h1.logo img {
   margin-bottom: 3rem;
 }
 /* 2-5. 플레이스영역 */
-.place {
+#main-area .place {
   padding-bottom: 30vh;
   background: url(../images/bg_shop.jpg) no-repeat center/cover;
 }
@@ -247,4 +247,63 @@ h1.logo img {
 .contact-us {
   background-color: var(--contact-area-color);
 }
+/* 3. 컨텍어스 영역 */
+/* 3-1. 컨텍어스 내용박스 부모 */
+.map-info {
+  display: flex;
+  padding: 5vh 3vh 20vh;
+  
+}
+/* 컨텍어스 자식 파티션 박스 등분할 */
+.map-info>div {
+  flex: 1;
+  /* 정확히 등분할 설정함! */
+  flex-basis: 50%;
+}
+/* 3-2. 지도박스 */
+.map-box {
+  /* 박스 높이값 없이 비율설정 */
+  aspect-ratio: 1.4;
+  border-radius: 20px 0 0 20px;
+  overflow: hidden;
+}
+.map-box iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
 
+/* 3-3. 정보박스 */
+.info-box {
+  /* 부모자격 - 이미지의 부모 */
+  position: relative;
+  background-color: #fff;
+  border-radius: 0 20px 20px 0;
+  padding: 5rem;
+  box-sizing: border-box;
+}
+/* 키티 이미지 앱솔루트! */
+.info-box img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  translate: -10% 30%;
+  /* 부모는? .info-box */
+}
+/* 한글주소 : h3 */
+.info-box h3 {
+  font-size: 2.5rem;
+  line-height: 1.5;
+}
+/* 영문주소 : address */
+.info-box address {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  font-style: normal;
+  line-height: 2;
+  color: #aaa;
+}
+/* 전화번호 : p */
+.info-box p {
+  font-size: 1.4rem;
+}

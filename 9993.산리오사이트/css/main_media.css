@@ -104,5 +104,20 @@
   .view-btn {
     margin-bottom: 4vh;
   }
+  /* 컨텍어스 이미지 */
+  .info-box img {
+    width: 130px;
+  }
+  /* 컨텍어스 레이아웃 변경 */
+  .map-info {
+    flex-direction: column;
+  }
+  .map-box {
+    border-radius: 20px 20px 0 0;
+    aspect-ratio: 2;
+  }
+  .info-box {
+    border-radius: 0 0 20px 20px;
+  }
 }
 /* 800px 이하 미디어쿼리 종료 */
