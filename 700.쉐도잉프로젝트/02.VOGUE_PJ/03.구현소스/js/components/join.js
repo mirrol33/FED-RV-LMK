@@ -9,22 +9,20 @@ import valid_member from "../function/valid_member.js";
 export const JoinComp = Vue.component("join-comp", {
   // 1-1. 템플릿코드설정 /////
   template: `
-  <div id="main-area">
+    <div id="main-area">
         <main class="main-area ibx">
-           <!-- 2-1. 회원가입 페이지 상단영역 --> 
+          <!-- 2-1. 회원가입 페이지 상단영역 -->
           <header class="ctop">
-             <!-- 2-1-1. 서브타이틀 --> 
+            <!-- 2-1-1. 서브타이틀 -->
             <h2 class="stit">Member</h2>
           </header>
-           <!-- 2-2. 갤러리 페이지 컨텐츠 박스 --> 
+          <!-- 2-2. 갤러리 페이지 컨텐츠 박스 -->
           <section class="scont">
             <form action="process.php" method="post" class="logF">
               <ul>
-                 <!-- 아이디 --> 
+                <!-- 아이디 -->
                 <li>
-                  <label htmlFor="mid" class="itit">
-                    아이디
-                  </label>
+                  <label htmlFor="mid" class="itit"> 아이디 </label>
                   <input
                     type="text"
                     name="mid"
@@ -34,11 +32,9 @@ export const JoinComp = Vue.component("join-comp", {
                   />
                   <span class="msg"></span>
                 </li>
-                 <!-- 비밀번호 --> 
+                <!-- 비밀번호 -->
                 <li>
-                  <label htmlFor="mpw" class="itit">
-                    비밀번호
-                  </label>
+                  <label htmlFor="mpw" class="itit"> 비밀번호 </label>
                   <input
                     type="password"
                     name="mpw"
@@ -49,11 +45,9 @@ export const JoinComp = Vue.component("join-comp", {
                   <b class="eye">👁</b>
                   <span class="msg"></span>
                 </li>
-                 <!-- 비밀번호확인 --> 
+                <!-- 비밀번호확인 -->
                 <li>
-                  <label htmlFor="mpw2" class="itit">
-                    비밀번호확인
-                  </label>
+                  <label htmlFor="mpw2" class="itit"> 비밀번호확인 </label>
                   <input
                     type="password"
                     name="mpw2"
@@ -63,11 +57,9 @@ export const JoinComp = Vue.component("join-comp", {
                   />
                   <span class="msg"></span>
                 </li>
-                 <!-- 이름 --> 
+                <!-- 이름 -->
                 <li>
-                  <label htmlFor="mnm" class="itit">
-                    이름
-                  </label>
+                  <label htmlFor="mnm" class="itit"> 이름 </label>
                   <input
                     type="text"
                     name="mnm"
@@ -77,26 +69,35 @@ export const JoinComp = Vue.component("join-comp", {
                   />
                   <span class="msg"></span>
                 </li>
-                 <!-- 성별 --> 
+                <!-- 성별 -->
                 <li>
                   <span class="itit">성별</span>
-                  <label htmlFor="gen1" value="m">남성</label>
-                  <input type="radio" name="gen" id="gen1" />
-                  <label htmlFor="gen2" value="w">여성</label>
-                  <input type="radio" name="gen" id="gen2" checked />
-                   <!-- 라디오버튼의 name 속성을 
-                    같은 이름으로 쓰면 그룹핑되어
-                    하나만 선택된다!
+                  <label htmlFor="gen1">남성</label>
+                  <input 
+                    type="radio" 
+                    name="gen" 
+                    id="gen1" 
+                    value="m"
+                  />
+                  <label htmlFor="gen2">여성</label>
+                  <input 
+                    type="radio" 
+                    name="gen" 
+                    id="gen2" 
+                    value="w"
+                    checked 
+                  />
+                  <!-- 라디오버튼의 name 속성을 
+                      같은 이름으로 쓰면 그룹핑되어
+                      하나만 선택된다!     
                     checked 속성 - 기본체크설정
                     value값 설정해야 선택값 읽을때 사용됨!
                     (남성은 'm', 여성은 'w')
                     -->
                 </li>
-                 <!-- 이메일 --> 
+                <!-- 이메일 -->
                 <li>
-                  <label htmlFor="email1" class="itit">
-                    이메일
-                  </label>
+                  <label htmlFor="email1" class="itit"> 이메일 </label>
                   <input
                     type="text"
                     id="email1"
@@ -115,7 +116,7 @@ export const JoinComp = Vue.component("join-comp", {
                   </select>
                   <span class="msg"></span>
                 </li>
-                 <!-- 이메일 뒷주소 직접입력 --> 
+                <!-- 이메일 뒷주소 직접입력 -->
                 <li>
                   <label htmlFor="email2"></label>
                   <input
@@ -125,14 +126,14 @@ export const JoinComp = Vue.component("join-comp", {
                     placeholder="이메일뒷주소"
                   />
                 </li>
-                 <!-- 서브밋버튼 --> 
+                <!-- 서브밋버튼 -->
                 <li>
                   <input type="submit" value="가입하기" id="btnj" />
                 </li>
               </ul>
             </form>
           </section>
-           <!-- 2-3. 동의/비동의 박스 --> 
+          <!-- 2-3. 동의/비동의 박스 -->
           <section id="conf"></section>
         </main>
       </div>
@@ -140,14 +141,14 @@ export const JoinComp = Vue.component("join-comp", {
   // 1-2. 데이터 셋업 리턴 메서드 /////
   data() {
     return {
-
+      
     };
   },
   // 컴포넌트 라이프 사이클 메서드 구역 ///
   // mounted 메서드 : DOM로딩후 실행구역!
   // -> 일반 DOM코딩 JS는 여기서 호출한다!!!
-  mounted(){
+  mounted() {
     // 유효성검사 함수호출!
     valid_member();
-  } /// mounted ///
+  }, /// mounted ///////
 });
