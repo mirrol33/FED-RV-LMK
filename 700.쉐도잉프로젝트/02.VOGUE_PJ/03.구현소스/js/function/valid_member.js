@@ -64,7 +64,10 @@ export default function valid_member() {
         // console.log('아이디 검사결과:',vReg(cv,cid));
         if (!vReg(cv, cid)) {
           // 아이디검사 불통과시 들어감(!NOT)
-          $(this).siblings(".msg").text("영문자로 시작하는 6~20글자 영문자/숫자").removeClass("on");
+          $(this)
+            .siblings(".msg")
+            .text("영문자로 시작하는 6~20글자 영문자/숫자")
+            .removeClass("on");
 
           // [ 불통과시 pass값 변경2 ]
           pass = false;
@@ -91,7 +94,9 @@ export default function valid_member() {
         // console.log('비밀번호 검사결과:',vReg(cv,cid));
         if (!vReg(cv, cid)) {
           // 비밀번호검사 불통과시 들어감(!NOT)
-          $(this).siblings(".msg").text("특수문자,문자,숫자포함 형태의 5~15자리");
+          $(this)
+            .siblings(".msg")
+            .text("특수문자,문자,숫자포함 형태의 5~15자리");
 
           // [ 불통과시 pass값 변경3 ]
           pass = false;
@@ -127,7 +132,10 @@ export default function valid_member() {
     ****************************************/
       else if (cid == "email1") {
         // 1. 이메일 주소 만들기 :  앞주소@뒷주소
-        let comp = eml1.val() + "@" + (seleml.val() == "free" ? eml2.val() : seleml.val());
+        let comp =
+          eml1.val() +
+          "@" +
+          (seleml.val() == "free" ? eml2.val() : seleml.val());
         // (비?집:놀이동산)
         // 선택박스값이 'free'인가?
         // 숨긴이메일입력창값:선택값
@@ -255,7 +263,10 @@ export default function valid_member() {
       eml1.siblings(".msg").text("적합한 이메일 형식입니다!").addClass("on");
     } //////// if : 통과시 //////////
     else {
-      eml1.siblings(".msg").text("맞지않는 이메일 형식입니다!").removeClass("on");
+      eml1
+        .siblings(".msg")
+        .text("맞지않는 이메일 형식입니다!")
+        .removeClass("on");
 
       // [ 불통과시 pass값 변경5 ]
       pass = false;
@@ -334,25 +345,42 @@ export default function valid_member() {
       let temp = [];
 
       // 로컬쓰가 있으면 읽어옴!
-      if (localStorage.getItem("mem-data")) temp = JSON.parse(localStorage.getItem("mem-data"));
+      if (localStorage.getItem("mem-data"))
+        temp = JSON.parse(localStorage.getItem("mem-data"));
 
-      /************************************** 
-        [회원가입 입력 데이터 구조 정의]
-        1. 일련번호 : idx - 숫자값(유일키)
-        2. 아이디 : mid - 문자값
-        3. 비밀번호 : mpw - 문자값
-        4. 이름 : mnm - 문자값
-        5. 성별 : gen - 문자값(m-남성, w-여성)
-        6. 이메일 : email - 문자값 (@포함주소)
-      **************************************/
+      /****************************************** 
+          [ 회원가입 입력 데이터 구조 정의 ]
+           1. 일련번호 : idx - 숫자값(유일키)
+           2. 아이디 : userid - 문자값
+           3. 비밀번호 : password - 문자값
+           4. 이름 : name - 문자값
+           5. 성별 : gender - 문자값(m-남성,w-여성)
+           6. 이메일 : email - 문자값(@포함주소)
+        ******************************************/
+
       // 로컬스토리지에 데이터 넣기
       let memData = {
-        idx: 1,
-        userid: $("#mid").va값(),
+        // 1. 일련번호 : idx - 숫자값(유일키)
+        // -> 기존 배열개수 + 1 로 입력
+        idx: temp.length + 1,
+        // 2. 아이디 : userid - 문자값
+        userid: $("#mid").val(),
+        // 3. 비밀번호 : password - 문자값
         password: $("#mpw").val(),
+        // 4. 이름 : name - 문자값
         name: $("#mnm").val(),
-        email: $("#email1").val() + "@" + 
-        $('#seleml').val()=='free'? $("#email2").val() : $('#seleml').val()
+        // 5. 성별 : gender - 문자값(m-남성,w-여성)
+        // :radio - input 속성 type의 값이 'radio'선택
+        // [name=gen] - 속성 name의 값이 'gen'인 것을 선택
+        // :checked - 체크된 라디오버튼을 선택
+        gender: $(":radio[name=gen]:checked").val(),
+        // 6. 이메일 : email - 문자값(@포함주소)
+        email:
+          $("#email1").val() +
+          "@" +
+          ($("#seleml").val() == "free"
+            ? $("#email2").val()
+            : $("#seleml").val()),
       };
 
       // 객체값을 배열 로컬쓰에 넣기
@@ -412,7 +440,8 @@ function vReg(val, cid) {
       // (?=.*[!@#$%^&+=]) 특수문자 사용체크!
       break;
     case "eml": // 이메일
-      reg = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+      reg =
+        /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
       // 이메일 형식에 맞는지 검사하는 정규식
       break;
   } //////////// switch case문 //////////////////
