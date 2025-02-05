@@ -20,7 +20,7 @@ export default function setSlide(clsName) {
     // -> slideFn함수에서 하위 .slide를 수집하고 있음!
     // 따로 보낼필요 없음!!!
 
-    // 슬라이드 함수 호출하기
+    // 슬라이드 생성자 함수 호출하기
     new SlideFn(ele);
     // 실제 DOM요소를 보낸다!
   }); /////// forEach ///////////
@@ -31,7 +31,7 @@ export default function setSlide(clsName) {
     기능: 로딩 후 버튼 이벤트 및 기능구현
         + 드래그 이동기능(goDrag함수 합침)
  ******************************************/
-// 생성자 함수로 변경한다 slideFn -> SlideFn
+// 생성자 함수로 변경한다! -> SlideFn
 function SlideFn(selEl) {
   // selEl 선택 슬라이드 부모 요소(.banbx)
   // console.log("슬라이드 함수 호출확인!");
@@ -331,9 +331,9 @@ function SlideFn(selEl) {
   let valFirst = leftVal * 1.1;
   // 오른쪽으로 이동할 기준값(기준위치값*0.9)
   let valSecond = leftVal * 0.9;
-  console.log("기준값:", leftVal);
-  console.log("기준값의 110%:", valFirst);
-  console.log("기준값의 90%:", valSecond);
+  // console.log("기준값:", leftVal);
+  // console.log("기준값의 110%:", valFirst);
+  // console.log("기준값의 90%:", valSecond);
   // left위치값 최초셋업! -> px단위 꼭 쓸것!!!
   dtg.style.left = leftVal + "px";
 
@@ -446,7 +446,7 @@ function SlideFn(selEl) {
 
     // 대상의 left값 찍기(px단위를 parseInt()로 없애기!)
     let currentLeft = parseInt(dtg.style.left);
-    console.log("슬라이드left:", currentLeft, "X축순수이동값:", resultX);
+    // console.log("슬라이드left:", currentLeft, "X축순수이동값:", resultX);
 
     // 대상 슬라이드 이동기준 분기하기
     if (currentLeft < valFirst) {
@@ -463,12 +463,12 @@ function SlideFn(selEl) {
       // leftSlide() 함수 호출함!
       // 슬라이드 이동함수 호출시 드래그시 이동된값이
       // 계산된 -300%값을 보내준다!
-      let resVal = selEl.offsetWidth * -3.3 + resultX;
+      let resVal = selEl.offsetWidth * -3 + resultX;
       leftSlide(resVal + "px");
     } /// else if ///
     else {
       // valFirst와 valSecond의 사이범위
-      console.log("제자리!!!");
+      // console.log("제자리!!!");
       slide.style.left = "-200%";
       slide.style.transition = ".3s ease-in-out";
     } /// else ////

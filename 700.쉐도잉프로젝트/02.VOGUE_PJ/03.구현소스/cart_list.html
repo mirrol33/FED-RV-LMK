@@ -3,24 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="컬렉션부터 스타일, 쇼핑, 뷰티, 라이프스타일, 셀러브리티까지 지금 가장 핫한 트렌드 소개" />
-    <link rel="shortcut icon" href="https://img.vogue.co.kr/vogue/common/vogue-favicon.ico?v=0.2" type="image/x-icon" />
+    <meta
+      name="description"
+      content="컬렉션부터 스타일, 쇼핑, 뷰티, 라이프스타일, 셀러브리티까지 지금 가장 핫한 트렌드 소개"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://img.vogue.co.kr/vogue/common/vogue-favicon.ico?v=0.2"
+      type="image/x-icon"
+    />
     <title>보그 코리아 (Vogue Korea)</title>
-    <!-- 메인 CSS -->
-    <!-- <link rel="stylesheet" href="./css/main.css" /> -->
     <link rel="stylesheet" href="./css/cart_list.css" />
+
     <!-- 뷰JS 스탠드얼론 버전 가져오기! -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
     <!-- 뷰JS vuex CDN -->
     <script src="https://unpkg.com/vuex@3.0.0"></script>
+
     <!-- 엑시오스 라이브러리 스탠드얼론 버전 가져오기(제이슨불러오기) -->
     <script src="https://cdn.jsdelivr.net/npm/axios@0.17.1/dist/axios.min.js"></script>
+
     <!-- 제이쿼리 라이브러리 CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
     <!-- 제이쿼리 UI CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <!-- 메인 뷰 JS -->
+
+    <!-- 메인뷰 JS -->
     <script type="module" src="./js/main_vue.js"></script>
+
     <!-- 메인 JS -->
     <!-- <script type="module" src="./js/main.js"></script> -->
   </head>
@@ -29,7 +41,7 @@
       <!-- 1. 상단영역 -->
       <top-comp></top-comp>
 
-      <!-- 2. 장바구니영역 -->
+      <!-- 2. 로그인영역 -->
       <div id="main-area">
         <main class="main-area ibx">
           <section id="cartlist" style="right: 0px">
@@ -50,7 +62,12 @@
                   <th>삭제</th>
                 </tr>
                 <tr data-v="[object Object]">
-                  <td><img src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/goods/men/m1.png" alt="item" /></td>
+                  <td>
+                    <img
+                      src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/goods/men/m1.png"
+                      alt="item"
+                    />
+                  </td>
                   <td>1</td>
                   <td>[남성]카모전판프린트 PQ 티셔츠</td>
                   <td>DMTS7K731-MG</td>
@@ -58,9 +75,16 @@
                   <td class="cnt-part">
                     <div>
                       <span
-                        ><input type="text" class="item-cnt" readonly="" value="2" /><button class="btn-insert" data-idx="1">반영</button
+                        ><input
+                          type="text"
+                          class="item-cnt"
+                          readonly=""
+                          value="2" /><button class="btn-insert" data-idx="1">
+                          반영</button
                         ><b class="btn-cnt"
-                          ><img src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/cnt_up.png" alt="증가" /><img
+                          ><img
+                            src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/cnt_up.png"
+                            alt="증가" /><img
                             src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/cnt_down.png"
                             alt="감소" /></b
                       ></span>
@@ -70,7 +94,12 @@
                   <td><button class="cfn" data-idx="1">×</button></td>
                 </tr>
                 <tr data-v="[object Object]">
-                  <td><img src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/goods/men/m4.png" alt="item" /></td>
+                  <td>
+                    <img
+                      src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/goods/men/m4.png"
+                      alt="item"
+                    />
+                  </td>
                   <td>2</td>
                   <td>[남성]부분 스트라이프 PQ 티셔츠</td>
                   <td>DMTS77731-NY</td>
@@ -78,9 +107,16 @@
                   <td class="cnt-part">
                     <div>
                       <span
-                        ><input type="text" class="item-cnt" readonly="" value="3" /><button class="btn-insert" data-idx="18">반영</button
+                        ><input
+                          type="text"
+                          class="item-cnt"
+                          readonly=""
+                          value="3" /><button class="btn-insert" data-idx="18">
+                          반영</button
                         ><b class="btn-cnt"
-                          ><img src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/cnt_up.png" alt="증가" /><img
+                          ><img
+                            src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/cnt_up.png"
+                            alt="증가" /><img
                             src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/cnt_down.png"
                             alt="감소" /></b
                       ></span>
@@ -90,7 +126,12 @@
                   <td><button class="cfn" data-idx="18">×</button></td>
                 </tr>
                 <tr data-v="[object Object]">
-                  <td><img src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/goods/women/m9.png" alt="item" /></td>
+                  <td>
+                    <img
+                      src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/goods/women/m9.png"
+                      alt="item"
+                    />
+                  </td>
                   <td>3</td>
                   <td>[여성]여성 루즈핏 슬리브리스</td>
                   <td>DMSL6C731-MG</td>
@@ -98,9 +139,16 @@
                   <td class="cnt-part">
                     <div>
                       <span
-                        ><input type="text" class="item-cnt" readonly="" value="1" /><button class="btn-insert" data-idx="17">반영</button
+                        ><input
+                          type="text"
+                          class="item-cnt"
+                          readonly=""
+                          value="1" /><button class="btn-insert" data-idx="17">
+                          반영</button
                         ><b class="btn-cnt"
-                          ><img src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/cnt_up.png" alt="증가" /><img
+                          ><img
+                            src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/cnt_up.png"
+                            alt="증가" /><img
                             src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/cnt_down.png"
                             alt="감소" /></b
                       ></span>
@@ -110,7 +158,12 @@
                   <td><button class="cfn" data-idx="17">×</button></td>
                 </tr>
                 <tr data-v="[object Object]">
-                  <td><img src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/goods/women/m2.png" alt="item" /></td>
+                  <td>
+                    <img
+                      src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/goods/women/m2.png"
+                      alt="item"
+                    />
+                  </td>
                   <td>4</td>
                   <td>[여성]빅로고 컬러 블럭 PQ 티셔츠</td>
                   <td>DMTS7G731-BK</td>
@@ -118,9 +171,16 @@
                   <td class="cnt-part">
                     <div>
                       <span
-                        ><input type="text" class="item-cnt" readonly="" value="1" /><button class="btn-insert" data-idx="5">반영</button
+                        ><input
+                          type="text"
+                          class="item-cnt"
+                          readonly=""
+                          value="1" /><button class="btn-insert" data-idx="5">
+                          반영</button
                         ><b class="btn-cnt"
-                          ><img src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/cnt_up.png" alt="증가" /><img
+                          ><img
+                            src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/cnt_up.png"
+                            alt="증가" /><img
                             src="https://tombap8.github.io/FED-RF-2023-TOM/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.Pilot_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/pilot-app/build/images/cnt_down.png"
                             alt="감소" /></b
                       ></span>

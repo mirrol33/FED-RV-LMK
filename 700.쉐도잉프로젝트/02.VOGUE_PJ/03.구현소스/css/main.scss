@@ -13,16 +13,16 @@
 #ban-area{
   overflow: hidden;
 }
-
 // 배너박스
 .ban-box {
   // 부모자격
   position: relative;
   // 선택막기
   user-select: none;
+
   ul {
     position: relative;
-    /* 세번째 슬라이드부터 보이기(앞에2개) */
+    /* 3번째 슬라이드부터 보이기(앞에2개) */
     left: -200%;
     display: flex;
     li {
@@ -74,7 +74,8 @@
     /*왼쪽버튼*/
     &.ab1 {
       left: 50px;
-    }  
+    }
+  
     /*오른쪽버튼*/
     &.ab2 {
       right: 50px;
@@ -89,25 +90,29 @@
     position: absolute;
     bottom: 50px;
     left: 80px;
-  }
 
-  .indic li {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    img {
-      position: absolute;
-      /*이미지 겹치게*/
-      &:last-child {
-        /*회색이미지만 투명하게*/
-        opacity: 0;
+    li {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+
+      img {
+        position: absolute;
+        /*이미지 겹치게*/
+
+        &:last-child {
+          /*회색이미지만 투명하게*/
+          opacity: 0;
+        }
+      
       }
-    }
-    /*회색블릿이미지가 보이게하는 class*/
-    &.on img:last-child {
-      /*회색이미지만 투명하게*/
-      opacity: 1;
-      /*우선적용!*/
+
+      /*회색블릿이미지가 보이게하는 class*/
+      &.on img:last-child {
+        /*회색이미지만 투명하게*/
+        opacity: 1;
+        /*우선적용!*/
+      }
     }
   }
 
@@ -120,14 +125,13 @@
   .ban-box {
     ul {
       li {
-        // 비율박스
         aspect-ratio: 979/931;
       }
     }
   }
 }
 
-// 3. 투데이 영역 /////////////
+// 3. Today’s Stories 영역 /////////////
 
 // 투데이영역 속박스
 .today-area {
@@ -136,7 +140,7 @@
 
 // 리스트 박스
 .post-list-today {
-  // left-type 왼쪽큰박스
+  // 왼쪽 큰 박스
   @include list-type("left-type");
 }
 
@@ -149,6 +153,6 @@
 
 // 리스트 박스
 .post-list {
-  // right-type 오른쪽큰박스
+  // 오른쪽 큰 박스
   @include list-type("right-type");
 }

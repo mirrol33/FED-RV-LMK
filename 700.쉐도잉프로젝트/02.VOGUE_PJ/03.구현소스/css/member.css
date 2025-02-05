@@ -2,20 +2,13 @@
 /* 보그 PJ 공통핵심 CSS - _core.scss */
 /* 웹폰트, 공용클래스 */
 /*********** 1. 웹폰트 ***********/
-/* Roboto체 + Roboto Condensed체 - CDN */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+/* Roboto체 + Noto Sans Kr체 - CDN */
+@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
 /* 
-font-family: 'Roboto', 'Noto Sans KR', sans-serif;
-*/
-/* 
-  [ 공통 클래스 이름정의 ]
-  1. ibx - inside box 속박스
-  2. pt1, pt2 - part1, part2 각 부분박스(비율적용)
-  3. cbx - content box 내용박스
-  4. bgi - background image 관련 속성
+font-family: 'Roboto', "Noto Sans KR";
 */
 body {
-  font-family: "Roboto", "Noto Sans KR", sans-serif;
+  font-family: "Roboto", "Noto Sans KR";
 }
 
 /* 공사중 표시 */
@@ -40,7 +33,7 @@ body {
 }
 .big-box-type figure figcaption {
   translate: 0 -100%;
-  padding: 20px;
+  padding: 5rem;
   color: #fff;
   background: linear-gradient(to top, #000, transparent);
 }

@@ -3,7 +3,7 @@
 // 1. 상단컴포넌트
 const TopComp = Vue.component("top-comp", {
   // 1-1. 템플릿코드설정 /////
-  template: `
+  template: `  
     <div id="top-area">
       <header class="top-area inbox">
         <!-- 1-1. 로고박스 -->
@@ -34,24 +34,27 @@ const TopComp = Vue.component("top-comp", {
         <nav class="add-menu">
           <ol>
             <li 
-            v-for="
-              (v,k) in this.addMenu
-              /* v - 객체값, k - 키명 */
-            "
-            :class="
-              // 키명이 '로그아웃'이면 'hide' 클래스넣기
-              k=='로그아웃' ? 'hide' : ''
-            ">
-              <a href="#"
-              @click.prevent="goPage(k)"
+              v-for="
+                (v,k) in this.addMenu
+                /* v - 객체값, k - 키명 */
+              "
+
+              :class="
+              // 키명이 '로그아웃'이면 'hide'클래스넣기
+                k=='로그아웃' ? 'hide' : ''
+              "
+            >
+              <a 
+                href="#"
+                @click.prevent="goPage(k)"
               >
-              <i :class="v" :title="k"></i>
+                <i :class="v" :title="k"></i>
               </a>
             </li>
           </ol>
         </nav>
-      </header>
-    </div>
+      </header>      
+    </div>   
     `,
   // 1-2. 데이터 셋업 리턴 메서드 /////
   data() {
@@ -69,75 +72,75 @@ const TopComp = Vue.component("top-comp", {
       },
     };
   }, /// data ///
-  // 1-3. 컴포넌트 메서드구역 ////
-  methods: {
-    // 링크이동 메서드 : goPage
-    goPage(gubun) {
-      // gubun - 구분키(키명)
+
+  // 1-3. 컴포넌트 메서드구역 /////
+  methods:{
+    // goPage : 링크이동 메서드 /////
+    goPage(gubun){ // gubun - 구분키(키명)
       console.log(gubun);
       // 페이지명 셋팅변수
       let pgName;
-      // 구분키별 분기
-      switch (gubun) {
-        case "로그인":
-          pgName = "login";
-          break;
-        case "회원가입":
-          pgName = "member";
-          break;
-        case "장바구니":
-          pgName = "cart_list";
-          break;
-      } /// switch ///
-      // 페이지 이동하기 //
-      location.href = pgName + ".html";
-    }, /// goPage 메서드 ///
-  }, /// methods ///
-  // 1-4. 컴포넌트 라이프사이크 메서드: mounted
-  mounted() {
-    // 폰트어썸 link CSS 넣기
-    // $('head').prepend()
-    $("head").append(`
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-      `);
-  },
-}); //// TopComp ////
+      // 구분키별 분기 //
+      switch(gubun){
+        case "로그인": pgName = "login"; break;
+        case "회원가입": pgName = "member"; break;
+        case "장바구니": pgName = "cart_list"; break;
+      } //// switch /////////
 
-// 2. 하단컴포넌트
+      // 페이지 이동하기 ///
+      location.href = pgName + '.html';
+
+    }, //// goPage 메서드 ////
+  }, /// methods //////
+  // 1-4. 컴포넌트 라이프사이크 메서드 : mounted
+  mounted(){
+    // 폰트어썸 link CSS 넣기
+    $('head').append(`
+      <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    `);
+  }, /// mounted ///
+}); /// TopComp ///////////////
+
+// 2. 하단컴포넌트 /////////////////////
 const BottomComp = Vue.component("bottom-comp", {
-  // 템플릿 코드
+  // 템플릿 코드 ////
   template: `
     <div id="footer-area">
-      <footer class="footer-area ibx common-area">
-        <!-- 3-1.하단로고 -->
-        <div class="blogo">
-          <img src="./images/svg/logo_white_m.svg" alt="하단로고" />
-        </div>
-        <!-- 3-3.하단링크 -->
-        <ul class="blink">
-          <li>
-            <a href="#">정기구독</a>
-          </li>
-          <li>
-            <a href="#">회사소개</a>
-          </li>
-          <li>
-            <a href="#">광고 및 제휴</a>
-          </li>
-          <li>
-            <a href="#">개인정보 처리방침</a>
-          </li>
-        </ul>
-        <!-- 3-2.회사주소 -->
-        <address class="addr">VOGUE.CO.KR IS OPERATED BY DOOSAN MAGAZINE</address>
-      </footer>
-    </div>
+        <footer class="footer-area ibx common-area">
+          <!-- 3-1.하단로고 -->
+          <div class="blogo">
+            <img src="./images/svg/logo_white_m.svg" alt="하단로고" />
+          </div>
+          <!-- 3-2.하단링크 -->
+          <ul class="blink">
+            <li>
+              <a href="#">정기구독</a>
+            </li>
+            <li>
+              <a href="#">회사소개</a>
+            </li>
+            <li>
+              <a href="#">광고 및 제휴</a>
+            </li>
+            <li>
+              <a href="#">개인정보 처리방침</a>
+            </li>
+          </ul>
+          <!-- 3-3.회사주소 -->
+          <address class="addr">
+            VOGUE.CO.KR IS OPERATED BY DOOSAN MAGAZINE
+          </address>
+        </footer>
+      </div>
   `,
-  // 데이터 설정
+  // 데이터 설정 ////
   data() {
     return {};
   },
 });
 
 // 3. 내보내기
-export {TopComp, BottomComp};
+export { TopComp, BottomComp };
