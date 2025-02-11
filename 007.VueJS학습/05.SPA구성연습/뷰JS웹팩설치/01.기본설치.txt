@@ -80,7 +80,6 @@
         ((버전별설치 명령어))
         ver 2.x : npm install vue-cli -global
         ver 3.x : npm install @vue/cli -global
-        
     (2) 설치후 버전확인
         vue --version
 
