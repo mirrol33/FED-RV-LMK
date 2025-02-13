@@ -88,7 +88,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: '환영한다 뷰의 세계란다~~!'
     }
   }
 }
@@ -98,6 +98,12 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+}
+h1 {
+  transition: 1s linear;
+}
+h1:hover {
+  scale: 1.4;
 }
 ul {
   list-style-type: none;
