@@ -12,7 +12,6 @@ import { MainComp } from "./components/main.js";
 import { ItemComp } from "./components/item.js";
 // console.log(TopComp, BannerComp, JoinComp, LoginComp);
 
-
 // [ 뷰라우터 인스턴스 내보내기 ] /////
 // -> 라우터 셋팅 방식
 // new VueRouter({routes:[]})
@@ -41,8 +40,9 @@ export default new VueRouter({
       path: "/login",
       component: LoginComp,
     },
-    // [ 아이템 페이지 셋팅 ]
+    // [ 아이템 페이지 셋팅 ] - 파라미터전달셋팅 -> name넣기!
     {
+      name: "sub-page",
       path: "/item",
       component: ItemComp,
     },

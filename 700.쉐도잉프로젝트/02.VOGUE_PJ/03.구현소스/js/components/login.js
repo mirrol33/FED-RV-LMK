@@ -20,15 +20,15 @@ Vue.component("login-comp",{
            <!-- 2-2. 갤러리 페이지 컨텐츠 박스 --> 
           <section class="scont">
              <!-- form 요소 :  
-                    입력데이터를 전송하기위한 요소
-                    속성
-                    action - 전송할 처리페이지
-                    method - post : post방식 전달설정
-                            get : get방식 전달설정
-  
-                    (get방식:url로 키=값 쌍으로 데이터전달)
-                    (post방식:페이지로 데이터를 전달하는 숨김방식)
-                -->
+                입력데이터를 전송하기위한 요소
+                속성
+                action - 전송할 처리페이지
+                method - post : post방식 전달설정
+                        get : get방식 전달설정
+
+                (get방식:url로 키=값 쌍으로 데이터전달)
+                (post방식:페이지로 데이터를 전달하는 숨김방식)
+              -->
             <form action="process.php" method="post" class="logF">
                <!-- 아이디박스 --> 
               <div class="minput">
@@ -89,17 +89,17 @@ Vue.component("login-comp",{
     methods: {
       // 전역 스토어 변수 업데이트 메서드 호출
       actLogin(pm,txt){
-        // pm : 로그인된 사용자 정보 객체
-        // console.log('가상돔 메서드 실행!!',pm);
-        this.msg = txt;
+        // pm : 로그인 된 사용자 정보 객체
+        // console.log('가상돔 메서드 실행!',pm);
+        // this.msg = txt;
+
         // 1. 스토어 뮤테이션스 호출
         store.commit('setLogin',pm);
         // 2. 세션스토리지 셋업하기! 'login-user'
-        // sessionStorage.setItem('login-user', pm); // pm의 Object 속성으로 셋업됨!
         sessionStorage.setItem('login-user', JSON.stringify(pm));
-        // 3. 첫페이지로 라우팅 하기
+        // 3. 첫페이지로 라우팅하기
         this.$router.push('/');
-      }
+      },
     },
     // 4. 데이터셋업파트
     created(){},
