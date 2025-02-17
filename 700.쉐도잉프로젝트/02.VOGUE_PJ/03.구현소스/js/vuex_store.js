@@ -57,7 +57,7 @@ export default new Vuex.Store({
 
       // (4) 로그인 세션스 지우기 'login-user'
       sessionStorage.removeItem('login-user');
-    },  
+    },
   },
   // 3. 비동기처리 메서드 구역
   // -> 컴포넌트에서 호출시 dispatch() 사용!

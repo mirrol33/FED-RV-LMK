@@ -8,8 +8,8 @@ export const MainComp = Vue.component("main-comp", {
   
               <!-- Today’s Stories 영역 -->
               <today-area-comp
-              list-tit="Today's Stories"
-              data-name="today"
+                list-tit="Today’s Stories"
+                data-name="today"
               ></today-area-comp>
   
               <!-- fashion 영역 -->

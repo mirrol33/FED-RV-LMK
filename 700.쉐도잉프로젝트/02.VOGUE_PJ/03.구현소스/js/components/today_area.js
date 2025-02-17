@@ -5,21 +5,6 @@ import itemData from '../../data/item_data.json' with{type:'json'};
 
 // console.log(itemData);
 
-// 2. 투데이 영역 구현하기 ///////
-
-// 2-1. 투데이 영역용 데이터수집하기
-// filter() 메서드는 조건이 맞을때 true리턴!
-// -> 결과: 필터링된 배열값
-// const todayData = itemData
-//   .filter((v) => {
-//     if (v.mainCat == "today") return true;
-//   })
-//   // 2-2. 투데이 영역 데이터 정렬하기 : idx 오름차순
-//   // sort((a,b)=>a.idx==b.idx?0:a.idx<b.idx?-1:1)
-//   .sort((a, b) => (a.idx == b.idx ? 0 : a.idx < b.idx ? -1 : 1));
-
-// console.log('today데이터:',todayData);
-
 export const TodayAreaComp = Vue.component("today-area-comp", {
   // 1. 템플릿
   template: `
@@ -54,11 +39,11 @@ export const TodayAreaComp = Vue.component("today-area-comp", {
       // todayInfo: todayData,
     };
   },
-  // 2.5 프롭스 다운!
+  // 2.5. 프롭스 다운!
   // 컴포넌트 태그에 속성으로 두개의 값을 셋팅하면
   // 여기서 'list-tit' -> listTit
   // 'data-name' -> dataName
-  // 케밥케이스 속성명을 여기서는 캐믈케이스 변수로 사용가능!
+  // 캐밥케이스 속성명을 여기서는 캐믈케이스 변수로 사용가능!
   props: ['list-tit','data-name'],
   // 3. 메서드
   methods: {
