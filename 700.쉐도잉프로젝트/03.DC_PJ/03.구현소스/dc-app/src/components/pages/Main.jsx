@@ -7,4 +7,4 @@ export default function Main(){
       <h1>메인페이지 컴포넌트</h1>
     </>
   );
-} //// TopArea 컴포넌트 ////
+} //// Main 컴포넌트 ////

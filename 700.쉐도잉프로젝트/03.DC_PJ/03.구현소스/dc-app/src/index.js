@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes } from'react-router-dom';
+import { BrowserRouter, Routes, Route } from'react-router-dom';
 import Layout from './components/layout/Layout';
+import Main from './components/pages/Main';
 
 /********************************************* 
     [ 리액트 라우터 ]
@@ -48,9 +49,15 @@ export default function MainComponent(){
       슬래쉬는 루트를 말하고 레이아웃 컴포넌트 불러옴 */}
       <Route path="/" element={<Layout />}>
       {/* 하위중 첫페이지는 index라고 속성씀! */}
-        <Route index element={} />
+        <Route index element={<Main />} />
       </Route>
     </Routes>
   </BrowserRouter>
   );
 } //// MainComponent ////
+
+/// 컴포넌트 출력 ///
+// 먼저 root 객체 만들기
+const root = ReactDOM.createRoot(document.querySelector("#root"));
+// 출력하기
+root.render(<MainComponent />);
