@@ -5,6 +5,18 @@ import Layout from './components/layout/Layout';
 import Main from './components/pages/Main';
 import Character from './components/pages/Character';
 
+
+/// 전체 PJ 공통 CSS 최상위 JS에서 불러오기 ///
+import "./css/index.scss";
+import Comics from './components/pages/Comics';
+import Movies from './components/pages/Movies';
+import Games from './components/pages/Games';
+import News from './components/pages/News';
+import Video from './components/pages/Video';
+import Board from './components/pages/Board';
+// 사스파일에서 import시엔 _와 .scss생략가능하나
+// 리액트 import에서는 모두 정확히 써야함!
+
 /********************************************* 
     [ 리액트 라우터 ]
     -> 컴포넌트를 연결하여 특정 이벤트에 모듈을
@@ -53,6 +65,12 @@ export default function MainComponent(){
                 {/* 하위중 첫페이지는 index라고 속성씀! */}
                     <Route index element={<Main />}  />
                     <Route path='character' element={<Character />}  />
+                    <Route path='comics' element={<Comics />}  />
+                    <Route path='movies' element={<Movies />}  />
+                    <Route path='games' element={<Games />}  />
+                    <Route path='news' element={<News />}  />
+                    <Route path='video' element={<Video />}  />
+                    <Route path='board' element={<Board />}  />
                 </Route>
             </Routes>
         </BrowserRouter>
