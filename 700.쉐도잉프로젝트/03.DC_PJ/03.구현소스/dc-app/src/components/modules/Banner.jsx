@@ -10,7 +10,6 @@ import "../../css/modules/banner.scss";
 // 배너 슬라이드 기능 함수 불러오기 ///
 import SlideFn from "../../js/func/go_slide";
 
-
 function Banner({catName}) {
   // catName - 배너 데이터 카테고리 이름
 
@@ -34,8 +33,10 @@ function Banner({catName}) {
                   <h2>{v.tit1}</h2>
                   <p>{v.tit2}</p>
                   <button>
-                    55
-                    {v.btn}
+                    {
+                      // 버튼데이터가 없으면 버튼 출력안함
+                      v.btn !== "" && <button>{v.btn}</button>
+                    }
                   </button>
                 </section>
               </li>
@@ -48,12 +49,12 @@ function Banner({catName}) {
           selData.length > 1 && (
             <>
               {/* 양쪽이동버튼 */}
-              <button className="abtn lb"
-              onclick={slideFn.goSlide}
-              >＜</button>
-              <button className="abtn rb"
-              onclick={slideFn.goSlide}
-              >＞</button>
+              <button className="abtn lb" onclick={slideFn.goSlide}>
+                ＜
+              </button>
+              <button className="abtn rb" onclick={slideFn.goSlide}>
+                ＞
+              </button>
               {/* 블릿 표시자 */}
               <ol className="indic">
                 {selData.map((v, i) => (
