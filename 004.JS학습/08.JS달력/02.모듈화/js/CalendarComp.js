@@ -1,5 +1,26 @@
 // 달력컴포넌트 JS - CalendarComp.js ////////////
 
+/*********************************************** 
+ * [ 생성자 함수로 변환하여 사용하기 ]
+ * 1. 함수명을 첫글자 대문자로 변경
+ *  (생성자함수로 사용할 것을 알림)
+ * 
+ * 2. 호출하는 곳에서 new 키워드로 인스턴스생성
+ * -> 이때부터 생성자함수로 사용하는것!
+ * 
+ * 3. 만약 생성자 함수의 속성/메서드를
+ * 인스턴스 코딩구역에서 활용코자 할 경우
+ * this키워드로 생성자함수 맴버등록하여 사용함!
+ * 
+ * -> 인스턴스 코딩구역에서 생성된 인스턴스를
+ * 변수에 담아 하위 속성/메서드로 호출이 가능해짐!
+ * 
+ * 4. 유의사항: 생성자함수 내부에서 this키워드로
+ * 등록된 속성/메서드는 내부에서 호출시에도 반드시
+ * this키워드를 사용하여 호출해야함!(안쓰면 에러!)
+
+*************************************************/
+
 // DOM 메서드 //////
 const myFn = {
   qs: (x) => document.querySelector(x),
@@ -15,11 +36,21 @@ const myFn = {
 // 요일변경배열 ////
 const week = ["일", "월", "화", "수", "목", "금", "토"];
 
-// 달력함수 호출
-makeDallyeok();
+// 달력함수 호출 -> 이젠 여기서 안함!
+// makeDallyeok();
 
-export default function MakeDallyeok() {
-  myFn.cs("달력만들어!");
+export default function MakeDallyeok(selEl) {
+  // selEl 전달변수 - 달력을 넣을 요소(선택자만 보냄!)
+  // myFn.cs("달력만들어!");
+
+  // [생성자함수 속성/메서드 공개 연습하기]
+  // 요일정보 변환배열
+  this.week = ["일", "월", "화", "수", "목", "금", "토"];
+  // 한자리수 날짜 앞에 0 추가 메서드
+  this.addZero = (x) => (x < 10 ? "0" + x : x);
+
+  // 0.달력 컴포넌트 html 넣기
+  myFn.qs(selEl).innerHTML = insertHcode();
 
   // 1. 변수셋팅 ////////////////////
   // (1) 변경할 현재날짜 객체
@@ -205,7 +236,7 @@ export default function MakeDallyeok() {
         console.log(nowY, nowM, nowD);
 
         // 5. 날짜형식 구성하기 : yyyy-mm-dd
-        let setDate = `${nowY}-${myFn.addZero(nowM)}-${myFn.addZero(nowD)}`
+        let setDate = `${nowY}-${myFn.addZero(nowM)}-${myFn.addZero(nowD)}`;
 
         // 6. 요일 셋팅하기 : 해당날짜의 요일 -> getDay()
         let setDay = new Date(setDate).getDay();
@@ -214,8 +245,9 @@ export default function MakeDallyeok() {
         console.log(setDate, `(${week[setDay]})`);
 
         // 7. 선택날짜 정보 히든필드에 저장하기
-        myFn.qs('.date-info').value = setDate + '/' + setDay;
-        
+        // -> 활용도를 높이기 위해 일반구분자로 정보공개
+        // 년도/월/일/요일 -> 2025/2/28/5
+        myFn.qs(".date-info").value = `${nowY}/${nowM}/${nowD}/${setDay}`;
 
       }); //// addEvt //////
     }); //// forEach //////////
@@ -223,7 +255,9 @@ export default function MakeDallyeok() {
 
   // 2. 함수 만들기 //////////////
   // (2) 이전/다음 달력 출력하기 함수 ////
-  const chgCalendar = (num) => {
+  // this 키워드로 생성자함수에 등록하여
+  // 인스턴스 생성시 접근할 수 있도록 한다!
+  this.chgCalendar = (num) => {
     // num (1이면 다음, -1이면 이전)
     console.log("달력변경 고고!");
 
@@ -237,10 +271,56 @@ export default function MakeDallyeok() {
 
   // 3. 이벤트 설정하기 ////////////////////////
   // (1) 이전버튼에 함수 연결하기 : 달을 빼기위해 -1전달
-  myFn.addEvt(myFn.qs(".btnL"), "click", () => chgCalendar(-1));
+  myFn.addEvt(myFn.qs(".btnL"), "click", 
+  () => this.chgCalendar(-1));
   // (2) 다음버튼에 함수 연결하기 : 달을 더하기위해 1전달
-  myFn.addEvt(myFn.qs(".btnR"), "click", () => chgCalendar(1));
+  myFn.addEvt(myFn.qs(".btnR"), "click", 
+  () => this.chgCalendar(1));
+
+  // -> this키워드로 등록된 생성자 함수 속성/메서드는
+  // 반드시 this키워드를 사용하여 호출해야함!
 
   // 4. 초기셋팅함수 호출!
   initDallyeok();
-} /////////////// makeDallyeok함수 ////////////
+} /////////////// makeDallyeok 생성자함수 ////////////
+
+/**************************************************** 
+    함수명 : .insertHcode
+    기능 : 달력의 HTML 코드 넣기
+****************************************************/
+function insertHcode() {
+  // 달력 html 코드를 리턴함
+  `
+    <!-- 달력전체박스 -->
+    <div class="calender">
+      <!-- 달력상단:해당년/월표시 -->
+      <header class="header">
+        <!-- 달력이동버튼:이전 -->
+        <button class="mbtn btnL">〈</button>
+        <div class="title">
+          <div class="yearTit"></div>
+          <div class="monthTit"></div>
+        </div>
+        <!-- 달력이동버튼:다음 -->
+        <button class="mbtn btnR">〉</button>
+      </header>
+      <!-- 달력날짜표시박스 -->
+      <section class="main">
+        <!-- 주단위 구분박스 -->
+        <div class="week">
+          <div class="day">Sun</div>
+          <div class="day">Mon</div>
+          <div class="day">Tue</div>
+          <div class="day">Wed</div>
+          <div class="day">Thu</div>
+          <div class="day">Fri</div>
+          <div class="day">Sat</div>
+        </div>
+        <!-- 해당월의 달력날짜 구성박스 -->
+        <div class="dates"></div>
+      </section>
+      <!-- 달력 선택날짜데이터 저장용 히든필드 -->
+      <input type="hidden" class="date-info">
+    </div>
+  `;
+} //// insertHcode ////
