@@ -1,4 +1,4 @@
-// 달력구현 JS - calendar.js ////////////
+// 달력컴포넌트 JS - CalendarComp.js ////////////
 
 // DOM 메서드 //////
 const myFn = {
@@ -18,7 +18,7 @@ const week = ["일", "월", "화", "수", "목", "금", "토"];
 // 달력함수 호출
 makeDallyeok();
 
-function makeDallyeok() {
+export default function MakeDallyeok() {
   myFn.cs("달력만들어!");
 
   // 1. 변수셋팅 ////////////////////
