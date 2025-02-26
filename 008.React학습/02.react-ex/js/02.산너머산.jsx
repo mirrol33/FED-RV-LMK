@@ -3,6 +3,9 @@
 // 이야기 서브컴포넌트 불러오기
 import 이야기 from "./components/story";
 
+// 컨텍스트 프로바이더 불러오기
+import { 누구냐 } from "./components/provider";
+
 /********************************************** 
     1. props로 데이터를 전달하여 제목출력하기 
     -> props Down으로 데이터를 하위 컴포넌트에 전달
@@ -75,30 +78,38 @@ function 큰집() {
 
   // 코드 리턴구역 ///////
   return (
-    <할아버지/>
+    // 큰집 컨포넌트안에서 호출하는 컴포넌트를 감싸면서
+    // 컨텍스트 프로바이더를 셋팅해 준다! 
+    // -> 전역 속성/메서드 사용가능!
+    // -> 형식 : <프로바이더변수.Provider value={{변수,변수}}
+    <누구냐.Provider 
+    value={{mtName,setMtName,mtBoxCss,mtInfoBoxCss}}>
+      <할아버지 />
+    </누구냐.Provider>
   );
 } ////////////// 큰집 ///////////////////
 
 ///// 서브컴포넌트 ////////
-function 할아버지({ mtName, mtBoxCss, mtInfoBoxCss, setMtName }) {
+function 할아버지() {
+
   // 코드 리턴구역 ///////
   return (
-    <아버지/>
+    <아버지 />
   );
 } ////////////// 할아버지 ///////////////////
-function 아버지({ mtName, mtBoxCss, mtInfoBoxCss, setMtName }) {
+function 아버지() {
   // 코드 리턴구역 ///////
   return (
-    <아들/>
+    <아들 />
   );
 } ////////////// 아버지 ///////////////////
-function 아들({ mtName, mtBoxCss, mtInfoBoxCss, setMtName }) {
+function 아들() {
   // 코드 리턴구역 ///////
   return (
-    <손녀/>
+    <손녀 />
   );
 } ////////////// 아들 ///////////////////
-function 손녀({ mtName, mtBoxCss, mtInfoBoxCss, setMtName }) {
+function 손녀() {
   // 코드 리턴구역 ///////
   return (
     <이야기 />
