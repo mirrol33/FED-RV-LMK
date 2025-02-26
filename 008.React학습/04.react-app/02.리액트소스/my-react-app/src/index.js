@@ -4,12 +4,14 @@ import ReactDOM from 'react-dom/client';
 // 메인 페이지용 CSS
 import './css/main.scss';
 
-// 루트요소 선택하기
+
+
+// 루트요소 선택하기 ///
 const root = ReactDOM.createRoot(
   document.getElementById('root')
 );
 
-// 루트에 랜더링하기
+// 루트에 랜더링하기 ////
 root.render(
   <>
     <h1>

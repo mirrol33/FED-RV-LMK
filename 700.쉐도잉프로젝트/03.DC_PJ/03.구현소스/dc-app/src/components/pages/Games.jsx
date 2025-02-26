@@ -4,9 +4,8 @@ import Banner from '../modules/Banner';
 function Games(props) {
     return (
         <>
-            <h1>게임이야!</h1>
-            {/* 1. 배너 컴포넌트 */}
-            <Banner catName="GAMES" />
+          {/* 1. 배너 컴포넌트 */}
+          <Banner catName="GAMES" />
         </>
     );
 }
