@@ -1,10 +1,12 @@
 import React from 'react';
+import VidIntro from '../modules/VidIntro';
 
-function Video(props) {
+function Video({catName}) {
     return (
-        <div>
-            <h1>비디오야!</h1>
-        </div>
+        <>
+        {/* 1. 비디오 소개 컴포넌트 */}
+      <VidIntro catName={catName} clsName="on" />
+        </>
     );
 }
 
