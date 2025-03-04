@@ -5,12 +5,12 @@
 // import { pCon } from "./PilotContext";
 
 // 패션 인트로 데이터 불러오기
-import {fsData} from "../../js/data/fashion_intro";
+import { fsData } from "../../js/data/fashion_intro";
 
 // 패션 인트로 CSS 불러오기
 import "../../css/fashion_intro.scss";
 
-export function FashionIntro({cat, subcat}) {
+export function FashionIntro({ cat, subcat }) {
   // cat - 카테고리 분류명
   // subcat - 서브페이지 분류명
 
@@ -47,7 +47,10 @@ export function FashionIntro({cat, subcat}) {
           // 메인에서 호출하는 subcat이 etc인 경우만 해당!
           subcat === "etc" && (
             <li className="imgc">
-              <img src={cat == "style" ? selData.isrc[0] : selData.isrc} alt={cat == "style" ? selData.ialt[0] : selData.ialt} />
+              <img
+                src={cat == "style" ? selData.isrc[0] : selData.isrc}
+                alt={cat == "style" ? selData.ialt[0] : selData.ialt}
+              />
             </li>
           )
         }
