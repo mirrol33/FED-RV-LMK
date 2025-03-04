@@ -4,6 +4,9 @@ import VidIntro from "../modules/VidIntro";
 import VidSwipe from "../modules/VidSwipe";
 
 function Movies({catName}) {
+  // catName - 페이지 카테고리명 데이터
+
+  // 리턴 코드구역 ////////////
   return (
     <>
       {/* 1. 배너 컴포넌트 */}
