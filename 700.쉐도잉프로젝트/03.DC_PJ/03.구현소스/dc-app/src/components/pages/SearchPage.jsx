@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import Serching from '../modules/Serching';
+import Searching from '../modules/Searching';
 
 function SearchPage() {
     // 라우터 전달값 받기 객체 생성
@@ -18,7 +18,7 @@ function SearchPage() {
                 Search Result ({keyword})
             </h1>
             {/* 검색모듈 */}
-            <Serching kword={keyword} />
+            <Searching kword={keyword} />
         </>
     );
 }

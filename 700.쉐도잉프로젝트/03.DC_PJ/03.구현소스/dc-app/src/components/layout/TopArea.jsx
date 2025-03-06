@@ -1,32 +1,32 @@
 /// 상단영역 컴포넌트 : TopArea.jsx /////
 
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // GNB 데이터 불러오기 ////////
-import {menu} from "../../js/data/gnb";
+import { menu } from "../../js/data/gnb";
 
 // 상단영역 CSS 불러오기 ///
 import "../../css/common/top_area.scss";
 import Logo from "../modules/Logo";
 
 // 폰트어썸 불러오기 ////
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // 돋보기 아이콘 ///
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 // 제이쿼리 불러오기 ////
 import $ from "jquery";
 
 export default function TopArea() {
-  // [ 라우터 이동함수 객체 생성하기 ]
+  // [ 라우터 이동함수 객체 생성하기 ] ////
   const goPage = useNavigate();
   // 사용시 goPage(라우터주소, {전달객체})
   // 전달객체가 없으면 쓰지 않는다!
   // 사용법 : 반드시 useNavigate() 생성자메서드를 변수에 할당
   // 이동할 라우터 주소를 쓰면 이동함!
   // 예) goPage('/news') -> 뉴스페이지로 이동
-  // 예) gpPage('/') -> 첫페이지로 이동
-  // 예) gpPage('') -> 첫페이지로 이동
+  // 예) goPage('/') -> 첫페이지로 이동
+  // 예) goPage('') -> 첫페이지로 이동
   // -> 이동주소는 대소문자 구분하지 않는다!
   // -> 슬래쉬없이 빈값을 써도 루트로 이동함!
 
@@ -69,7 +69,7 @@ export default function TopArea() {
   const goSearch = (txt) => {
     console.log("나는 검색하러 간다규~!", txt);
     // 라우터 이동함수로 검색페이지로 이동하기!
-    goPage("search", {state: {keyword: txt}});
+    goPage("search", { state: { keyword: txt } });
     // 네비게이트 메서드(라우터주소, {state:{보낼객체}})
   }; /////////// goSearch 함수 /////////////
 
@@ -125,13 +125,25 @@ export default function TopArea() {
               style={{
                 marginLeft: "auto",
                 marginRight: "25px",
-              }}>
+              }}
+            >
               {/* 검색입력박스 */}
               <div className="searchingGnb">
                 {/* 검색버튼 돋보기 아이콘 */}
-                <FontAwesomeIcon icon={faSearch} className="schbtnGnb" title="Open search" onClick={() => {}} />
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  className="schbtnGnb"
+                  title="Open search"
+                  onClick={() => {}}
+                />
                 {/* 입력창 */}
-                <input type="text" name="schinGnb" id="schinGnb" placeholder="Filter by Keyword" onKeyUp={enterKey} />
+                <input
+                  type="text"
+                  name="schinGnb"
+                  id="schinGnb"
+                  placeholder="Filter by Keyword"
+                  onKeyUp={enterKey}
+                />
               </div>
               {/* 검색기능링크 - 클릭시 검색창 보이기 */}
               <a href="#" onClick={showSearch}>
