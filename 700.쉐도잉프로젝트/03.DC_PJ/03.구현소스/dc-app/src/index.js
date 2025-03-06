@@ -19,8 +19,8 @@ import Video from "./components/pages/Video";
 import Board from "./components/pages/Board";
 import CatDetail from "./components/pages/CatDetail";
 import SearchPage from "./components/pages/SearchPage";
-import Login from "./components/pages/Login";
 import Member from "./components/pages/Member";
+import Login from "./components/pages/Login";
 // import SwiperApp from './components/plugin/SwiperApp';
 
 /********************************************* 

@@ -1,26 +1,27 @@
 // Pilot PJ 메인 페이지 컴포넌트 - Main.jsx
 
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 
 // 자동스크롤 기능 JS 불러오기 ///
 import * as autoFn from "../../js/func/jquery-autoScroll";
 
 // 드래그배너 기능 JS 불러오기 ////
-import {dragBanner} from "../../js/func/drag_banner";
+import { dragBanner } from "../../js/func/drag_banner";
 
-import {Banner} from "../modules/Banner";
-import {FashionIntro} from "../modules/FashionIntro";
+import { Banner } from "../modules/Banner";
+import { FashionIntro } from "../modules/FashionIntro";
 
-// 제이쿼리 불러오기
+// 제이쿼리 불러오기 //////
 import $ from "jquery";
 
 function Main() {
   // 컴포넌트 로딩후 실행구역 : 한번만 (빈의존성[]) /////
-  useEffect(() => {
+  useEffect(() => {   
 
-    // 스크롤바 없애기
-    $("html,body").css({overflow: "hidden"});
+    // 스크롤바 없애기 ///
+    $('html,body').css({overflow:'hidden'});
 
+    
     // 스크롤바 위치 최상위
     window.scrollTo(0,0);
 
@@ -42,25 +43,29 @@ function Main() {
     // 드래그배너 기능함수 호출하기
     dragBanner();
 
-    // 컴포넌트 제거시 실행구역
+    // 컴포넌트 제거시 실행구역 ////////
     return () => {
-      console.log("메인제거됨!!!!");
+      console.log("메인제거됨!!!");
 
       // 자동스크롤 이벤트 제거하기
       window.removeEventListener("wheel", autoFn.wheelFn);
       // -> 이 구역에서 window이벤트 설정을 했으므로
       // 등록된 함수와 동일한 이름으로 셋팅된 함수를 해제할 수 있다!
 
-      // 기존 이벤트 제거함수
+      // 기존 이벤트 제거하기 함수호출
       autoFn.removeEvtFn();
-    }; /// 제거시 실행구역 ///
+    }; ////// 제거시 실행 구역 ///////////
   }, []); ///////// useEffect : 한번만 //////////////
 
   // 리턴 코드구역 //////////////
   return (
     <>
       {/* 1. 배너 페이지 */}
-      <section id="ban" className="page none-sel" style={{background: "lightblue"}}>
+      <section
+        id="ban"
+        className="page none-sel"
+        style={{ background: "lightblue" }}
+      >
         {/* 배너모듈 */}
         <Banner />
       </section>

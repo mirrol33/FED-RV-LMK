@@ -53,7 +53,7 @@ $(() => {
 // window.addEventListener('wheel',wheelFn);
 
 // 새로고침시 스크롤위치 캐싱 변경하기(맨위로!)
-$("html,body").animate({scrollTop: "0px"});
+$("html,body").animate({ scrollTop: "0px" });
 
 /**************************************** 
     함수명: wheelFn
@@ -241,15 +241,15 @@ function evtFn() {
   }); //////// click ////////
 } /////////// evtFn 함수 /////////////////
 
-// [이벤트 제거함수]
+// [ 이벤트 제거함수 ] /////////////
 function removeEvtFn() {
-  // off(이벤트명) -> 제이쿼리 이벤트 제거 메서드
+  // off(이벤트명) ->  제이쿼리 이벤트 제거 메서드
   $("#logo a").off("click");
   $(".gnb li, .indic li").off("click");
   $(document).off("keydown");
-} /// removeEvtFn ///
+} ///////// removeEvtFn 함수 /////////////
 
 // 사용할 함수만 내보냄!
-export {wheelFn, evtFn, initSet, zeroPno, removeEvtFn};
+export { wheelFn, evtFn, removeEvtFn, initSet, zeroPno };
 
 // } ///////////// autoScroll 함수 //////////
