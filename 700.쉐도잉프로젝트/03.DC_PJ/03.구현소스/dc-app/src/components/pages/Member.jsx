@@ -4,12 +4,19 @@ import React, {useState} from "react";
 
 // 모듈 CSS 불러오기 ///
 import "../../css/pages/member.scss";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 // 로컬스토리지 생성 JS
 import {initData} from "../../js/func/mem_fn";
 
+// 제이쿼리 불러오기
+import $ from "jquery";
+
 function Member() {
+  // 라우터이동 객체 생성하기
+  const goPage = useNavigate();
+  // 사용시 : goPage(라우터주소,state변수)
+
   // [ 상태관리변수 ] /////////////
   // [1] 입력요소 상태변수
   // 1. 아이디변수
@@ -215,6 +222,79 @@ function Member() {
     setEmail(val);
   }; ///////// changeEmail 함수 //////////
 
+  // [ 전체 유효성검사 체크함수 ] ///////////
+  const totalValid = () => {
+    // 1. 모든 상태변수에 빈값일때 에러상태값 업데이트!
+    if (!userId) setUserIdError(true);
+    if (!pwd) setPwdError(true);
+    if (!chkPwd) setChkPwdError(true);
+    if (!userName) setUserNameError(true);
+    if (!email) setEmailError(true);
+    // 2. 통과시 true, 불통과시 false 리턴처리
+    // 통과조건 : 빈값아님 + 에러후크변수가 모두 false
+    if (userId && pwd && chkPwd && userName && email && !userIdError && !pwdError && !chkPwdError && !userNameError && !emailError) return true;
+    // 하나라도 false이면 false를 리턴함!
+    else return false;
+  }; /////////// totalValid 함수 ///////////
+
+  // [ 서브밋 기능함수 ] ////////////////
+  const onSubmit = (e) => {
+    // 1. 기본서브밋 막기
+    e.preventDefault();
+
+    console.log("최종검사:", totalValid());
+    // 2. 유효성검사 전체 통과시
+    if (totalValid()) {
+      console.log("모두통과! 저장!");
+
+      // [회원정보를 로컬스토리지에 저장하기]
+
+      // 1. 로컬스 체크함수호출(없으면 생성!)
+      initData();
+
+      // 2. 로컬스 변수할당
+      let memData = localStorage.getItem("mem-data");
+
+      // 3. 로컬스 객체변환
+      memData = JSON.parse(memData);
+      // 최대수를 위한 배열값 뽑기 (idx항목)
+      let temp = memData.map((v) => v.idx);
+      // 다음 번호는 항상 최대수+1이다!
+      console.log("다음번호:", Math.max(...temp) + 1);
+
+      // 4. 새로운 데이터 구성하기
+      let newData = {
+        idx: Math.max(...temp) + 1,
+        uid: userId,
+        pwd: pwd,
+        unm: userName,
+        eml: email,
+      };
+
+      // 5. 데이터 추가하기 : 배열에 데이터 추가 push()
+      memData.push(newData);
+
+      // 6. 로컬스에 반영하기 : 문자화해서 넣어야함!
+      localStorage.setItem("mem-data", JSON.stringify(memData));
+
+      // 7. 회원가입 환영메시지 + 로그인 페이지 이동
+      // 버튼 텍스트에 환영메시지
+      document.querySelector(".sbtn").innerText = "Thank you for joining us!";
+      // 1초후 페이지 이동 : 라우터 Navigate로 이동함
+      setTimeout(() => {
+        goPage("/login");
+        // 주의: 경로앞에 슬래쉬(/) 안쓰면
+        // 현재 Memeber 경로 하위 경로를 불러옴
+      }, 1000);
+    } ///////// if /////////
+    // 3. 불통과시 /////
+    else {
+      console.log($(".msg").eq(0).text());
+      alert("Change your input!");
+      // showModal();
+    } //// else ///////////
+  }; /////////// onSubmit 함수 //////////
+
   // 리턴 코드구역
   return (
     <div className="outbx">
@@ -261,14 +341,7 @@ function Member() {
             </li>
             <li>
               <label>Password : </label>
-              <input 
-              type="password" 
-              maxLength="20" 
-              placeholder="Please enter your Password"
-              value={pwd}
-              onChange={changePwd}
-              onBlur={changePwd}
-              />
+              <input type="password" maxLength="20" placeholder="Please enter your Password" value={pwd} onChange={changePwd} onBlur={changePwd} />
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
@@ -287,21 +360,72 @@ function Member() {
             </li>
             <li>
               <label>Confirm Password : </label>
-              <input type="password" maxLength="20" placeholder="Please enter your Confirm Password" />
+              <input type="password" maxLength="20" placeholder="Please enter your Confirm Password" value={chkPwd} onChange={changeChkPwd} onBlur={changeChkPwd} />
+              {
+                // 에러일 경우 메시지 출력
+                // 조건문 && 출력요소
+                chkPwdError && (
+                  <div className="msg">
+                    <small
+                      style={{
+                        color: "red",
+                        fontSize: "10px",
+                      }}>
+                      {msgEtc.confPwd}
+                    </small>
+                  </div>
+                )
+              }
             </li>
             <li>
               <label>User Name : </label>
-              <input type="text" maxLength="20" placeholder="Please enter your Name" />
+              <input type="text" maxLength="20" placeholder="Please enter your Name" 
+              value={userName}
+              onChange={changeUserName}
+              onBlur={changeUserName} />
+              {
+                // 에러일 경우 메시지 출력
+                // 조건문 && 출력요소
+                userNameError && (
+                  <div className="msg">
+                    <small
+                      style={{
+                        color: "red",
+                        fontSize: "10px",
+                      }}>
+                      {msgEtc.req}
+                    </small>
+                  </div>
+                )
+              }
             </li>
             <li>
               <label>Address</label>
             </li>
             <li>
               <label>Email : </label>
-              <input type="text" maxLength="50" placeholder="Please enter your Email" />
+              <input type="text" maxLength="50" placeholder="Please enter your Email" value={email} onChange={changeEmail} onBlur={changeEmail} />
+              {
+                // 에러일 경우 메시지 출력
+                // 조건문 && 출력요소
+                emailError && (
+                  <div className="msg">
+                    <small
+                      style={{
+                        color: "red",
+                        fontSize: "10px",
+                      }}>
+                      {msgEtc.email}
+                    </small>
+                  </div>
+                )
+              }
             </li>
             <li style={{overflow: "hidden"}}>
-              <button className="sbtn">Submit</button>
+              <button 
+              className="sbtn"
+              onClick={onSubmit}
+              >Submit</button>
             </li>
             <li>
               Are you already a Member?
