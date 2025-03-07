@@ -4,23 +4,27 @@
 const isrc = {
   에베레스트산: "https://cdn-icons-png.freepik.com/512/2036/2036196.png",
   백두산: "https://www.svgrepo.com/show/2207/mountain.svg",
-  후지산: "https://icon2.cleanpng.com/20240109/ct/transparent-icon-mountain-snow-capped-peaks-bright-orange-sun-minimalist-image-of-mountain-sun-and-1710930048130.webp",
+  후지산:
+    "https://icon2.cleanpng.com/20240109/ct/transparent-icon-mountain-snow-capped-peaks-bright-orange-sun-minimalist-image-of-mountain-sun-and-1710930048130.webp",
 };
 
-export default function MtIcon({mtName}) {
+export default function MtIcon({ mtName }) {
   // mtName - 산이름 변수
 
   // 화면랜더링 후 실행구역(DOM생성후)
-  React.useEffect(() => {
+  React.useEffect(()=>{
     console.log("산 아이콘이 랜더링 되었습니까?");
-    document.querySelector("#root2 h1").style.color = "black";
+    document.querySelector('#root2 h1').style.color='black';
+
     // 현재 해당 컴포넌트가 제거될 경우 관리구역
-    return () => {
-      console.log("산 아이콘은 소멸한다~~~!ㅠ.ㅠ");
-      // 컴포넌트가 언마운팅될때(사라질때) 코드를 실행할 수 있다!
-      document.querySelector("#root2 h1").style.color = "red";
-    }; /////// return 함수구역 ///////
-  }, []); // 빈배열[]은 컴포넌트 한번만 실행!
+    return(()=>{
+        console.log("산 아이콘은 소멸한다~~~!ㅠ.ㅠ");
+        // 컴포넌트가 언마운팅될때(사라질때) 코드를 실행할 수 있다!
+        document.querySelector('#root2 h1').style.color='red';
+    }); /////// return 함수구역 ///////
+
+  },[]); // 빈배열[]은 컴포넌트 한번만 실행!
+
 
   // 코드 리턴구역 /////////
   return (

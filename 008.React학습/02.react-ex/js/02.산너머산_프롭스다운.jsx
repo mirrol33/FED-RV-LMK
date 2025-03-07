@@ -1,7 +1,7 @@
 // 산너머산 메인 컴포넌트
 
 // 이야기 서브컴포넌트 불러오기
-import 이야기 from "./components/story_프롭스다운";
+import 이야기 from "./components/story";
 
 /********************************************** 
     1. props로 데이터를 전달하여 제목출력하기 
@@ -81,6 +81,7 @@ function 큰집() {
 
 ///// 서브컴포넌트 ////////
 function 할아버지({ mtName, mtBoxCss, mtInfoBoxCss, setMtName }) {
+
   // 코드 리턴구역 ///////
   return (
     <아버지 mtName={mtName} mtBoxCss={mtBoxCss} mtInfoBoxCss={mtInfoBoxCss} setMtName={setMtName} />
