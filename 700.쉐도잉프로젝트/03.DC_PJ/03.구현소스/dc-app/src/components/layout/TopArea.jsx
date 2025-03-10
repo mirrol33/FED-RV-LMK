@@ -1,23 +1,29 @@
 /// 상단영역 컴포넌트 : TopArea.jsx /////
 
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 // GNB 데이터 불러오기 ////////
-import { menu } from "../../js/data/gnb";
+import {menu} from "../../js/data/gnb";
 
 // 상단영역 CSS 불러오기 ///
 import "../../css/common/top_area.scss";
 import Logo from "../modules/Logo";
 
 // 폰트어썸 불러오기 ////
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 // 돋보기 아이콘 ///
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {faSearch} from "@fortawesome/free-solid-svg-icons";
 
 // 제이쿼리 불러오기 ////
 import $ from "jquery";
 
-export default function TopArea() {
+export default function TopArea({loginMsg, loginSts}) {
+  // 전달값
+  // 1. loginMsg - 로그인 메시지 변수 getter
+  // 2. loginSts - 로그인 상태 변수 getter
+
+  console.log("상단영역 랜더링!!!");
+
   // [ 라우터 이동함수 객체 생성하기 ] ////
   const goPage = useNavigate();
   // 사용시 goPage(라우터주소, {전달객체})
@@ -54,7 +60,7 @@ export default function TopArea() {
       // (2) 빈값이 아니면 검색함수 호출
       if (txt !== "") {
         // 입력창 비우고 부모박스 닫기
-        $(e.target).val('').parent().hide();
+        $(e.target).val("").parent().hide();
         // 검색 보내기
         goSearch(txt);
       } /// if ///
@@ -69,7 +75,7 @@ export default function TopArea() {
   const goSearch = (txt) => {
     console.log("나는 검색하러 간다규~!", txt);
     // 라우터 이동함수로 검색페이지로 이동하기!
-    goPage("search", { state: { keyword: txt } });
+    goPage("search", {state: {keyword: txt}});
     // 네비게이트 메서드(라우터주소, {state:{보낼객체}})
   }; /////////// goSearch 함수 /////////////
 
@@ -79,7 +85,7 @@ export default function TopArea() {
       {/* 1.상단영역 */}
       <header className="top-area">
         {/* 로그인 환영메시지 박스 */}
-        <div className="logmsg"></div>
+        <div className="logmsg">{loginMsg}</div>
         {/* 네비게이션 GNB파트 */}
         <nav className="gnb">
           <ul>
@@ -125,37 +131,48 @@ export default function TopArea() {
               style={{
                 marginLeft: "auto",
                 marginRight: "25px",
-              }}
-            >
+              }}>
               {/* 검색입력박스 */}
               <div className="searchingGnb">
                 {/* 검색버튼 돋보기 아이콘 */}
-                <FontAwesomeIcon
-                  icon={faSearch}
-                  className="schbtnGnb"
-                  title="Open search"
-                  onClick={() => {}}
-                />
+                <FontAwesomeIcon icon={faSearch} className="schbtnGnb" title="Open search" onClick={() => {}} />
                 {/* 입력창 */}
-                <input
-                  type="text"
-                  name="schinGnb"
-                  id="schinGnb"
-                  placeholder="Filter by Keyword"
-                  onKeyUp={enterKey}
-                />
+                <input type="text" name="schinGnb" id="schinGnb" placeholder="Filter by Keyword" onKeyUp={enterKey} />
               </div>
               {/* 검색기능링크 - 클릭시 검색창 보이기 */}
               <a href="#" onClick={showSearch}>
                 <FontAwesomeIcon icon={faSearch} />
               </a>
             </li>
-            <li>
-              <Link to="/member">JOIN US</Link>
-            </li>
-            <li>
-              <Link to="/login">LOGIN</Link>
-            </li>
+            {
+              // 회원가입, 로그인 버튼은 로그인 상태값인
+              // loginSts값이 null일때만 나오게함!
+              // -> null이면 false처리되므로 !loginSts로
+              // 써서 false일때 true처리되게 조건문 작성함!
+              !loginSts && (
+                <>
+                  <li>
+                    <Link to="/member">JOIN US</Link>
+                  </li>
+                  <li>
+                    <Link to="/login">LOGIN</Link>
+                  </li>
+                </>
+              )
+            }
+            {
+              // 로그인 상태이면 로그아웃버튼 보이기!
+              loginSts && (
+                  <li>
+                    <a href="#" onClick={e=>{
+                      // 기본이동막기
+                      e.preventDefault();
+                      // 로그아웃 처리함수 호출!
+                      로그아웃함수();
+                    }}>LOGOUT</a>
+                  </li>
+              )
+            }
           </ul>
         </nav>
         {/* 모바일용 햄버거 버튼 */}

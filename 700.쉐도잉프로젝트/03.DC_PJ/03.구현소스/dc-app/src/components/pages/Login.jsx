@@ -1,14 +1,20 @@
 // DC.com - 로그인 페이지 컴포넌트 - Login.jsx
 
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+
 
 // 모듈 CSS 불러오기 : member.scss와 동일
-import '../../css/pages/member.scss';
+import "../../css/pages/member.scss";
 
-// 로컬스토리지 생성 JS
-import {initData} from "../../js/func/mem_fn";
+// 로컬스토리지 생성 JS ////
+import { initData } from "../../js/func/mem_fn";
+import { dCon } from "../modules/dCon";
 
 function Login() {
+  // 컨텍스트 API 사용하기 /////
+  const myCon = useContext(dCon);
+  console.log('로그인페이지 dCon:',myCon);
+
   // [ 상태관리변수 ] /////////////
   // [1] 입력요소 상태변수
   // 1. 아이디변수
@@ -125,68 +131,59 @@ function Login() {
       console.log("결과:", result);
 
       // 4-1. 결과값이 없으면 메시지 보이기
-      if(!result){
-
+      if (!result) {
         // (1) 에러메시지 선택하기
         setIdMsg(msgId[1]);
 
         // (2) 에러메시지 보이기
         setUserIdError(true);
-
       } ////////// if ////////
       // 4-2. 결과값이 있으면 비밀번호검사
-      else{
+      else {
         // (1) 아이디 에러메시지 숨기기
         setUserIdError(false);
         // (2) 비밀번호 검사 : 입력비번 == 결과비번
-        if(pwd === result.pwd){
-            // 같을 경우 로그인 성공처리
-            // alert("Login Success!");
+        if (pwd === result.pwd) {
+          // 같을 경우 로그인 성공처리
+          // alert("Login Success!");
 
-            // ****** [ 로그인 후 셋팅작업 ] ****** //
-            // 1. 로그인한 회원정보를 세션스에 셋팅!
-            // -> 서버 세션을 대신하여 사용함!
-            // -> 결과가 result에 배열로 담김
-            // -> 넣을때는 JSON.stringify()
-            sessionStorage.setItem("minfo",
+          // ****** [ 로그인 후 셋팅작업 ] ****** //
+          // 1. 로그인한 회원정보를 세션스에 셋팅!
+          // -> 서버 세션을 대신하여 사용함!
+          // -> 결과가 result에 배열로 담김
+          // -> 넣을때는 JSON.stringify()
+          sessionStorage.setItem("minfo", 
             JSON.stringify(result));
 
-            // 2. 컨텍스트 API의 로그인상태 업데이트
-            // myCon.setLoginSts(
-            //     sessionStorage.getItem("minfo"));
-            // -> 업데이트된 minfo 세션스값을 넣음!
+          // 2. 컨텍스트 API의 로그인상태 업데이트
+          myCon.setLoginSts(
+            sessionStorage.getItem("minfo"));
+          // -> 업데이트된 minfo 세션스값을 넣음!
 
-            // 3. 로그인 환영메시지 셋팅함수 호출
-            // myCon.makeMsg(result.unm);
+          // 3. 로그인 환영메시지 셋팅함수 호출
+          myCon.makeMsg(result.unm);
 
-            // 4. 로그인 성공 메시지 버튼에 출력하기
-            document.querySelector(".sbtn").innerText =
-            "넌 로그인 된거야~!";
+          // 4. 로그인 성공 메시지 버튼에 출력하기
+          document.querySelector(".sbtn").innerText = 
+          "넌 로그인 된거야~!";
 
-            // 5. 라우팅 페이지 이동
-            // 1초후 메인 페이지로 이동
-            // setTimeout(() => {
-            //     myCon.goPage("/");
-            // }, 1000);
-
-
-
+          // 5. 라우팅 페이지 이동
+          // 1초후 메인 페이지로 이동
+          setTimeout(() => {
+            myCon.goPage("/");
+          }, 1000);
         } //// if /////
         // 로그인 실패시 메시지 출력!
-        else{
-            // (1) 비밀번호 에러메시지 선택하기
-            setPwdMsg(msgPwd[1]);
-            // (2) 비밀번호 에러메시지 보이기
-            setPwdError(true);
+        else {
+          // (1) 비밀번호 에러메시지 선택하기
+          setPwdMsg(msgPwd[1]);
+          // (2) 비밀번호 에러메시지 보이기
+          setPwdError(true);
         } ////// else //////
-
 
         // -> 원래 비밀번호는 암호화 되어 있으므로
         // 백엔드 비밀번호 검사 모듈로 대부분 검사한다!
-
       } ////// else //////
-
-
 
       // 배열.find() -> 있을 경우 레코드 저장
       // find는 filter와 달리 배열로 저장하지 않고
@@ -200,12 +197,12 @@ function Login() {
   }; /////////// onSubmit 함수 //////////
 
   // 화면랜더링 구역 /////////
-  useEffect(()=>{
+  useEffect(() => {
     // 아이디입력창 포커스
     document.querySelector("#user-id").focus();
-  },[]);
+  }, []);
 
-  // 리턴 코드구역
+  // 코드 리턴구역 //////////////////////
   return (
     <div className="outbx">
       <section className="membx" style={{ minHeight: "300px" }}>
@@ -225,14 +222,16 @@ function Login() {
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
-                userIdError &&
+                userIdError && 
                 <div className="msg">
-                  <smail style={{
-                    color: "red",
-                    fontSize: "10px",
-                  }}>
+                  <small
+                    style={{
+                      color: "red",
+                      fontSize: "10px",
+                    }}
+                  >
                     {idMsg}
-                  </smail>
+                  </small>
                 </div>
               }
             </li>
@@ -248,20 +247,23 @@ function Login() {
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
-                pwdError &&
+                pwdError && 
                 <div className="msg">
-                  <smail style={{
-                    color: "red",
-                    fontSize: "10px",
-                  }}>
+                  <small
+                    style={{
+                      color: "red",
+                      fontSize: "10px",
+                    }}
+                  >
                     {pwdMsg}
-                  </smail>
+                  </small>
                 </div>
               }
             </li>
             <li style={{ overflow: "hidden" }}>
               <button className="sbtn" onClick={onSubmit}>
-                Submit</button>
+                Submit
+                </button>
             </li>
           </ul>
         </form>
