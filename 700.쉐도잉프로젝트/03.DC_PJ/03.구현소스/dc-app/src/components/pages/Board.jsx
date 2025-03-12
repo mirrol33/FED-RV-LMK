@@ -10,6 +10,7 @@ import "../../css/pages/board.scss";
 import {initBoardData} from "../../js/func/board_fn";
 import List from "../modules/board/List";
 import Read from "./../modules/board/Read";
+import Write from "../modules/board/Write";
 
 function Board() {
   // [ 후크 상태관리 변수구역 ] ///////////////
@@ -24,7 +25,7 @@ function Board() {
   // [1] 게시글 선택 데이터 : 글 내용보기시
   const selRecord = useRef(null);
   // 읽기/쓰기시 변수 .current로 사용함!
-  console.log('선택데이터 참조변수값:',selRecord);
+  console.log("선택데이터 참조변수값:", selRecord);
 
   // 로컬스토리지 게시판 데이터 정보확인 함수호출!
   initBoardData();
@@ -58,11 +59,20 @@ function Board() {
       }
       {
         // [2] 보기모드 출력하기 : mode -> "R" ///
-        mode === "R" && 
-        <Read 
-        setMode={setMode} // 모드 상태변수 setter
-        selRecord={selRecord} // 선택데이터 참조변수
-        />
+        mode === "R" && (
+          <Read
+            setMode={setMode} // 모드 상태변수 setter
+            selRecord={selRecord} // 선택데이터 참조변수
+          />
+        )
+      }
+      {
+        // [3] 쓰기모드 출력하기 : mode -> "W" ///
+        mode === "W" && (
+          <Write
+            setMode={setMode} // 모드 상태변수 setter
+          />
+        )
       }
     </>
   );
