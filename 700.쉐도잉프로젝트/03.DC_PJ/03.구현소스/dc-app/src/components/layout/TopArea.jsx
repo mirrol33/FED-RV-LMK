@@ -1,30 +1,29 @@
 /// 상단영역 컴포넌트 : TopArea.jsx /////
 
-import {Link, useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // GNB 데이터 불러오기 ////////
-import {menu} from "../../js/data/gnb";
+import { menu } from "../../js/data/gnb";
 
 // 상단영역 CSS 불러오기 ///
 import "../../css/common/top_area.scss";
 import Logo from "../modules/Logo";
 
 // 폰트어썸 불러오기 ////
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // 돋보기 아이콘 ///
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 // 제이쿼리 불러오기 ////
 import $ from "jquery";
-import { memo } from 'react';
+import { memo } from "react";
 
-// 상단영역 메모이제이션을 위한 주의사항 ///
+// [상단영역 메모이제이션을 위한 주의사항] ///
 // 1. 컨텍스트API를 사용하지 말것!
-// 2. 이동함수를 직접 사용하지 말것!
+// 2. 라우터이동함수를 직접사용하지 말것!
 // 3. 전달하는 함수를 콜백처리 할것!
 // 4. 메모처리하는 컴포넌트로 만들것!
-
-export const TopArea= memo(({loginMsg, loginSts, logoutFn, goPage}) => {
+export const TopArea = memo(({ loginMsg, loginSts, logoutFn, goPage }) => {
   // 전달값
   // 1. loginMsg - 로그인 메시지 변수 getter
   // 2. loginSts - 로그인 상태 변수 getter
@@ -35,7 +34,8 @@ export const TopArea= memo(({loginMsg, loginSts, logoutFn, goPage}) => {
 
   // [ 라우터 이동함수 객체 생성하기 ] ////
   // const goPage = useNavigate();
-  // 메모이제이션을 위한 직접이동함수 쓰지말것!
+  // -> 메모이제이션을 위해 직접이동함수 쓰지말것!
+
   // 사용시 goPage(라우터주소, {전달객체})
   // 전달객체가 없으면 쓰지 않는다!
   // 사용법 : 반드시 useNavigate() 생성자메서드를 변수에 할당
@@ -85,7 +85,7 @@ export const TopArea= memo(({loginMsg, loginSts, logoutFn, goPage}) => {
   const goSearch = (txt) => {
     console.log("나는 검색하러 간다규~!", txt);
     // 라우터 이동함수로 검색페이지로 이동하기!
-    goPage("search", {state: {keyword: txt}});
+    goPage("search", { state: { keyword: txt } });
     // 네비게이트 메서드(라우터주소, {state:{보낼객체}})
   }; /////////// goSearch 함수 /////////////
 
@@ -141,13 +141,25 @@ export const TopArea= memo(({loginMsg, loginSts, logoutFn, goPage}) => {
               style={{
                 marginLeft: "auto",
                 marginRight: "25px",
-              }}>
+              }}
+            >
               {/* 검색입력박스 */}
               <div className="searchingGnb">
                 {/* 검색버튼 돋보기 아이콘 */}
-                <FontAwesomeIcon icon={faSearch} className="schbtnGnb" title="Open search" onClick={() => {}} />
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  className="schbtnGnb"
+                  title="Open search"
+                  onClick={() => {}}
+                />
                 {/* 입력창 */}
-                <input type="text" name="schinGnb" id="schinGnb" placeholder="Filter by Keyword" onKeyUp={enterKey} />
+                <input
+                  type="text"
+                  name="schinGnb"
+                  id="schinGnb"
+                  placeholder="Filter by Keyword"
+                  onKeyUp={enterKey}
+                />
               </div>
               {/* 검색기능링크 - 클릭시 검색창 보이기 */}
               <a href="#" onClick={showSearch}>
@@ -173,14 +185,16 @@ export const TopArea= memo(({loginMsg, loginSts, logoutFn, goPage}) => {
             {
               // 로그인 상태이면 로그아웃버튼 보이기!
               loginSts && (
-                  <li>
-                    <a href="#" onClick={e=>{
+                <li>
+                  <a href="#"
+                    onClick={e=>{
                       // 기본이동막기
                       e.preventDefault();
-                      // 로그아웃 처리함수 호출!
+                      // 로그아웃 처리함수 호출
                       logoutFn();
-                    }}>LOGOUT</a>
-                  </li>
+                    }}
+                  >LOGOUT</a>
+                </li>
               )
             }
           </ul>
@@ -190,4 +204,4 @@ export const TopArea= memo(({loginMsg, loginSts, logoutFn, goPage}) => {
       </header>
     </>
   );
-}) //////////// TopArea 컴포넌트 ///////////
+}); //////////// TopArea 컴포넌트 ///////////

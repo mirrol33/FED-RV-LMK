@@ -1,21 +1,21 @@
 // DC.com - 회원가입 페이지 컴포넌트 - Member.jsx
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 // 모듈 CSS 불러오기 ///
 import "../../css/pages/member.scss";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-// 로컬스토리지 생성 JS
-import {initData} from "../../js/func/mem_fn";
+// 로컬스토리지 생성 JS ////
+import { initData } from "../../js/func/mem_fn";
 
-// 제이쿼리 불러오기
+// 제이쿼리 불러오기 ////
 import $ from "jquery";
 
 function Member() {
-  // 라우터이동 객체 생성하기
+  // 라우터이동 객체 생성하기 ///
   const goPage = useNavigate();
-  // 사용시 : goPage(라우터주소,state변수)
+  // 사용시: goPage(라우터주소,state변수)
 
   // [ 상태관리변수 ] /////////////
   // [1] 입력요소 상태변수
@@ -209,7 +209,8 @@ function Member() {
     let val = e.target.value;
 
     // 1. 이메일 유효성 검사식(따옴표로 싸지 말것!)
-    const valid = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+    const valid =
+      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
     // 2. 입력값 확인 : e.target -> 이벤트가 발생한 요소
     // console.log(val);
@@ -232,7 +233,19 @@ function Member() {
     if (!email) setEmailError(true);
     // 2. 통과시 true, 불통과시 false 리턴처리
     // 통과조건 : 빈값아님 + 에러후크변수가 모두 false
-    if (userId && pwd && chkPwd && userName && email && !userIdError && !pwdError && !chkPwdError && !userNameError && !emailError) return true;
+    if (
+      userId &&
+      pwd &&
+      chkPwd &&
+      userName &&
+      email &&
+      !userIdError &&
+      !pwdError &&
+      !chkPwdError &&
+      !userNameError &&
+      !emailError
+    )
+      return true;
     // 하나라도 false이면 false를 리턴함!
     else return false;
   }; /////////// totalValid 함수 ///////////
@@ -295,7 +308,7 @@ function Member() {
     } //// else ///////////
   }; /////////// onSubmit 함수 //////////
 
-  // 리턴 코드구역
+  // 리턴 코드구역 ///////////////
   return (
     <div className="outbx">
       <section className="membx">
@@ -305,7 +318,14 @@ function Member() {
             <li>
               {/* 1. 아이디 */}
               <label>ID : </label>
-              <input type="text" maxLength="20" placeholder="Please enter your ID" value={userId} onChange={changeUserId} onBlur={changeUserId} />
+              <input
+                type="text"
+                maxLength="20"
+                placeholder="Please enter your ID"
+                value={userId}
+                onChange={changeUserId}
+                onBlur={changeUserId}
+              />
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
@@ -315,7 +335,8 @@ function Member() {
                       style={{
                         color: "red",
                         fontSize: "10px",
-                      }}>
+                      }}
+                    >
                       {idMsg}
                     </small>
                   </div>
@@ -325,14 +346,15 @@ function Member() {
                 // 통과시 메시지 출력
                 // 조건문 && 출력요소
                 // 조건추가 : userId가 입력전일때 안보임처리
-                // userId가 입력전엔 false로 리턴됨
+                // userId가 입력전엔 false로 리턴됨!
                 !userIdError && userId && (
                   <div className="msg">
                     <small
                       style={{
                         color: "green",
                         fontSize: "10px",
-                      }}>
+                      }}
+                    >
                       {msgId[2]}
                     </small>
                   </div>
@@ -341,7 +363,14 @@ function Member() {
             </li>
             <li>
               <label>Password : </label>
-              <input type="password" maxLength="20" placeholder="Please enter your Password" value={pwd} onChange={changePwd} onBlur={changePwd} />
+              <input
+                type="password"
+                maxLength="20"
+                placeholder="Please enter your Password"
+                value={pwd}
+                onChange={changePwd}
+                onBlur={changePwd}
+              />
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
@@ -351,7 +380,8 @@ function Member() {
                       style={{
                         color: "red",
                         fontSize: "10px",
-                      }}>
+                      }}
+                    >
                       {msgEtc.pwd}
                     </small>
                   </div>
@@ -360,7 +390,14 @@ function Member() {
             </li>
             <li>
               <label>Confirm Password : </label>
-              <input type="password" maxLength="20" placeholder="Please enter your Confirm Password" value={chkPwd} onChange={changeChkPwd} onBlur={changeChkPwd} />
+              <input
+                type="password"
+                maxLength="20"
+                placeholder="Please enter your Confirm Password"
+                value={chkPwd}
+                onChange={changeChkPwd}
+                onBlur={changeChkPwd}
+              />
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
@@ -370,7 +407,8 @@ function Member() {
                       style={{
                         color: "red",
                         fontSize: "10px",
-                      }}>
+                      }}
+                    >
                       {msgEtc.confPwd}
                     </small>
                   </div>
@@ -379,10 +417,14 @@ function Member() {
             </li>
             <li>
               <label>User Name : </label>
-              <input type="text" maxLength="20" placeholder="Please enter your Name" 
-              value={userName}
-              onChange={changeUserName}
-              onBlur={changeUserName} />
+              <input
+                type="text"
+                maxLength="20"
+                placeholder="Please enter your Name"
+                value={userName}
+                onChange={changeUserName}
+                onBlur={changeUserName}
+              />
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
@@ -392,7 +434,8 @@ function Member() {
                       style={{
                         color: "red",
                         fontSize: "10px",
-                      }}>
+                      }}
+                    >
                       {msgEtc.req}
                     </small>
                   </div>
@@ -404,7 +447,14 @@ function Member() {
             </li>
             <li>
               <label>Email : </label>
-              <input type="text" maxLength="50" placeholder="Please enter your Email" value={email} onChange={changeEmail} onBlur={changeEmail} />
+              <input
+                type="text"
+                maxLength="50"
+                placeholder="Please enter your Email"
+                value={email}
+                onChange={changeEmail}
+                onBlur={changeEmail}
+              />
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
@@ -414,18 +464,18 @@ function Member() {
                       style={{
                         color: "red",
                         fontSize: "10px",
-                      }}>
+                      }}
+                    >
                       {msgEtc.email}
                     </small>
                   </div>
                 )
               }
             </li>
-            <li style={{overflow: "hidden"}}>
-              <button 
-              className="sbtn"
-              onClick={onSubmit}
-              >Submit</button>
+            <li style={{ overflow: "hidden" }}>
+              <button className="sbtn" onClick={onSubmit}>
+                Submit
+              </button>
             </li>
             <li>
               Are you already a Member?
