@@ -1,20 +1,123 @@
 // DC PJ 게시판 리스트 모드 모듈 - List.jsx
 
-import React, { useContext } from "react";
-import { dCon } from "../dCon";
+import React, {Fragment, useContext} from "react";
+import {dCon} from "../dCon";
 
-function List({ selData, setMode, selRecord, pageNum, setPageNum, unitSize, totalCount }) {
-  // selData - 선택된 배열데이터 전달
-  // setMode - 모든 변경 상태변수 setter
-  // selRecord - 선택데이터 참조변수
-  // pageNum 리스트 페이지번호 getter
-  // setPageNum 리스트 페이지번호 setter
-  // unitSize - 페이지당 레코드수
-  // totalCount - 전체 개수 참조변수
-
+function List({
+  selData, // selData - 선택된 배열데이터 전달
+  setMode, // setMode - 모든 변경 상태변수 setter
+  selRecord, // selRecord - 선택데이터 참조변수
+  pageNum, // pageNum 리스트 페이지번호 getter
+  setPageNum, // setPageNum - 리스트 페이지번호 setter
+  unitSize, // unitSize - 페이지당 레코드수
+  totalCount, // totalCount - 전체 개수 참조변수
+  pgPgSize, // pgPgSize - 페이징의 페이지 개수
+  pgPgNum, // pgPgNum - 페이징의 페이지 번호
+}) {
   // 전역 컨텍스트 API 사용하기!!
   const myCon = useContext(dCon);
   // console.log('List에서 loginSts:',myCon.loginSts);
+
+  //  [ 페이징 관련 변수값 셋팅하기 ]
+  // 1. 페이징 개수 : 전체 레코드수 / 페이지당 개수
+  // -> 나머지가 있으면 페이지를 하나더해준다!
+  let pagingCount = Math.floor(totalCount.current / unitSize);
+  console.log("전체 레코드수 / 페이지당 개수:", pagingCount);
+  console.log("나머지 연산:", totalCount.current % unitSize);
+
+  // 2. 나머지가 있으면 페이징 개수 1증가!
+  // 앞수 % 뒷수 = 0 이면 나누어 떨어짐!
+  if (totalCount.current % unitSize > 0) {
+    pagingCount++;
+  } /// if ///
+
+  /*************************************
+   * 페이징코드 리턴 함수
+   *
+   *************************************/
+
+  const pagingCode = () => {
+    // 리턴 코드 담을 변수
+    // -> 배열값으로 JSX 문법의 코드가 들어가므로
+    // 배열을 리턴해도 출력되는것은 변환된 코드가 나온다!
+    let hcode = [];
+
+    // [ 페이징의 페이지 for문의 시작값, 한계값 셋팅하기 ]
+    // [1] 시작값 : 페페사이즈 * (페페넘-1)
+    let initNum = pgPgSize * (pgPgNum.current - 1);
+    // [2] 한계값 : 페페사이즈 * 페페넘
+    let limitNum = pgPgSize * pgPgNum.current;
+    // pgPgNum은 참조변수니까 pgPgNum.current로 사용해야함!
+    console.log('initNum',initNum);
+    console.log('pgPgSize',pgPgSize);
+    console.log('pgPgNum.current',pgPgNum.current);
+
+    // ((시작값 : 한계값 계산샘플)) : pgPgSize 가 3일 경우
+
+    // 앞번호 앞에 이전 페이징구역 이동버튼 출력하기
+    hcode.push(
+        <a href="#" title="Next Page Section" onClick={()=>{
+          // (1) 페이징의 페이징번호 증가
+          pgPgNum.current--;
+          // (2) 이전 페이징의 페이징 첫 페이지번호로
+          // 상태변수인 페이지번호 변경하기(리랜더링!)
+          setPageNum(initNum - (pgPgSize-1));
+          // 이전 페이지 첫번호는 (시작값-(페페사이즈-1)) 이다!
+        }}>
+          ◀ 
+        </a>
+    )
+
+
+    // [ for문으로 페이징 코드 생성하기 ]
+    // 반복코드를 생성할 경우 key속성을 셋팅함이 필수임
+    // 이때 빈태그로는 속성셋팅이 안되므로 <Fragment>를 사용!
+    for (let i = initNum; i < limitNum; i++) {
+      hcode.push(
+        <Fragment key={i}>
+          
+          {
+            // 현재 페이지와 일치되는 번호는
+            // a태그가 아닌 b태그로 표시!
+            i + 1 === pageNum ? (
+              <b>{i + 1}</b>
+            ) : (
+              <a
+                href="#"
+                onClick={() => {
+                  // 페이지번호 업데이트하기
+                  setPageNum(i + 1);
+                }}>
+                {i + 1}
+              </a>
+            )
+          }
+          
+          { // 마지막 번호 뒤에 바(|)는 출력 안되게
+          i < limitNum - 1 ? " | " : 
+          <a href="#" title="Next Page Section" onClick={()=>{
+            // (1) 페이징의 페이징번호 증가
+            pgPgNum.current++;
+            // (2) 다음 페이징의 페이징 첫 페이지번호로 변경
+            // 상태변수인 페이지번호 변경하기(리랜더링!)
+            setPageNum(limitNum+1);
+            // 다음 페이지 첫번호는 (한계값+1) 이다!
+           
+          }}>
+            ▶
+          </a>
+          }
+        </Fragment>
+      );
+    } /// for ///
+
+    return hcode;
+  }; //// pagingCode 함수 ////
+
+  // 페이징만 단순하게 할 경우 아래와 같이 해도됨!
+  // 페이징 개수만큼 map을 돌리기
+  // Array.from({length:숫자}) -> 개수만큼 빈배열 생성!
+  // Array.from({length: pagingCount}).map((v, i) => (코드))
 
   // 리턴 코드구역 ////////////////////
   return (
@@ -67,8 +170,7 @@ function List({ selData, setMode, selRecord, pageNum, setPageNum, unitSize, tota
                     setMode("R");
                     // 해당 데이터 참조변수에 저장하기
                     selRecord.current = v;
-                  }}
-                >
+                  }}>
                   {v.tit}
                 </a>
               </td>
@@ -82,17 +184,7 @@ function List({ selData, setMode, selRecord, pageNum, setPageNum, unitSize, tota
         <tfoot>
           <tr>
             <td colSpan="5" className="paging">
-              <a href="#" onClick={() => setPageNum(1)}>
-                1
-              </a>{" "}
-              |
-              <a href="#" onClick={() => setPageNum(2)}>
-                2
-              </a>{" "}
-              |
-              <a href="#" onClick={() => setPageNum(3)}>
-                3
-              </a>
+              {pagingCode()}
             </td>
           </tr>
         </tfoot>
@@ -109,8 +201,7 @@ function List({ selData, setMode, selRecord, pageNum, setPageNum, unitSize, tota
                     onClick={() => {
                       // 글쓰기 모드로 변경하기
                       setMode("W");
-                    }}
-                  >
+                    }}>
                     Write
                   </button>
                 )
