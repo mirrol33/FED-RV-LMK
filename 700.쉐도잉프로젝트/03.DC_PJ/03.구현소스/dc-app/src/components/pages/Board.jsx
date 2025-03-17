@@ -83,17 +83,17 @@ function Board() {
     // ((기준2))-> idx로 내림차순
     .sort((a, b) => (a.idx > b.idx ? -1 : a.idx < b.idx ? 1 : 0));
 
-    console.log('slice를 위한 시작값/끝값', initNum, '/', limitNum);
-    
-    //  [ slice() 배열 메서드를 이용한 부분값 가져오기 ]
-    const selData = baseData.slice(initNum, limitNum);
-    // 배열 메서드 slice(시작순번, 끝순번)
-    // (1) 시작순번 : 시작할 배열값 첫번째 순번
-    // (2) 끝순번 : 출력에 포함되지 않는 마지막째 배열순번
-    // (3) slice 중요특징 : 
-    // 1) 배열원본을 보존하여 새로운 배열생성!
-    // 2) 끝순번 배열번호가 실제 배열번호보다 커도 에러나지 않고
-    //    자동으로 없는 순번은 빠져나가준다! (내부 break셋팅됨!)
+  console.log("slice를 위한 시작값/끝값", initNum, "/", limitNum);
+
+  //  [ slice() 배열 메서드를 이용한 부분값 가져오기 ]
+  const selData = baseData.slice(initNum, limitNum);
+  // 배열 메서드 slice(시작순번, 끝순번)
+  // (1) 시작순번 : 시작할 배열값 첫번째 순번
+  // (2) 끝순번 : 출력에 포함되지 않는 마지막째 배열순번
+  // (3) slice 중요특징 :
+  // 1) 배열원본을 보존하여 새로운 배열생성!
+  // 2) 끝순번 배열번호가 실제 배열번호보다 커도 에러나지 않고
+  //    자동으로 없는 순번은 빠져나가준다! (내부 break셋팅됨!)
 
   // [선택 데이터 담을 배열변수 : for문을 사용한 경우] ///
   // const selData = [];
@@ -107,8 +107,6 @@ function Board() {
   //   // 데이터 골라담기! ///
   //   selData.push(baseData[i]);
   // } //////////// for : 선택데이터 담기 ///////////
-
-    
 
   /********************************************* 
     함수명 : bindList
@@ -160,6 +158,8 @@ function Board() {
           <Write
             setMode={setMode} // 모드 상태변수 setter
             totalCount={totalCount} // 전체 개수 참조변수
+            setPageNum={setPageNum} // 리스트 페이지번호 setter
+            pgPgNum={pgPgNum} // 페이징의 페이징 번호
           />
         )
       }
@@ -171,6 +171,8 @@ function Board() {
             setMode={setMode} // 모드 상태변수 setter
             selRecord={selRecord} // 선택데이터 참조변수
             totalCount={totalCount} // 전체 개수 참조변수
+            setPageNum={setPageNum} // 리스트 페이지번호 setter
+            pgPgNum={pgPgNum} // 페이징의 페이징 번호
           />
         )
       }

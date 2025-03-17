@@ -42,7 +42,7 @@ function List({
     pgPgLimit++;
   } /// if ///
 
-  console.log('페이징의 페이징 한계수:',pgPgLimit);
+  console.log("페이징의 페이징 한계수:", pgPgLimit);
 
   /*********************************** 
         페이징코드 리턴 함수
@@ -71,21 +71,34 @@ function List({
     // pgPgNum은 참조변수니까 current로 읽기!
     if (pgPgNum.current !== 1)
       hcode.push(
-        <a
-          key="-1"
-          href="#"
-          title="Previous Paging Section"
-          onClick={() => {
-            // (1) 페이징의 페이징번호 감소
-            pgPgNum.current--;
-            // (2) 이전 페이징의 페이징 첫 페이지번호로
-            // 상태변수인 페이지번호 변경하기(리랜더링!)
-            setPageNum(initNum - (pgPgSize - 1));
-            // 이전 페이징 첫번호는 (시작값-(페페사이즈-1)) 이다!
-          }}
-        >
-          ◀{" "}
-        </a>
+        <Fragment key="-1">
+          {/* 처음 페이징으로 이동하기 */}
+          <a
+            href="#"
+            title="First Paging Section"
+            onClick={() => {
+              // (1) 페이징의 페이징번호 첫페이징번호로 변경!
+              pgPgNum.current = 1;
+              // (2) 페이지 번호도 첫 페이지번호로 변경!
+              setPageNum(1);
+            }}>
+            «{" "}
+          </a>
+          {/* 이전 페이징으로 이동하기 */}
+          <a
+            href="#"
+            title="Previous Paging Section"
+            onClick={() => {
+              // (1) 페이징의 페이징번호 감소
+              pgPgNum.current--;
+              // (2) 이전 페이징의 페이징 첫 페이지번호로
+              // 상태변수인 페이지번호 변경하기(리랜더링!)
+              setPageNum(initNum - (pgPgSize - 1));
+              // 이전 페이징 첫번호는 (시작값-(페페사이즈-1)) 이다!
+            }}>
+            ◀{" "}
+          </a>
+        </Fragment>
       );
 
     // [ (4) for문으로 페이징 코드 생성하기 ] ////
@@ -111,8 +124,7 @@ function List({
                 onClick={() => {
                   // 페이지번호 업데이트하기
                   setPageNum(i + 1);
-                }}
-              >
+                }}>
                 {i + 1}
               </a>
             )
@@ -130,21 +142,40 @@ function List({
     // 출력조건 : 페이징의 페이징 한계수가 아닌 페이징의 페이징번호
     if (pgPgNum.current !== pgPgLimit)
       hcode.push(
-        <a
-          href="#"
-          title="Next Paging Section"
-          onClick={() => {
-            // (1) 페이징의 페이징번호 증가
-            pgPgNum.current++;
-            // (2) 다음 페이징의 페이징 첫 페이지번호로
-            // 상태변수인 페이지번호 변경하기(리랜더링!)
-            setPageNum(limitNum + 1);
-            // 다음 페이징 첫번호는 (한계값+1) 이다!
-          }}
-        >
-          {" "}
-          ▶
-        </a>
+        <Fragment key="-2">
+          <a
+            href="#"
+            title="Next Paging Section"
+            onClick={() => {
+              // (1) 페이징의 페이징번호 증가
+              pgPgNum.current++;
+              // (2) 다음 페이징의 페이징 첫 페이지번호로
+              // 상태변수인 페이지번호 변경하기(리랜더링!)
+              setPageNum(limitNum + 1);
+              // 다음 페이징 첫번호는 (한계값+1) 이다!
+            }}>
+            {" "}
+            ▶
+          </a>
+          {/* 맨끝 페이지 이동하기 */}
+          <a
+            href="#"
+            title="Last Paging Section"
+            onClick={() => {
+              // (1) 페이징의 페이징번호 맨끝번호로 변경
+              pgPgNum.current = pgPgLimit;
+              // (2) 다음 페이징의 페이징 첫 페이지번호로
+              // 상태변수인 페이지번호 변경하기(리랜더링!)
+              setPageNum((pgPgLimit - 1) * pgPgSize + 1);
+              // 마지막 페이징 첫번호는?
+              // 페이징의 마지막 페이징 전페이지(pgPgLimit-1)
+              // 여기에 페이징 크기 곱하고
+              // 더하기 1하면 다음 체이징의 첫번째 페이지번호임!
+            }}>
+            {" "}
+            »
+          </a>
+        </Fragment>
       );
 
     return hcode;
@@ -207,8 +238,7 @@ function List({
                     setMode("R");
                     // 해당 데이터 참조변수에 저장하기
                     selRecord.current = v;
-                  }}
-                >
+                  }}>
                   {v.tit}
                 </a>
               </td>
@@ -239,8 +269,7 @@ function List({
                     onClick={() => {
                       // 글쓰기 모드로 변경하기
                       setMode("W");
-                    }}
-                  >
+                    }}>
                     Write
                   </button>
                 )
