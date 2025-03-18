@@ -1,6 +1,6 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 // Import Swiper React components
-import {Swiper, SwiperSlide} from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
@@ -12,9 +12,9 @@ import "./css/swiper_ban.scss";
 // import required modules
 // 사용할 스와이퍼 모듈을 불러온다!
 // (여기서는 페이지네이션, 네비게이션,자동넘김)
-import {Navigation, Pagination, Autoplay} from "swiper/modules";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-export default function SwiperBan({catName}) {
+export default function SwiperBan({ catName }) {
   // catName - 카테고리 분류명
 
   // 리스트만들기 함수 ////
@@ -26,7 +26,21 @@ export default function SwiperBan({catName}) {
         <SwiperSlide key={x}>
           {
             // 남성일 경우 세번째 슬라이드 동영상임
-            catName == "men" && x == 2 ? <video src={"/images/sub/" + catName + "/banner/cgv.mp4"} style={{width: "100%", height: "100%", objectFit: "cover"}} muted loop autoPlay /> : <img src={"/images/sub/" + catName + "/banner/ban" + (x + 1) + ".png"} />
+            catName == "men" && x == 2 ? (
+              <video
+                src={"/images/sub/" + catName + "/banner/cgv.mp4"}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                muted
+                loop
+                autoPlay
+              />
+            ) : (
+              <img
+                src={
+                  "/images/sub/" + catName + "/banner/ban" + (x + 1) + ".png"
+                }
+              />
+            )
           }
         </SwiperSlide>
       );
@@ -60,7 +74,8 @@ export default function SwiperBan({catName}) {
         modules={[Navigation, Pagination, Autoplay]}
         // 무한이동슬라이드 설정
         loop={true}
-        className="mySwiper">
+        className="mySwiper"
+      >
         {
           // 리스트 개수를 카테고리별로 조정
           makeList(catName === "style" ? 5 : 3)

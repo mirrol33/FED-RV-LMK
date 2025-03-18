@@ -1,11 +1,13 @@
 // Pilot PJ : 상품 상세보기 컴포넌트 - ItemDetail.jsx
 
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
 // 신상품 데이터 가져오기
 import gdata from "../../js/data/glist-items";
+
 // 컨텍스트 API 불러오기
 import { pCon } from "./pCon";
+
 // 제이쿼리 ////
 import $ from "jquery";
 
@@ -13,7 +15,7 @@ function ItemDetail({ catName, goods }) {
   // catname - 카테고리명(men/women/style)
   // goods - 상품 아이템정보(속성코드: m1,m2,...)
 
-  // 컨텍스트 API 사용하기 ////
+  // 컨텍스트 API 사용하기 /////
   const myCon = useContext(pCon);
 
   //////////////////////////////////////
@@ -30,7 +32,7 @@ function ItemDetail({ catName, goods }) {
     /* 데이터 구성:
     {
       idx: 상품유일키,
-      catName: 상품분류,
+      cat: 상품분류,
       ginfo: 상품정보,
       num: 선택상품수
     }
@@ -127,7 +129,7 @@ function ItemDetail({ catName, goods }) {
 
   const selData = gdata.find((v) => {
     // 조건: 분류와 상품분류코드가 일치하는 하나
-    if (v.catName === catName && v.ginfo[0] === goods) return true;
+    if (v.cat === catName && v.ginfo[0] === goods) return true;
   });
   // filter는 결과를 배열에 담고
   // find는 배열의 결과값만 가져옴

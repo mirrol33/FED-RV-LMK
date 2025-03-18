@@ -1,14 +1,15 @@
-// 신상품 컴포넌트
+// 신상품 컴포넌트 ////////////////
 
-import React, {useRef, useLayoutEffect, useContext, useEffect} from "react";
+import React, { useContext, useEffect, useLayoutEffect, useRef } from "react";
+import { pCon } from "./pCon";
 
-import {sinsangData} from "./../../js/data/sinsang";
-// 제이쿼리 불러오기
+// 신상품 데이터 불러오기 /////
+import { sinsangData } from "../../js/data/sinsang";
+
+// 제이쿼리 불러오기 ////
 import $ from "jquery";
 
-import {pCon} from "./pCon";
-
-function SinSang({catName, chgItemFn, setPos}) {
+function SinSang({ catName, chgItemFn, setPos }) {
   // 전달값
   // (1) catName - 카테고리 분류명
   // (2) chgItemFn - 선택상품정보변경 부모함수
@@ -27,7 +28,7 @@ function SinSang({catName, chgItemFn, setPos}) {
     lpos.current = 0;
     // 신상 멈춤/가기 상태변수 초기화
     callSts.current = 1;
-  }, [catName]); /////// cat이 다를때
+  }, [catName]); /////// catName이 다를때
 
   // 컨텍스트 API사용하기
   const myCon = useContext(pCon);
@@ -36,14 +37,21 @@ function SinSang({catName, chgItemFn, setPos}) {
   const selData = sinsangData[catName];
   // console.log(selData);
 
-  // [ 상품 리스트 코드를 만들어서 리턴하는 함수 ]
+  ///////////////////////////////////////////////////
+  // [ 상품 리스트 코드를 만들어서 리턴하는 함수 ] /////
+  ///////////////////////////////////////////////////
   const makeList = () => {
     // 코드 담을 배열
     let temp = [];
     // 원하는 반복수 만큼 for문실행하여 배열에 JSX태그 담기
     for (let x = 0; x < 9; x++) {
       temp[x] = (
-        <li className={"m" + (x + 1)} key={x} onMouseEnter={showInfo} onMouseLeave={removeInfo}>
+        <li
+          className={"m" + (x + 1)}
+          key={x}
+          onMouseEnter={showInfo}
+          onMouseLeave={removeInfo}
+        >
           <a
             href="#"
             onClick={(e) => {
@@ -52,14 +60,18 @@ function SinSang({catName, chgItemFn, setPos}) {
               // setTimeout(()=>{
               console.log("요기요기");
               let pos = $(".bgbx").offset().top - 95;
-              
+
               // 부드러운 스크롤 top 위치값 업데이트!
               // setPos(pos);
 
-              $("html,body").animate({scrollTop: pos + "px"}, 500);
+              $("html,body").animate({ scrollTop: pos + "px" }, 500);
               // },100);
-            }}>
-            <img src={"/images/goods/" + catName + "/m" + (x + 1) + ".png"} alt="신상품" />
+            }}
+          >
+            <img
+              src={"/images/goods/" + catName + "/m" + (x + 1) + ".png"}
+              alt="신상품"
+            />
           </a>
         </li>
       );
@@ -68,7 +80,9 @@ function SinSang({catName, chgItemFn, setPos}) {
     return temp;
   }; ///////// makeList 함수 ///////////
 
+  ////////////////////////////////////////////////
   // [ 상품에 오버시 상품정보를 보여주는 함수 ] /////
+  ////////////////////////////////////////////////
   const showInfo = (e) => {
     e.preventDefault();
     // 대상
@@ -87,7 +101,11 @@ function SinSang({catName, chgItemFn, setPos}) {
 
     // 3. 현재li에 만든 .ibox에 데이터 넣기+등장
     tg.find(".ibox")
-      .html(selData[gKey].split("^").map((v, i) => `<div>${i == 2 ? addComma(v) + "원" : v}</div>`))
+      .html(
+        selData[gKey]
+          .split("^")
+          .map((v, i) => `<div>${i == 2 ? addComma(v) + "원" : v}</div>`)
+      )
       // 등장애니
       .animate(
         {
@@ -104,7 +122,7 @@ function SinSang({catName, chgItemFn, setPos}) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  // 정보박스 지우기 함수
+  // [ 정보박스 지우기 함수 ] ////
   const removeInfo = (e) => {
     e.preventDefault();
     $(e.currentTarget).find(".ibox").remove();
@@ -126,12 +144,13 @@ function SinSang({catName, chgItemFn, setPos}) {
     } ///// if //////
 
     // 적용함
-    ele.css({left: lpos.current + "px"});
+    ele.css({ left: lpos.current + "px" });
 
     // 재귀호출
-    if (callSts.current)
+    if (callSts.current) {
       // 0.04초 간격으로 자기자신 다시호출(재귀호출!)
       setTimeout(() => flowList(ele), 40);
+    }
   }; ////////// flowList ////////////
 
   // 랜더링 후  한번만 실행구역 //////
@@ -141,7 +160,7 @@ function SinSang({catName, chgItemFn, setPos}) {
     flowList($(".flist"));
   }, []); ////////// useEffect ////////
 
-  // 리턴 코드구역
+  // 리턴 코드구역 ////////////////////
   return (
     <>
       <h2 className="c1tit">
@@ -156,12 +175,13 @@ function SinSang({catName, chgItemFn, setPos}) {
           callSts.current = 0;
         }}
         onMouseLeave={() => {
-          // 마우스 나가며 다시작동!
+          // 마우스 나가면 다시작동!
           // 호출상태 변수 셋팅(1->true처리)
           callSts.current = 1;
           // 흘러가는 함수 재호출!
           flowList($(".flist"));
-        }}>
+        }}
+      >
         <ul className="flist">{makeList()}</ul>
       </div>
     </>
