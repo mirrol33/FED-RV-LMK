@@ -58,6 +58,9 @@ function Fashion() {
         {/* 신상품 모듈 */}
         <SinSang catName={catName} />
       </section>
+      <div className="bgbx">
+        {/* 아이템 디테일 컴포넌트 */}
+      </div>
     </>
   );
 }
