@@ -9,8 +9,8 @@ import $ from "jquery";
 function Write({ setMode, totalCount, setPageNum, pgPgNum }) {
   // setMode - 모든 변경 상태변수 setter
   // totalCount - 전체 개수 참조변수 (글쓰기시 카운트 1증가!)
-  // setPageNum - 리스트 페이지번호 setter (글쓴후 첫페이지 이동)
-  // pgPgNum - 페이징의 페이징 번호 (글쓴후 페이징구역도 1)
+  // setPageNum - 리스트 페이지번호 setter (글쓴 후 첫페이지 이동)
+  // pgPgNum - 페이징의 페이징 번호 (글쓴 후 페이징구역도 1)
 
   // 전역 컨텍스트 API 사용하기!!
   const myCon = useContext(dCon);
@@ -87,7 +87,7 @@ function Write({ setMode, totalCount, setPageNum, pgPgNum }) {
       // 7) 페이지 번호 초기화
       setPageNum(1);
 
-      // 8) 페이지 구역 번호 초기화
+      // 8) 페이징 구역 번호 초기화
       pgPgNum.current = 1;
 
       // 9) 리스트 이동을 위해 모드 변경하기
@@ -143,7 +143,8 @@ function Write({ setMode, totalCount, setPageNum, pgPgNum }) {
                 onClick={() => {
                   // 리스트 모드('L')로 변경하기
                   setMode("L");
-                }}>
+                }}
+              >
                 List
               </button>
             </td>
