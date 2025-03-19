@@ -70,7 +70,7 @@ function Board() {
   const initVariables = () => {
     setMode("L");
     setPageNum(1);
-    setKeyword({ cta: "tit", kw: "" });
+    setKeyword({cta: "tit", kw: ""});
     setOrder(1);
     setSortCta("date");
     // selRecord.current = null;
@@ -143,6 +143,33 @@ function Board() {
             (a, b) => (a.idx > b.idx ? -1 * order : a.idx < b.idx ? 1 * order : 0)
       );
   } ///// else : 검색어가 없는 경우 ////////
+
+  /* 
+    [ 코드 수정 공지 ]
+  우리 게시판 정렬 코드 수정
+  특정기준과 idx순서로 정렬하기 부분
+  ((Borad.jsx:111~163라인사이))
+
+  ->>> 정렬함수 부분만 2군데 수정
+  ->>> if문에 하나, else문에 하나!
+  ______________________________________
+  ((코드))
+  .sort((a, b) =>
+          a[sortCta] > b[sortCta] 
+            ? -1 * order
+            : a[sortCta] < b[sortCta]
+            ? 1 * order
+            // 하위조건추가 : 두값이 같지않은가?
+            : a[sortCta] !== b[sortCta]
+            // 같지 않으면 0
+            ? 0
+            // 그밖에 두 값이 같은경우는?
+            // idx항목으로 오름/내림차순정렬
+            : a.idx > b.idx
+            ? -1 * order
+            : a[sortCta] < b[sortCta]
+            ? 1 * order : 0
+  */
 
   // 전체 데이터 개수 업데이트 하기 /////
   totalCount.current = finalData.length;
