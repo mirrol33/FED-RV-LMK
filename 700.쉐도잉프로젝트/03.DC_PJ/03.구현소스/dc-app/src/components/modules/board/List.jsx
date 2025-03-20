@@ -90,7 +90,8 @@ function List({
           <a
             href="#"
             title="First Paging Section"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               // (1) 페이징의 페이징번호 첫페이징번호로 변경!
               pgPgNum.current = 1;
               // (2) 페이지 번호도 첫 페이지번호로 변경!
@@ -102,7 +103,8 @@ function List({
           <a
             href="#"
             title="Previous Paging Section"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               // (1) 페이징의 페이징번호 감소
               pgPgNum.current--;
               // (2) 이전 페이징의 페이징 첫 페이지번호로
