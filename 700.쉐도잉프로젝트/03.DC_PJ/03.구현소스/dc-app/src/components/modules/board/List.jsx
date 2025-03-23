@@ -1,7 +1,7 @@
 // DC PJ 게시판 리스트 모드 모듈 - List.jsx
 
-import React, {Fragment, useContext} from "react";
-import {dCon} from "../dCon";
+import React, { Fragment, useContext } from "react";
+import { dCon } from "../dCon";
 
 // 제이쿼리 불러오기 ///
 import $ from "jquery";
@@ -30,7 +30,7 @@ function List({
   const myCon = useContext(dCon);
   // console.log('List에서 loginSts:',myCon.loginSts);
 
-  console.log("토탈카운트:", totalCount);
+  console.log("토탈 카운트:", totalCount);
 
   // [ 페이징 관련 변수값 셋팅하기 ] ////
 
@@ -96,7 +96,8 @@ function List({
               pgPgNum.current = 1;
               // (2) 페이지 번호도 첫 페이지번호로 변경!
               setPageNum(1);
-            }}>
+            }}
+          >
             «{" "}
           </a>
           {/* 이전 페이징으로 이동하기 */}
@@ -111,7 +112,8 @@ function List({
               // 상태변수인 페이지번호 변경하기(리랜더링!)
               setPageNum(initNum - (pgPgSize - 1));
               // 이전 페이징 첫번호는 (시작값-(페페사이즈-1)) 이다!
-            }}>
+            }}
+          >
             ◀{" "}
           </a>
         </Fragment>
@@ -137,10 +139,12 @@ function List({
             ) : (
               <a
                 href="#"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   // 페이지번호 업데이트하기
                   setPageNum(i + 1);
-                }}>
+                }}
+              >
                 {i + 1}
               </a>
             )
@@ -171,7 +175,8 @@ function List({
               // 상태변수인 페이지번호 변경하기(리랜더링!)
               setPageNum(limitNum + 1);
               // 다음 페이징 첫번호는 (한계값+1) 이다!
-            }}>
+            }}
+          >
             {" "}
             ▶
           </a>
@@ -190,7 +195,8 @@ function List({
               // 페이징의 마지막 페이징 전페이지(pgPgLimit-1)
               // 여기에 페이징 크기 곱하고
               // 더하기 1하면 다음 페이징의 첫번째 페이지번호임!
-            }}>
+            }}
+          >
             {" "}
             »
           </a>
@@ -216,9 +222,11 @@ function List({
           name="cta"
           id="cta"
           className="cta"
-          /* 기본값을 상태변수 검색기준값으로 설정해놓으면 
-        다시 리스트가 리랜더링되어도 기준값을 그대로 유지한다 */
-          defaultValue={keyword.cta}>
+          /* 기본값을 상태변수 검색기준값으로
+          설정해놓으면 다시 리스트가 리랜더링 되어도
+          기존값을 그대로 유지한다! */
+          defaultValue={keyword.cta}
+        >
           <option value="tit">Title</option>
           <option value="cont">Contents</option>
           <option value="unm">Writer</option>
@@ -237,7 +245,8 @@ function List({
             setPageNum(1);
             // 페이징의 페이징구역 초기화
             pgPgNum.current = 1;
-          }}>
+          }}
+        >
           <option value="1">Descending</option>
           <option value="-1">Ascending</option>
         </select>
@@ -256,21 +265,22 @@ function List({
             pgPgNum.currnt = 1;
           }}
         />
-        {/* 검색 버튼 */}
+        {/* 검색버튼 */}
         <button className="sbtn" onClick={searchFn}>
           Search
         </button>
-        {/* 초기화 버튼 */}
+        {/* 초기화버튼 */}
         <button
           className="sbtn"
           onClick={() => {
-            // 1. 검색어 비우기
+            // 1.검색어 비우기
             $("#stxt").val("");
-            // 2. 검색선택 초기화
+            // 2.검색선택 초기화
             $("#cta").val("tit");
-            // 3. 초기화 함수호출
+            // 3.초기화 함수호출
             initVariables();
-          }}>
+          }}
+        >
           Reset
         </button>
 
@@ -293,7 +303,8 @@ function List({
             setPageNum(1);
             // 페이징의 페이징구역 초기화
             pgPgNum.current = 1;
-          }}>
+          }}
+        >
           <option value="date">Recent</option>
           <option value="tit">Title</option>
         </select>
@@ -331,7 +342,8 @@ function List({
                         setMode("R");
                         // 해당 데이터 참조변수에 저장하기
                         selRecord.current = v;
-                      }}>
+                      }}
+                    >
                       {v.tit}
                     </a>
                   </td>
@@ -341,7 +353,7 @@ function List({
                 </tr>
               ))
             ) : (
-              // 데이터가 0일 경우 출력
+              // 데이터가 0일 경우 출력 ////////////
               <tr>
                 <td colSpan="5">No search results</td>
               </tr>
@@ -372,7 +384,8 @@ function List({
                     onClick={() => {
                       // 글쓰기 모드로 변경하기
                       setMode("W");
-                    }}>
+                    }}
+                  >
                     Write
                   </button>
                 )
