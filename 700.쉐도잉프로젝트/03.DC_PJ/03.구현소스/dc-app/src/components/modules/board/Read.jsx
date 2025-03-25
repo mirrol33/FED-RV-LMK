@@ -205,7 +205,7 @@ function Read({setMode, selRecord}) {
     });
   }; ////
 
-  // [3] 코멘트 삭제함수
+  // [4] 코멘트 삭제함수
   const deleteComment = (idx) => {
     // (1) 삭제여부를 다시한번 확인후 "취소"시 리턴
     if (!window.confirm("Are you sure you want to delete?")) return;
@@ -220,14 +220,33 @@ function Read({setMode, selRecord}) {
     makeCommentData();
   }; //// deleteComment 함수 ////
 
-  // [4] 코멘트 수정상태 변경 함수
-  const saveModifiedComment = (idx) => {
-
-  }; //// saveModifiedComment ////
-  // [5] 코멘트 수정저장 함수
+  // [5] 코멘트 수정상태 변경 함수
   const modifyComment = (idx) => {
+    // (1) 수정상태모드로 설정
+    setIsEditing(idx);
+    // (2) idx값이 동일한 코멘트를 선택
+    const selData = commentData.find((v) => v.idx === idx);
+    // (3) 수정대상 코멘트 컨텐트 데이터를 editedConTent에 넣기
+    setEditedContent(selData.cont);
+    // 왜 넣었나요? 바로 다시 수정저장시 그대로 저장될 수 있게함!
+  }; ////
+  // [6] 코멘트 수정저장 함수
+  const saveModifiedComment = (idx) => {
+    // (1) 원본 코멘트 로컬스 데이터 불러와서 파싱하기
+    let comDt = JSON.parse(localStorage.getItem("comment-data"));
 
-  }; //// modifyComment ////
+    // (2) 파싱된 배열데이터의 해당 코멘트의 cont값을 변경함
+    comDt = comDt.map((v) => (v.idx === idx ? {...v, cont: editedContent} : v));
+
+    // (3) 로컬스 다시 저장!
+    localStorage.setItem("comment-data", JSON.stringify(comDt));
+
+    // (4) 수정이 끝났으므로 수정모드 해제하기!
+    setIsEditing(null); // 버튼이 다시 send -> Modify로 변경
+
+    // (5) 코멘트 데이터 상태변수 반영하기
+    makeCommentData();
+  }; ////
 
   // 코멘트 데이터 변경시에만 높이값 적용함수 호출!
   useEffect(() => {
@@ -265,30 +284,12 @@ function Read({setMode, selRecord}) {
             <td>
               <textarea className="content" cols="60" rows="10" readOnly={true} defaultValue={selData.cont}></textarea>
             </td>
-          </tr>
-          {
-            // 로그인한 사용자에게만 코멘트 입력란이 보인다!
-            myCon.loginSts && (
-              <tr>
-                <td>Comments</td>
-                <td>
-                  <textarea className="comment-box" cols="60" rows="5"></textarea>
-                  <button
-                    style={{
-                      marginLeft: "10px",
-                      height: "80px",
-                      verticalAlign: "35px",
-                    }}
-                    onClick={saveComment}>
-                    Send
-                  </button>
-                </td>
-              </tr>
-            )
-          }
+          </tr>          
         </tbody>
       </table>
+
       <br />
+      {/* 버튼 출력박스 */}
       <table className="dtbl btngrp">
         <tbody>
           <tr>
@@ -317,6 +318,31 @@ function Read({setMode, selRecord}) {
           </tr>
         </tbody>
       </table>
+      {/* 코멘트 입력 박스 */}
+      {
+            // 로그인한 사용자에게만 코멘트 입력란이 보인다!
+            myCon.loginSts && (
+              <table className="dtblview">
+            <tbody>
+              <tr>
+                <td>Comments</td>
+                <td>
+                  <textarea className="comment-box" cols="60" rows="5"></textarea>
+                  <button
+                    style={{
+                      marginLeft: "10px",
+                      height: "80px",
+                      verticalAlign: "35px",
+                    }}
+                    onClick={saveComment}>
+                    Send
+                  </button>
+                </td>
+              </tr>
+               </tbody>
+               </table>
+            )
+          }
       {/* 코멘트 데이터 출력 테이블 */}
       {
         // 코멘트가 있으면 출력(상태변수로 체크!)
@@ -344,11 +370,18 @@ function Read({setMode, selRecord}) {
                             // 수정상태일때는 isEditing값과 v.idx 값 일치
                             isEditing === v.idx ? (
                               /* Send버튼 클릭시 해당 코멘트 값 수정 */
-                              <button onClick={() => saveModifiedComment(v.idx)}>Send</button>
+                              <button
+                                onClick={() => {
+                                  saveModifiedComment(v.idx);
+                                }}>
+                                Send
+                              </button>
                             ) : (
                               <button
                                 /* Modify버튼 클릭시 isEditing 값 변경 */
-                                onClick={() => modifyComment(v.idx)}>
+                                onClick={() => {
+                                  modifyComment(v.idx);
+                                }}>
                                 Modify
                               </button>
                             )
@@ -356,19 +389,39 @@ function Read({setMode, selRecord}) {
                         </>
                       )}
                     </td>
-                    {/* (2) 코멘트 내용 */}
+                    {/* (2) 코멘트 내용
+                    -> textarea가 수정모드일때는 입력상태로 변경됨!
+                    */}
                     <td>
                       <textarea
                         className="comment-view-box"
                         // 내용에 따른 높이값 정보를 참조변수에 노출
                         // 자기자신을 참조변수 textareaRef에 할당!
                         ref={(el) => (textareaRef.current[i] = el)}
-                        value={v.cont}
-                        readOnly
+                        value={
+                          isEditing === v.idx // 수정해당이면
+                          ? editedContent // 수정컨텐트변수넣기
+                          : v.cont // 아니면 코멘트 데이터 넣기
+                        }
+                        // 읽기전용은 수정대상이 아닌경우만 해당함!
+                        readOnly={isEditing !== v.idx}
+                        // 수정모드시 타이핑 가능하게 onChange 설정!
+                        onChange={(e)=>{ // e - 이벤트 전달
+                          // 수정모드일 경우 값이 변경되게함
+                          if(isEditing === v.idx)
+                            setEditedContent(e.target.value);
+                          // 수정 코멘트 상태변수값이 변경되므로
+                          // value속성에 설정된 수정 코멘트가
+                          // 변경된 값으로 반영된다!!!
+                        }}
                         style={{
                           width: "100%",
                           border: "none",
-                          outline: "none",
+                          // 아웃라인으로 수정표시하기
+                          outline: 
+                          isEditing === v.idx
+                          ? "2px solid green" // 수정모드시 테두리
+                          : "none", // 보통은 안보임
                           overflow: "hidden",
                           resize: "none",
                         }}></textarea>
