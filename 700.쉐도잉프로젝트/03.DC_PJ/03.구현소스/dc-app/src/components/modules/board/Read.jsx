@@ -99,6 +99,10 @@ function Read({setMode, selRecord}) {
   const [commentData, setCommentData] = useState([]);
   // (2) TextArea 요소용 참조변수
   const textareaRef = useRef([]);
+  // (3) 수정중 코멘트 idx 저장변수 : 수정완료시 null값 복원!
+  const [isEditing, setIsEditing] = useState(null);
+  // (4) 수정중 코멘트 내용 저장변수
+  const [editedContent, setEditedContent] = useState("");
 
   /***************************************** 
       [ 코멘트 데이터 객체 구조 ]
@@ -145,7 +149,6 @@ function Read({setMode, selRecord}) {
     $(".comment-box").val("");
     // 6) 코멘트 데이터 생성함수 호출!
     makeCommentData();
-    
   }; //////////// saveComment 함수 /////////////
 
   // (2) 코멘트 상태 후크변수 업데이트 함수
@@ -183,18 +186,48 @@ function Read({setMode, selRecord}) {
 
   // (3) 호출시 모든 텍스트 박스의 높이를 조정함수!
   const adjustHeight = () => {
-    //코멘트로 생성된 textarea 수만큼 돌아서 높이값 셋팅!!
-    textareaRef.current.forEach((textarea) => {
-      console.log("높이:", textarea.scrollHeight);
+    // 코멘트로 생성된 textarea 수만큼 돌아서 높이값 셋팅!!
+    // 지운 데이터 순번처리위해 index값이 확인시 필요함!
+    textareaRef.current.forEach((textarea, index) => {
+      // index는 순회시 순번리턴
       if (textarea) {
+        // console.log("높이:", textarea.scrollHeight);
         // 높이값을 먼저 초기화 해야 높이값 설정이 적용된다!
         textarea.style.height = "auto";
         // 컨텐츠만큼 생긴 높이값을 적용함!
         textarea.style.height = `${textarea.scrollHeight}px`;
-        /// if ///
-      }
+      } /// if ///
+      // 지운 경우 else문으로 처리함(안하면 에러남!!!)
+      else {
+        // 코드 변경할 일은 없음
+        console.log("Textarea 처리안함 순번:", index);
+      } /// else ///
     });
-  };////
+  }; ////
+
+  // [3] 코멘트 삭제함수
+  const deleteComment = (idx) => {
+    // (1) 삭제여부를 다시한번 확인후 "취소"시 리턴
+    if (!window.confirm("Are you sure you want to delete?")) return;
+
+    // (2) idx값을 비교해서 filter로 제거후 localStrage에 다시 저장
+    let comDt = JSON.parse(localStorage.getItem("comment-data"));
+    // idx가 지울 idx와 같지 않은 것만 다시 담기함!
+    comDt = comDt.filter((v) => v.idx !== idx);
+    // 로컬스에 다시 저장!
+    localStorage.setItem("comment-data", JSON.stringify(comDt));
+    // (3) 코멘트 데이터 생성함수 호출!
+    makeCommentData();
+  }; //// deleteComment 함수 ////
+
+  // [4] 코멘트 수정상태 변경 함수
+  const saveModifiedComment = (idx) => {
+
+  }; //// saveModifiedComment ////
+  // [5] 코멘트 수정저장 함수
+  const modifyComment = (idx) => {
+
+  }; //// modifyComment ////
 
   // 코멘트 데이터 변경시에만 높이값 적용함수 호출!
   useEffect(() => {
@@ -295,17 +328,34 @@ function Read({setMode, selRecord}) {
                 commentData.map((v, i) => (
                   <tr key={i}>
                     {/* (1) 코멘트 쓴이 이름 */}
-                    <td style={{ fontSize: "16px", fontWeight: "normal" }}>
-                      {v.unm}<br/>
-                      {
-                        myCon.loginSts && myCon.loginSts.uid === v.uid && (
-                          <>
-                          <button>Delete</button>
-                          <button>Modify</button>
-                          </>
-                        )
-                      }
-                      </td>
+                    <td style={{fontSize: "16px", fontWeight: "normal"}}>
+                      {v.unm}
+                      <br />
+                      {myCon.loginSts && myCon.loginSts.uid === v.uid && (
+                        <>
+                          <button
+                            // 클릭시 지울 idx를 삭제함수에 보내줌!
+                            onClick={() => deleteComment(v.idx)}>
+                            Delete
+                          </button>
+
+                          {/* 수정버튼은 수정모드에서 'send'버튼변경 */}
+                          {
+                            // 수정상태일때는 isEditing값과 v.idx 값 일치
+                            isEditing === v.idx ? (
+                              /* Send버튼 클릭시 해당 코멘트 값 수정 */
+                              <button onClick={() => saveModifiedComment(v.idx)}>Send</button>
+                            ) : (
+                              <button
+                                /* Modify버튼 클릭시 isEditing 값 변경 */
+                                onClick={() => modifyComment(v.idx)}>
+                                Modify
+                              </button>
+                            )
+                          }
+                        </>
+                      )}
+                    </td>
                     {/* (2) 코멘트 내용 */}
                     <td>
                       <textarea
