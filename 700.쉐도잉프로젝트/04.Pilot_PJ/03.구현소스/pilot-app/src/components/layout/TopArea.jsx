@@ -19,7 +19,9 @@ export const TopArea = memo(({ catName, gMode, setGMode }) => {
   const makeList = (dataName) => {
     console.log("데이터이름:", dataName);
     return gnbData[dataName].map((v, i) => (
-      <li key={i}
+      <li key={i} className={
+        // 클래스 on은 glist이면서 첫번째 메뉴만 넣어준다!
+        dataName==='glist'&&i===0? "on" : ""}
       onClick={()=>{
         // 전체상품리스트 메뉴만적용
         if(dataName==='glist'){
