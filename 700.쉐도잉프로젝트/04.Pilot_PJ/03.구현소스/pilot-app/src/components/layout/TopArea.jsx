@@ -12,14 +12,23 @@ import $ from 'jquery';
 import { TotalMenu } from "../modules/TotalMenu";
 
 // React.memo() 를 사용하여 메모이제이션 처리하기!
-export const TopArea = memo(({ catName }) => {
+export const TopArea = memo(({ catName, gMode, setGMode }) => {
   console.log("상단영역 랜더링!!!");
 
   /// GNB메뉴 리스트 만들기 함수
   const makeList = (dataName) => {
     console.log("데이터이름:", dataName);
     return gnbData[dataName].map((v, i) => (
-      <li key={i}>
+      <li key={i}
+      onClick={()=>{
+        // 전체상품리스트 메뉴만적용
+        if(dataName==='glist'){
+          // gMode모듈변경
+          setGMode(v.substr(0,1));
+          console.log('gMode:',v.substr(0,1));
+        }
+      }}
+      >
         <a href={"#c" + (i + 1)}>{v}</a>
       </li>
     ));

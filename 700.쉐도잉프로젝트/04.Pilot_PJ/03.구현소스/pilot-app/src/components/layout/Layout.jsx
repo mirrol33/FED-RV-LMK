@@ -48,6 +48,15 @@ export default function Layout() {
   // [3] 카트사용여부 상태변수 /////////
   const [csts, setCsts] = useState(stsVal);
 
+  // [4] 전체 리스트 페이지 뷰모드 구분 상태변수
+  const [gMode, setGMode] = useState('F');
+  // 모드 종류
+  // F - Filter List
+  // P - Paging List
+  // M - More List
+
+
+
   // [ ★★★ 공통함수 셋팅구역 ★★★ ] //////////
 
   // 라우터 이동 네비게이트 객체 만들기 //
@@ -83,10 +92,19 @@ export default function Layout() {
         setTransData,
         transData,
         setCsts,
+        gMode,
+        setGMode,
       }}
     >
-      <TopArea catName={catName} />
+      {/* 1. 상단영역 */}
+      <TopArea 
+      catName={catName}
+      gMode={gMode}
+      setGMode={setGMode}
+      />
+      {/* 2. 메인영역 */}
       <MainArea />
+      {/* 3. 하단영역 */}
       <FooterArea />
       {/* 카트리스트 */}
       {
