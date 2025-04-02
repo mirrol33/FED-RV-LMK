@@ -70,6 +70,21 @@ function Fashion() {
       goPage("/");
     }); //////// click ////////
 
+    // [ 메뉴가 변경되었으므로 새롭게 링크이동설정하기 ]
+    // 대상: .gnb a
+    $(".gnb a").on("click", (e) => {
+      e.preventDefault();
+      console.log("메뉴이동", e.target);
+      // 1. 아이디이름
+      let idName = $(e.target).attr("href");
+      // 2. 이동위치
+      let pos = $(idName).offset().top;
+      // 3. 스크롤 이동!!
+      $("html,body").animate({ scrollTop: pos + "px" }, 500);
+      // 4. 부드러운 스크롤 위치값 일치하기
+      setPos(pos);
+    });
+
     //// 소멸자 리턴구역 ////////////////////////
     return () => {
       // 컴포넌트 소멸시 부드러운 스크롤 휠이벤트 지우기
@@ -78,7 +93,7 @@ function Fashion() {
       setPos(0);
       
     // 등장액션 체크함수 이벤트 설정하기
-    window.removeEventListener('scroll',chkPos);
+    window.removeEventListener('scroll',chkPos);    
     
     }; //////// 소멸자 리턴 ////////
   }, []); //// useEffect : 한번만실행 ////////
@@ -99,6 +114,8 @@ function Fashion() {
 
     // 등장액션 체크함수 이벤트 설정하기
     window.addEventListener('scroll',chkPos);
+
+    
 
 
   }, [state]);
