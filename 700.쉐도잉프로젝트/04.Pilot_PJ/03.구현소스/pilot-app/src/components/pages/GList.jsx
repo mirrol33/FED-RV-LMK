@@ -1,72 +1,116 @@
-import React, {useContext, useRef, useState} from "react";
+import React, {Fragment, useContext, useRef, useState} from "react";
 
-// css 불러오기 ////
+// CSS 불러오기 ////
 import "../../css/glist.scss";
 
-// 데이터 불러오기
+// 데이터 불러오기 /////
 import gdata from "../../js/data/glist-items";
 
 import {pCon} from "../modules/pCon";
 import ItemDetail from "../modules/ItemDetail";
 
-// 제이쿼리 불러오기
+// 제이쿼리 불러오기 ///
 import $ from "jquery";
 
 function GList(props) {
-  // 변경될 데이터 원본과 분리하여 데이터 변경하기위한 참조변수
-  const transData = useRef(JSON.parse(JSON.stringify(gdata)));
-  // -> 깊은복사로 원본데이터와 연결성 없음!!!
-  // 주의: 사용시 current 속성을 씀!
+  // [1] 리액트 후크 상태변수셋팅 ///
+  // 1. 페이징용 상태변수
+  const [pgNum, setPgNum] = useState(1);
+  // 2. 체크박스 그룹 상태변수 : men/women/style 세가지 상태값
+  const [chkSts, setChkSts] = useState([true, true, true]);
+  // 3. 리랜더링을 위한 상태변수 : 무조건 리랜더링설정목적
+  const [force, setForce] = useState(false);
 
-  // 참조변수셋팅 : 리랜더링없이 값유지!
+  // [2] 리액트 참조변수 셋팅 : 리랜더링없이 값유지!
+
+  // 참조변수셋팅
   // 1. 아이템 코드(m1,m2,m3,...)
   const item = useRef("m1");
   // 2. 카테고리명(men/women/style)
   const catName = useRef("men");
-
-  // 리랜더링을 위한 상태변수 : 무조건 리랜더링설정목적
-  const [force, setForce] = useState(false);
-  // 데이터 상태관리 변수
-  const [currData, setCurrData] = useState(gdata);
+  // 3. 한페이지당 페이지크기
+  const pgSize = useRef(10);
+  // 4. 전체 페이지수
+  const pgCnt = useRef(Math.ceil(gdata.length / pgSize.current));
+  // 전체 데이터수/한페이지당 페이지크기 => 올린처리 Math.ceil()
+  // 소수점 아래가 나오면 1을 올리고 아니면 아무것도 안올림!
+  console.log("전체 페이지수:", pgCnt.current);
 
   // 컨텍스트 API 불러오기
   const myCon = useContext(pCon);
 
-  // [코드 만들기 함수]
+  /* 
+        [ 기본 데이터 구조 ]
+
+        {
+            idx: "1",
+            cat: "men",
+            ginfo: [
+            "m1", 
+            "[남성]카모전판프린트 PQ 티셔츠", 
+            "DMTS7K731-MG", 
+            "99000"],
+        }
+    */
+  // [데이터 선택하기] /////////
+  // 체크박스 상태값에 따른 데이터선택
+  const selData =
+    // 각 모드별 데이터 선택 코드 분기하기
+    // [1] 'F'모드: men/women/style 데이터 선택
+    myCon.gMode === "F"
+      ? gdata.filter((v) => v.cat === (chkSts[0] ? "men" : "") || v.cat === (chkSts[1] ? "women" : "") || v.cat === (chkSts[2] ? "style" : ""))
+      // [2] 'P'모드: 페이징 데이터 선택
+        // -> 한페이지당 페이지크기에 맞게 현재 페이지 데이터선택
+        // -> 시작수 = (현재페이지-1) * 한페이지당 페이지크기
+        // -> 끝수 = 현재페이지번호 * 한페이지당 페이지크기
+      : myCon.gMode === "P" 
+      ? gdata.slice((pgNum - 1) * pgSize.current, pgNum * pgSize.current)
+        : myCon.gMode === "M" 
+        ? gdata.slice(0,5) : [];
+        
+
+  console.log("선택데이터:", selData);
+
+  // [ 코드 만들기 함수 ] //////
   const makeCode = () => {
     // 리턴용변수
     let retVal;
 
-    /* 기본 데이터 구조
-    {
-    idx: "1",
-    cat: "men",
-    ginfo: ["m1", "[남성]카모전판프린트 PQ 티셔츠", "DMTS7K731-MG", "99000"],
-    } 
-    */
-    retVal = gdata.map((v, i) => (
-      <div key={i}>
-        <a href="#"
-        onClick={(e)=>{
-        e.preventDefault();
-        // 상품 상세페이지 함수호출
-        showDetail(v.ginfo[0], v.cat);
-        // showDetail(상품코드,분류명);
-        }}>
-          {/* 1,2,3,4 일련번호 출력 */}[{i+1}]
-          <img src={process.env.PUBLIC_URL + "/images/goods/" + v.cat + "/" + v.ginfo[0] + ".png"} alt={v.ginfo[1]} />
-          <aside>
-            <h2>{v.ginfo[1]}</h2>
-            <h3>{myCon.addCommas(v.ginfo[3])}원</h3>
-          </aside>
-        </a>
-      </div>
-    ));
-    // 리턴하기
-    return retVal;
-  };
+    // 코드만들기 selData 사용
+    retVal =
+      // 데이터가 없는 경우
+      selData.length === 0 ? (
+        <div style={{margin: "0 auto"}}>
+          <p>상품없음!!!!!</p>
+        </div>
+      ) : (
+        // 데이터가 있는경우
+        selData.map((v, i) => (
+          <div key={i}>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                // 상품 상세페이지 함수호출
+                showDetail(v.ginfo[0], v.cat);
+                // showDetail(상품코드, 분류명);
+              }}>
+              {/* 1,2,3,4 일련번호 출력 */}[{i + 1}]
+              <img src={process.env.PUBLIC_URL + "/images/goods/" + v.cat + "/" + v.ginfo[0] + ".png"} alt={v.ginfo[1]} />
+              <aside>
+                <h2>{v.ginfo[1]}</h2>
+                <h3>{myCon.addCommas(v.ginfo[3])}원</h3>
+              </aside>
+            </a>
+          </div>
+        ))
+      );
 
-  // 상품클릭시 상세보기 보여주는 함수 ////
+    // 리턴하기 ////
+    return retVal;
+  }; ////////////// makeCode 함수 //////////
+
+  // [상품클릭시 상세보기 보여주는 함수] ////
   const showDetail = (gCode, catCode) => {
     // gCode - 상품코드, catCode - 분류명
     console.log("상세보여!", gCode, catCode);
@@ -84,8 +128,8 @@ function GList(props) {
     $(".bgbx").slideDown(600);
   }; //////////// showDetail 함수 ///////////
 
-  // ★★★★★★★★★ ///
-  // 코드 리턴구역 ///////
+  // ★★★★★★★★★★★★ ///
+  // 코드 리턴구역 /////////////
   return (
     <main id="cont">
       <h1 className="tit">All ITEMS List</h1>
@@ -95,24 +139,97 @@ function GList(props) {
           <section>
             <div id="optbx">
               <label htmlFor="men">남성</label>
-              <input type="checkbox" className="chkbx" id="men" defaultChecked />
+              <input
+                type="checkbox"
+                className="chkbx"
+                id="men"
+                checked={chkSts[0]}
+                onChange={(e) => {
+                  // 체크박스 상태변수값 변경
+                  setChkSts([e.target.checked, chkSts[1], chkSts[2]]);
+                  console.log(e.target.checked);
+                }}
+              />
               <label htmlFor="women">여성</label>
-              <input type="checkbox" className="chkbx" id="women" defaultChecked />
+              <input
+                type="checkbox"
+                className="chkbx"
+                id="women"
+                checked={chkSts[1]}
+                onChange={(e) => {
+                  setChkSts([chkSts[0], e.target.checked, chkSts[2]]);
+                  console.log(e.target.checked);
+                }}
+              />
               <label htmlFor="style">스타일</label>
-              <input type="checkbox" className="chkbx" id="style" defaultChecked />
+              <input
+                type="checkbox"
+                className="chkbx"
+                id="style"
+                checked={chkSts[2]}
+                onChange={(e) => {
+                  setChkSts([chkSts[0], chkSts[1], e.target.checked]);
+                  console.log(e.target.checked);
+                }}
+              />
             </div>
-            <div className="grid">
+            <div
+              className="grid"
+              style={{
+                gridTemplateColumns: selData.length === 0 ? "repeat(1, 1fr)" : "",
+              }}>
               {makeCode()}
             </div>
           </section>
-          
         )
       }
       {
         // 2. Paging List 출력코드
         myCon.gMode === "P" && (
           <section>
-            <h2>Paging List</h2>
+            <div
+              className="grid"
+              style={{
+                gridTemplateColumns: selData.length === 0 ? "repeat(1, 1fr)" : "",
+              }}>
+              {makeCode()}
+            </div>
+            <div id="paging">
+              {
+                // [개수만큼 배열 만드는 방법]
+                // [1] Array.from({ length: 개수 }) 개수만큼 배열생성
+                // [2] [...Array(개수)] 개수만큼 배열 생성
+                //  -> 개수만큼 빈값 배열 순회시 map((_,i))
+                // 값으로 언더바(_)를 쓰면 값을 자리만 표시한다는 의미임
+                // Array.from({length: pgCnt.current}).map((v, i) => (
+                [...Array(pgCnt.current)].map((_, i) => (
+                  <Fragment key={i}>
+                    {i > 0 && <span> | </span>}
+                    {
+                      // 페이지 번호 셋업하기
+                      pgNum === i + 1 ? (
+                        // 현재 페이지와 같은 번호는 b요소로 출력
+
+                        <b>{i + 1}</b>
+                      ) : (
+                        // 다른 번호는 a요소로 출력
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            // 기본이동막기
+                            e.preventDefault();
+                            // 페이지번호 업데이트
+                            setPgNum(i + 1);
+                          }}>
+                          {i + 1}
+                        </a>
+                      )
+                    }
+                    {/* i+1 < pgCnt.current && <span> | </span> */}
+                  </Fragment>
+                ))
+              }
+            </div>
           </section>
         )
       }
@@ -120,10 +237,18 @@ function GList(props) {
         // 3. More List 출력코드
         myCon.gMode === "M" && (
           <section>
-            <h2>More List</h2>
+            <div
+              className="grid"
+              style={{
+                gridTemplateColumns: selData.length === 0 ? "repeat(1, 1fr)" : "",
+              }}>
+              {makeCode()}
+            </div>
+            {/* 더보기 버튼 */}
           </section>
         )
       }
+
       {/* 4. 상세보기박스 */}
       <div
         className="bgbx"
@@ -134,8 +259,7 @@ function GList(props) {
           backdropFilter: "blur(8px)",
           height: "100vh",
           zIndex: 9999,
-        }}
-      >
+        }}>
         {/* 아이템 디테일 컴포넌트 */}
         <ItemDetail catName={catName.current} goods={item.current} />
       </div>
