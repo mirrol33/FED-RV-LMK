@@ -1,6 +1,6 @@
 // DC.com - 회원가입 페이지 컴포넌트 - Member.jsx
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // 모듈 CSS 불러오기 ///
 import "../../css/pages/member.scss";
@@ -28,19 +28,19 @@ function MyInfo() {
   // [ 상태관리변수 ] /////////////
   // [1] 입력요소 상태변수
   // 1. 아이디변수
-  const [userId, setUserId] = useState("");
+  // const [userId, setUserId] = useState("");
   // 2. 비밀번호변수
   const [pwd, setPwd] = useState("");
   // 3. 비밀번호확인변수
   const [chkPwd, setChkPwd] = useState("");
   // 4. 사용자이름변수
 //   const [userName, setUserName] = useState("");
-  // 5. 이메일변수
-  const [email, setEmail] = useState("");
+  // 5. 이메일변수 : 이메일 로그인 사용자 초기값 셋팅!
+  const [email, setEmail] = useState(loginInfo.eml);
   // 6. 주소변수
-  const [addr, setAddr] = useState("");
+  const [addr, setAddr] = useState(loginInfo.addr?loginInfo.addr:'');
   // 7. 우편번호변수
-  const [zipcode, setZipcode] = useState("");
+  const [zipcode, setZipcode] = useState(loginInfo.zcode?loginInfo.zcode:'');
 
   // [2] 에러상태관리 변수
   // -> 에러상태값 초기값은 에러아님(false)
@@ -247,7 +247,7 @@ function MyInfo() {
 
     // 3. 기존입력값 반영하기 : 상태변수에 반영함
     // (1) 전체주소값 저장 (앞주소+뒷주소)
-    setAddr(address1 + " " + address2);
+    setAddr(address1 + "*" + address2);
     console.log(addr);
     // (2) 우편번호 저장
     setZipcode(zc);
@@ -312,15 +312,19 @@ function MyInfo() {
 
       // 4. 로컬스에서 해당 사용자 정보 업데이트 하기!
       memData.find(v=>{
-        if(v.uid === userId){
-            // 비밀번호 변경
+        if(v.uid === loginInfo.uid){
+          // 1. 업데이트 대상 데이터 변경하기
+            // (1) 비밀번호 변경
           v.pwd = pwd;
-          // 이메일 변경
+          // (2) 이메일 변경
           v.eml = email;
-          // 우편번호 변경
+          // (3) 우편번호 변경
           v.zcode = zipcode;
-          // 주소 변경
+          // (4) 주소 변경
           v.addr = addr;
+
+          // 로그인 사용자 정보 로컬스 변경하기
+          sessionStorage.setItem('minfo',JSON.stringify(v));
         } /// if ///
       }); /// find ///           
 
@@ -338,6 +342,15 @@ function MyInfo() {
       // showModal();
     } //// else ///////////
   }; /////////// onSubmit 함수 //////////
+
+  // 랜더링 후 실행구역 ////
+  useEffect(()=>{
+    // 우편번호 데이터가 있는 경우
+    // 우편번호, 주소 모듈의 html태그에 넣어주기
+    $('.zipcode').val(zipcode);
+    $('.addr1').val(addr.includes('*')?addr.split('*')[0]:addr);
+    $('.addr2').val(addr.includes('*')?addr.split('*')[1]:addr);
+  },[]);
 
   // 리턴 코드구역 ///////////////
   return (
@@ -453,8 +466,8 @@ function MyInfo() {
                 type="text"
                 maxLength="50"
                 placeholder="Please enter your Email"
-                readOnly={true}
-                defaultValue={loginInfo.eml}
+                value={email}
+                onChange={changeEmail}
               />
               {
                 // 에러일 경우 메시지 출력
