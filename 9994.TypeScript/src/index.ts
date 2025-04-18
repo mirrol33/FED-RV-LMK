@@ -19,6 +19,11 @@ import {
   findByRole,
   // 중고급 개발자 필터 함수
   getSeniorDevelopers,
+  // 개발자 보너스 함수
+  getDevBonus,
+  // 개발자 보너스 추론리턴타입(제네릭!)
+  DevBonusInfo,
+  // 개발자 보너스 함수
 } from "./devTeam";
 
 function greet(name: string): string {
@@ -214,6 +219,21 @@ const userResponse: ApiResponse<{ name: string; age: number }> = {
 console.log("제네릭타입");
 console.log(userResponse);
 
+// 12. 제네릭 ReturnType 사용하기
+// 함수의 반환값을 자동으로 추론하여 타입을 설정함
+// sayGoodBye 함수의 리턴 타입을 가져오기
+type SayGoodByeReturn = ReturnType<typeof sayGoodBye>;
+
+// 해당타입을 사용하는 변수
+const farewellMessage: SayGoodByeReturn = sayGoodBye(
+  "나는 개발천재야",
+  true,
+  "정말로 굿바이~"
+);
+
+console.log("😎 제네릭 ReturnType");
+console.log(farewellMessage);
+
 // 개발자 회사 샘플 찍어보기 //////////////////
 
 console.log("😎 개발자 회사 샘플 찍어보기");
@@ -248,20 +268,28 @@ console.log("👷‍♀️🦸‍♀️중고급 개발자 리스트:");
 console.log(seniorDevelopers);
 
 // 모든 개발자를 화면에 출력해 보자!
-const devListContainer = document.getElementById('dev-list') as HTMLElement;
+const devListContainer = document.getElementById("dev-list") as HTMLElement;
 
 // 개발자 목록 출력하기
-devTeam.map((dev)=>{
-  const devInfo = document.createElement('div');
-  devInfo.classList.add('dev-info');
+devTeam.map((dev) => {
+  // (1) 개발자 정보 출력을 위한 div 요소 생성
+  const devInfo = document.createElement("div");
+  // (2) 개발자 정보 div에 클래스 추가
+  devInfo.classList.add("dev-info");
+  // (3) 개발자 레벨과 보너스 정보 조회하기
+  const devBonus : DevBonusInfo = getDevBonus(dev.year);
+
+  // (4) 개발자 정보 div Html추가
+  // 개발자 이름, 나이, 경력, 역할, 기술스택, 등급, 보너스
   devInfo.innerHTML = `
     <h3>Developer: ${dev.name}</h3>
     <p>Age: ${dev.age}</p>
     <p>Year: ${dev.year}년차</p>
     <p>Role: ${dev.role}</p>
-    <p>Skills:  ${dev.skills.join(', ')}</p>
+    <p>Skills:  ${dev.skills.join(", ")}</p>
+    <p>Level:  ${devBonus.level}</p>
+    <p>Bonus:  ${devBonus.bonus.toLocaleString() + "만원"}</p>
     <hr />
   `;
   devListContainer.appendChild(devInfo);
 }); /// map ///
-

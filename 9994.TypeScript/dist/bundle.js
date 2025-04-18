@@ -10,13 +10,17 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DevLevel: () => (/* binding */ DevLevel),
 /* harmony export */   Role: () => (/* binding */ Role),
 /* harmony export */   Skill: () => (/* binding */ Skill),
 /* harmony export */   devTeam: () => (/* binding */ devTeam),
 /* harmony export */   findByRole: () => (/* binding */ findByRole),
 /* harmony export */   findBySkill: () => (/* binding */ findBySkill),
 /* harmony export */   getActiveDevelopers: () => (/* binding */ getActiveDevelopers),
+/* harmony export */   getDevBonus: () => (/* binding */ getDevBonus),
+/* harmony export */   getDevLevel: () => (/* binding */ getDevLevel),
 /* harmony export */   getSeniorDevelopers: () => (/* binding */ getSeniorDevelopers),
+/* harmony export */   levelBonusList: () => (/* binding */ levelBonusList),
 /* harmony export */   teamManager: () => (/* binding */ teamManager)
 /* harmony export */ });
 /**************************************
@@ -215,7 +219,49 @@ filterFn // 검증함수
 ) {
     return items.filter(filterFn);
 } //// getSeniorDevelopers 함수 ////
-// 중고급 개발자 필터링 함수 호출하여 결과 받기
+// 9. 개발자 등급 정의 - 열거형(enum)으로 정의하기
+var DevLevel;
+(function (DevLevel) {
+    DevLevel["junior"] = "junior";
+    DevLevel["Middle"] = "Middle";
+    DevLevel["Senior"] = "Senior";
+    DevLevel["Leader"] = "Leader";
+})(DevLevel || (DevLevel = {}));
+// 10. 튜플을 활용한 등급별 보너스 정보배열
+const levelBonusList = [
+    [DevLevel.junior, 1000],
+    [DevLevel.Middle, 2000],
+    [DevLevel.Senior, 3000],
+    [DevLevel.Leader, 5000],
+];
+// 11. 특정 개발자 경력에 따라 등급을 계산하는 함수
+function getDevLevel(year) {
+    if (year < 15)
+        return DevLevel.Leader;
+    if (year < 8)
+        return DevLevel.Senior;
+    if (year < 4)
+        return DevLevel.Middle;
+    return DevLevel.junior;
+} //// getDevLevel 함수 ///
+// 12. 개발자 보너스 금액 조회 함수
+function getDevBonus(year) {
+    var _a;
+    // (1) 경력년수로 레벨 알아오기
+    const level = getDevLevel(year);
+    // (2) 레벨별 보너스 금액 찾기
+    const bonus = ((_a = levelBonusList.find((v) => v[0] === level)) === null || _a === void 0 ? void 0 : _a[1]) || 0;
+    // find로 찾은 값이 있으면 .[1] 두번째 배열값 읽기
+    // 이 값이 없으면 0을 할당
+    // -> 배열?.[순번] -> 배열일 경우 적용여부판단하는 구문
+    // 이런 방식을 옵셔널 체이닝이라고 함!(배열없으면 undefined)
+    // -> 변수 = 값1 || 값2 ->>> 값1이 없을 때 값2를 할당
+    return { level, bonus };
+    // -> 이 함수의 리턴값 타입은 중간에 개발시 변경될 수 있다!
+    // 따라서 타입지정은 하지 않고
+    // 추론을 통해 자동으로 타입이 결정되도록한다
+    // ReturnType<typeof 함수명> 형식으로 사용가능하다!
+} /// getDevBonus 함수 ///
 
 
 /***/ })
@@ -418,6 +464,10 @@ const userResponse = {
 };
 console.log("제네릭타입");
 console.log(userResponse);
+// 해당타입을 사용하는 변수
+const farewellMessage = sayGoodBye("나는 개발천재야", true, "정말로 굿바이~");
+console.log("😎 제네릭 ReturnType");
+console.log(farewellMessage);
 // 개발자 회사 샘플 찍어보기 //////////////////
 console.log("😎 개발자 회사 샘플 찍어보기");
 console.log("👷‍♀️🦸‍♀️전체 개발자 리스트:", _devTeam__WEBPACK_IMPORTED_MODULE_0__.devTeam);
@@ -441,17 +491,25 @@ const seniorDevelopers = (0,_devTeam__WEBPACK_IMPORTED_MODULE_0__.getSeniorDevel
 console.log("👷‍♀️🦸‍♀️중고급 개발자 리스트:");
 console.log(seniorDevelopers);
 // 모든 개발자를 화면에 출력해 보자!
-const devListContainer = document.getElementById('dev-list');
+const devListContainer = document.getElementById("dev-list");
 // 개발자 목록 출력하기
 _devTeam__WEBPACK_IMPORTED_MODULE_0__.devTeam.map((dev) => {
-    const devInfo = document.createElement('div');
-    devInfo.classList.add('dev-info');
+    // (1) 개발자 정보 출력을 위한 div 요소 생성
+    const devInfo = document.createElement("div");
+    // (2) 개발자 정보 div에 클래스 추가
+    devInfo.classList.add("dev-info");
+    // (3) 개발자 레벨과 보너스 정보 조회하기
+    const devBonus = (0,_devTeam__WEBPACK_IMPORTED_MODULE_0__.getDevBonus)(dev.year);
+    // (4) 개발자 정보 div Html추가
+    // 개발자 이름, 나이, 경력, 역할, 기술스택, 등급, 보너스
     devInfo.innerHTML = `
     <h3>Developer: ${dev.name}</h3>
     <p>Age: ${dev.age}</p>
     <p>Year: ${dev.year}년차</p>
     <p>Role: ${dev.role}</p>
-    <p>Skills:  ${dev.skills.join(', ')}</p>
+    <p>Skills:  ${dev.skills.join(", ")}</p>
+    <p>Level:  ${devBonus.level}</p>
+    <p>Bonus:  ${devBonus.bonus.toLocaleString() + "만원"}</p>
     <hr />
   `;
     devListContainer.appendChild(devInfo);
