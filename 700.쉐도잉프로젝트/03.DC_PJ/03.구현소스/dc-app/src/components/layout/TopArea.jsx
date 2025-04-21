@@ -1,29 +1,29 @@
 /// 상단영역 컴포넌트 : TopArea.jsx /////
 
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // GNB 데이터 불러오기 ////////
-import {menu} from "../../js/data/gnb";
+import { menu } from "../../js/data/gnb";
 
 // 상단영역 CSS 불러오기 ///
 import "../../css/common/top_area.scss";
 import Logo from "../modules/Logo";
 
 // 폰트어썸 불러오기 ////
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // 돋보기 아이콘 ///
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 // 제이쿼리 불러오기 ////
 import $ from "jquery";
-import {memo, useEffect} from "react";
+import { memo, useEffect } from "react";
 
 // [상단영역 메모이제이션을 위한 주의사항] ///
 // 1. 컨텍스트API를 사용하지 말것!
 // 2. 라우터이동함수를 직접사용하지 말것!
 // 3. 전달하는 함수를 콜백처리 할것!
 // 4. 메모처리하는 컴포넌트로 만들것!
-export const TopArea = memo(({loginMsg, loginSts, logoutFn, goPage}) => {
+export const TopArea = memo(({ loginMsg, loginSts, logoutFn, goPage }) => {
   // 전달값
   // 1. loginMsg - 로그인 메시지 변수 getter
   // 2. loginSts - 로그인 상태 변수 getter
@@ -85,20 +85,23 @@ export const TopArea = memo(({loginMsg, loginSts, logoutFn, goPage}) => {
   const goSearch = (txt) => {
     console.log("나는 검색하러 간다규~!", txt);
     // 라우터 이동함수로 검색페이지로 이동하기!
-    goPage("search", {state: {keyword: txt}});
+    goPage("search", { state: { keyword: txt } });
     // 네비게이트 메서드(라우터주소, {state:{보낼객체}})
   }; /////////// goSearch 함수 /////////////
 
+  // 랜더링 후 실행구역 ///////
   useEffect(() => {
-    // GNB a요소 클릭시 전체메뉴 닫기
+    // GNB a요소 클릭시 전체메뉴 닫기 ///
     // 대상: .gnb a[href!='#']
     $('.gnb a').on("click", () => {
       // 상단영역 클래스 on제거하여 메뉴닫기!
-      $('.top-area').removeClass("on");
-    }); /// click ///
-  }); //// 처음 한번만 실행!! ////
+      $(".top-area").removeClass("on");
+    }); //// click ////
+  }); // 리랜더링시 매번 실행 ///////
 
+  // ★★★★★★★★★★★★★★★★★ ///
   /// 리턴 코드구역 ////////
+  // ★★★★★★★★★★★★★★★★★ ///
   return (
     <>
       {/* 1.상단영역 */}
@@ -150,13 +153,25 @@ export const TopArea = memo(({loginMsg, loginSts, logoutFn, goPage}) => {
               style={{
                 marginLeft: "auto",
                 marginRight: "25px",
-              }}>
+              }}
+            >
               {/* 검색입력박스 */}
               <div className="searchingGnb">
                 {/* 검색버튼 돋보기 아이콘 */}
-                <FontAwesomeIcon icon={faSearch} className="schbtnGnb" title="Open search" onClick={() => {}} />
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  className="schbtnGnb"
+                  title="Open search"
+                  onClick={() => {}}
+                />
                 {/* 입력창 */}
-                <input type="text" name="schinGnb" id="schinGnb" placeholder="Filter by Keyword" onKeyUp={enterKey} />
+                <input
+                  type="text"
+                  name="schinGnb"
+                  id="schinGnb"
+                  placeholder="Filter by Keyword"
+                  onKeyUp={enterKey}
+                />
               </div>
               {/* 검색기능링크 - 클릭시 검색창 보이기 */}
               <a href="#" onClick={showSearch}>
@@ -191,7 +206,8 @@ export const TopArea = memo(({loginMsg, loginSts, logoutFn, goPage}) => {
                       e.preventDefault();
                       // 로그아웃 처리함수 호출
                       logoutFn();
-                    }}>
+                    }}
+                  >
                     LOGOUT
                   </a>
                 </li>
@@ -210,7 +226,8 @@ export const TopArea = memo(({loginMsg, loginSts, logoutFn, goPage}) => {
           onClick={() => {
             // 클릭시 상단영역에 클래스 on토글링
             $(".top-area").toggleClass("on");
-          }}></button>
+          }}
+        ></button>
       </header>
     </>
   );
