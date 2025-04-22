@@ -1,6 +1,12 @@
-import React, {useLayoutEffect} from "react";
+import React, { useLayoutEffect } from "react";
 import ReactDOM from "react-dom/client";
-import {BrowserRouter, Routes, Route, useLocation, HashRouter} from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  HashRouter,
+} from "react-router-dom";
 
 /// 전체 PJ 공통 CSS 최상위 JS에서 불러오기 ///
 import "./css/index.scss";
@@ -78,8 +84,7 @@ export default function MainComponent() {
     // basename 속성은 package.json파일의 "homepage"
     // 속성값을 읽어와서 라우팅 기본 주소로 적용한다!
     // 읽는 방법 : process.env.PUBLIC_URL
-    // <BrowserRouter basename={process.env.PUBLIC_URL}>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       {/* 라우터 경로 변경시 최상단이동 컴포넌트 */}
       <ScrollTop />
 
@@ -92,12 +97,12 @@ export default function MainComponent() {
           <Route index element={<Main catName="main" />} />
           <Route path="character" element={<Character />} />
           <Route path="comics" element={<Comics catName="COMICS" />} />
-          {/* 하위컴포넌트가 있는 경우 path="경로명/*로 표시" */}
+          {/* 하위컴포넌트가 있는 경우 path="경로명/*"로 표시 */}
           <Route path="movies/*" element={<Movies catName="MOVIES" />}>
             <Route path="series" element={<Series catName="SERIES" />} />
           </Route>
-            {/* 직접 하위경로를 쓸때는 그냥 경로를 모두 path에 써준다!
-            <Route path="movies/series" element={<Series catName="SERIES" />} /> */}
+          {/* 직접하위경로를 쓸때는 그냥 경로를 모두 path에 써준다!
+          <Route path="movies/series" element={<Series catName="SERIES" />} /> */}
           <Route path="games" element={<Games catName="GAMES" />} />
           <Route path="news" element={<News />} />
           <Route path="video" element={<Video catName="VIDEO" />} />
@@ -122,7 +127,7 @@ export default function MainComponent() {
 const ScrollTop = () => {
   // 라우터 경로 변경시 path값 읽어오기
   // pathname 객체 속성에 담긴다!
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
 
   // 화면 랜더링구역에 스크롤 상단이동 코드 넣기
   useLayoutEffect(() => {

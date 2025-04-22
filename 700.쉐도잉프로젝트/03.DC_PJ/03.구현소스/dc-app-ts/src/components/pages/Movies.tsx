@@ -4,6 +4,8 @@ import VidIntro from "../modules/VidIntro";
 import VidSwipe from "../modules/VidSwipe";
 import { CatName } from "../../types/common";
 
+// 외부 TS를 가져와서 타입지정하기
+
 function Movies({catName}:CatName) {
   // catName - 페이지 카테고리명 데이터
 

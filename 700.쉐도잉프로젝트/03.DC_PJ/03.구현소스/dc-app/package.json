@@ -1,5 +1,5 @@
 {
-  "homepage": "/",
+  "homepage": "/FED-RV-TOM-2024/700.쉐도잉프로젝트/03.DC_PJ/03.구현소스/dc-app/build",
   "name": "dc-app",
   "version": "0.1.0",
   "private": true,
@@ -49,9 +49,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/jquery": "^3.5.32",
-    "@types/react": "^19.0.12"
   }
 }

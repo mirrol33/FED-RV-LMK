@@ -169,7 +169,8 @@ function Login() {
           myCon.makeMsg(result.unm);
 
           // 4. 로그인 성공 메시지 버튼에 출력하기
-          const sBtn = document.querySelector(".sbtn") as HTMLElement;
+          const sBtn = 
+          document.querySelector(".sbtn") as HTMLElement;
           sBtn.innerText = 
           "넌 로그인 된거야~!";
 
@@ -205,11 +206,14 @@ function Login() {
   // 화면랜더링 구역 /////////
   useEffect(() => {
     // 아이디입력창 포커스
-    // const userId = document.querySelector("#user-id") as HTMLInputElement;
-    // userId.focus();
-
+    const userId = 
+    document
+    .querySelector("#user-id") as HTMLInputElement;
+    userId.focus();
+    
     // 위와 동일한 코드임. 변수에 담지 않고 처리하는 방법
-    (document.querySelector("#user-id") as HTMLInputElement).focus();
+    // (document.querySelector("#user-id") as HTMLInputElement)
+    // .focus();
   }, []);
 
   // 코드 리턴구역 //////////////////////
