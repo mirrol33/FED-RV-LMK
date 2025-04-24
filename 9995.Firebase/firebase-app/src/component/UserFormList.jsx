@@ -1,5 +1,41 @@
 // 사용자 정보 입력 및 리스트 출력 컴포넌트
 // Firebase와 연결된 사용자 정보 입력 및 리스트 출력 컴포넌트
+/* [ 파이어베이스를 이용한 DB연동 구현 ]
+핵심기능 : CRUD (Create, Read, Update, Delete)
+1. 사용자 정보 입력 (이름,나이,주소) : addUser()
+2. 사용자 목록 출력 : getUserList()
+3. 사용자 정보 수정 : addUser()
+4. 사용자 정보 삭제 : deleteUser()
+[ 파이어베이스 핵심 메서드 ]
+1. addDoc() : 데이터 추가
+-> addDoc(컬렉션(데이터베이스, 컬렉션명), 데이터)
+예시) addDoc(collection(db, 'users'), {name: '나이름', age: 20, addr: 'Seoul'})
+2. getDocs() : 데이터 가져오기
+-> getDocs(컬렉션(데이터베이스, 컬렉션명))
+예시) getDocs(collection(db, 'users'))
+3. doc() : 문서 참조
+-> doc(컬렉션(데이터베이스, 컬렉션명), 문서ID)
+예시) doc(collection(db, 'users'), 'docID')
+-> 문서ID는 파이어베이스에서 자동 생성됨
+-> doc() 메서드는 컬력션의 특정 문서를 참조하는 메서드입니다.
+-> doc() 메서드는 하나의 레코드와 동일한 개념으로 이해하면 됩니다
+4. deleteDoc() : 데이터 삭제
+-> deleteDoc(doc(컬렉션(데이터베이스, 컬렉션명), 문서ID))
+예시) deleteDoc(doc(collection(db, 'users'), 'docID'))
+5. updateDoc() : 데이터 수정
+-> updateDoc(doc(컬렉션(데이터베이스, 컬렉션명), 문서ID), {name: '나이름'})
+예시) updateDoc(doc(collection(db, 'users'), 'docID'), {name: '나이름'})
+6. collection() : 컬렉션 참조
+-> collection(데이터베이스, 컬렉션명)
+예시) collection(db, 'users')
+7. setDoc() : 문서 생성
+-> setDoc(doc(컬렉션(데이터베이스, 컬렉션명), 문서ID), {name: '나이름'})
+예시) setDoc(doc(collection(db, 'users'), 'docID'), {name: '나이름'})
+-> setDoc() 메서드는 updateDoc()와 비슷하지만
+-> 문서가 없으면 새로 생성하고, 있으면 덮어씌우는 메서드입니다
+-> updateDoc()은 문서가 없으면 에러가 발생합니다
+-> setDoc() 메서드는 문서를 생성하거나 수정하는 메서드입니다
+*/
 
 import React, { useEffect, useState } from "react";
 import "../css/user_form.scss";
