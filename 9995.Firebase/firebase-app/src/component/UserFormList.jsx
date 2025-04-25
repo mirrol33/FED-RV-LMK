@@ -57,6 +57,7 @@ import {
   limit,
   orderBy,
   query,
+  startAfter,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../js/firebaseConfig";
@@ -78,17 +79,60 @@ const UserFormList = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   // (6) 수정할 사용자 ID
   const [editUserId, setEditUserId] = useState(null);
-  // (7)정렬 필드 및 순서 상태 추가
+  // (7) 정렬 필드 및 순서 상태 추가
   const [sortField, setSortField] = useState("name");
   const [sortOrder, setSortOrder] = useState("asc");
+  // (8) 페이지네이션을 위한 상태변수 추가
+  const PAGE_SIZE = 3; // 페이지당 문서수
+  const [pageCount, setPageCount] = useState(0); // 페이지네이션 페이지수
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지번호
+  // 각 페이지 시작점을 적용하기 위한 문서저장 배열변수
+  const [pageStartDoc, setPageStartDoc] = useState([]);
+  // -> pageStartDoc변수에 배열값 셋팅을 위해 초기화 함수가 필요함!
+  // -> initPagenation() 함수를 이용해 배열값 셋팅
 
   // [2] 사용자 데이터 가져오기 함수 //////
   // 파이어베이스에서 사용자 목록을 가져오는 함수
-  const getUserList = async () => {
+  const getUserList = async (page, startDoc) => {
+    // page는 현재페이지, startDoc는 이전페이지 데이터 배열
+    // -> 이전데이터 배열이 왜 필요한가?
+    //
     // async/await를 사용하여 비동기적으로 데이터를 가져옵니다.
     // 비동기 함수는 async 키워드로 정의합니다.
-    // 파이어베이스의 'users' 컬렉션의 모든 문서 가져오기
-    const allCollection = await getDocs(collection(db, "users"));
+
+    // 1. 컬렉션 선택하기
+    const setCollection = collection(db, "users");
+
+    // 쿼리변수 선언
+    let q;
+
+    // 2. 정렬 필드와 순서 설정하기
+    // 페이징 적용을 위한 분기
+    // 2-1. 1페이지인 경우
+    if (page === 1) {
+      q = query(setCollection, orderBy(sortField, sortOrder), limit(PAGE_SIZE));
+      // orderBy(정렬필드, 정렬순서)
+      // 정렬 필드와 순서를 설정하고
+      // query() 메서드를 사용하여 쿼리를 생성함
+    } /// if ///
+
+    // 2-2. 1페이지가 아닌경우
+    else {
+      q = query(
+        setCollection,
+        orderBy(sortField, sortOrder),
+        startAfter(startDoc[page - 2]),
+        // 이전 페이지의 마지막 문서이후부터 시작
+        // 왜 2를 빼지? 현재 페이지번호 보다 배열번호는
+        // 1작기 때문에 2페이지의 이전 페이지는 1이 아니라 0임
+        // 이런 원리로 2를 빼야 배열순번이 일치함
+        // 이 배열순번은 startDoc배열의 순번을 읽어오는 것임!
+        limit(PAGE_SIZE)
+      );
+    }
+
+    // 3. 정렬된 데이터로 'users' 컬렉션에서 모든 문서를 가져오기
+    const allCollection = await getDocs(q);
     // await는 비동기 함수에서 사용하여
     // Promise가 해결될 때까지 기다립니다.
     // getDocs는 Firestore에서 문서를 가져오는 함수입니다.
@@ -96,17 +140,28 @@ const UserFormList = () => {
     // 'users' 컬렉션의 모든 문서를 가져오기 위해
     // collection(db, 'users')를 사용합니다.
 
-    // 가져온 문서들을 배열로 변환하기
-    // 비동기코드로 가져온 후 데이터를 할당하는 아래 코드가
-    // 실행된다!
+    // 4. 가져온 문서들을 배열로 변환하기
     const userListArray = allCollection.docs.map((doc) => {
       console.log(doc.id, " => ", doc.data());
       return { id: doc.id, ...doc.data() };
     });
+    // 비동기코드로 가져온 후 데이터를 할당하는 아래 코드가
+    // 실행된다!
+    // allCollection 에 담긴 파이어베이스 컬렉션에서
+    // 하위 문서들을 배열로 받기 위해서는 .docs를 사용하면 됨.
 
-    // 사용자 리스트 상태 변수를 업데이트함!
+    // 하위에 id는 고유 id로 파이어베이스에서 생성된 것
+    // ...doc.data()라고 스프레드 연산자를 쓴 이유는
+    // { name: "이상훈", age: 30, addr: "서울시 문처리구" } 이라구
+    // 나오므로 내부의 데이터만 가져오기 위해 사용한 것이다!
+    // 결과 : {id: "akfsldkfslkd", name: "이상훈", age: 30, addr: "서울시 문처리구"}
+
+    // 5. 사용자 리스트 상태 변수를 업데이트함!
     setUserList(userListArray);
     // setUserList는 상태변수를 업데이트하는 함수입니다.
+
+    // 6. 현재 페이지 업데이트
+    setCurrentPage(page);
   }; // 사용자 목록을 가져오는 함수 //////////////
 
   // [3] 사용자 추가 함수 //////////////
@@ -129,33 +184,39 @@ const UserFormList = () => {
           addr: userAddr,
         });
       } /// if ///
+
       // 사용자 추가하기 ////
       else {
         // 사용할 컬렉션 가져오기 //
         const usersRef = collection(db, "users");
-        // 최대값 idx값을 찾기위한 쿼리
-        // -> idx는 사용자 목록에서 가장 큰 값을 찾기 위한 쿼리
-        // -> orderBy("idx", "desc")는 idx값을 내림차순으로 정렬하고
-        // -> limit(1)는 정렬된 결과에서 첫번째 문서만 가져옴
-        // -> getDocs는 쿼리 결과를 가져오는 함수
+
+        // [최대값 idx 값을 찾기위한 쿼리]
         const maxIdxQuery = await getDocs(
           query(usersRef, orderBy("idx", "desc"), limit(1))
         );
+        // -> idx는 사용자 목록에서 가장 큰 값을 찾기 위한 쿼리입니다.
+        // -> orderBy("idx", "desc")는 idx를 기준으로 내림차순정렬
+        // -> limit(1)은 정렬된 결과에서 첫 번째 문서만 가져옴
+        // -> getDocs()는 쿼리 결과를 가져오는 함수
 
+        // 최대값 변수에 숫자를 할당함
         let maxIdx = 0;
         // 쿼리 결과가 비어있지 않으면 최대값을 찾음
         if (!maxIdxQuery.empty) {
           const lastDoc = maxIdxQuery.docs[0].data();
           maxIdx = lastDoc.idx || 0;
-          // idx 숫자형으로 변환하여 지정합니다
-          // lastDoc은 쿼리 결과에서 첫번째 문서를 가져온다
-          // lastDoc.data()은 쿼리 결과에서 첫번째 문서의 데이터를 가져온다
-          // lastDoc.data().idx은 쿼리 결과에서 첫번째 문서의 idx값을 가져온다
-          // 만약 idx값이 없으면 0을 저장합니다
         }
+        // idx는 숫자형으로 변환하여 저장합니다.
+        // lastDoc은 쿼리 결과에서 첫 번째 문서를 가져옵니다.
+        // lastDoc.data()는 문서의 데이터를 가져옵니다.
+        // lastDoc.idx는 문서의 idx 값을 가져옵니다.
+        // 만약 idx 값이 없으면 0을 저장합니다.
+
         const newIdx = maxIdx + 1;
-        // lastDoc.data().idx+1은 쿼리 결과에서 첫번째 문서의 idx값을 1 높이고
-        // maxIdx에 저장한다
+
+        // lastDoc.idx + 1은 다음 idx 값을 계산합니다.
+        // -> 결과적으로 최대값+1을 계산하여 maxIdx에 저장합니다.
+
         // 파이어베이스의 'users' 컬렉션에 새로운 문서 추가하기
         await addDoc(usersRef, {
           idx: newIdx,
@@ -165,7 +226,6 @@ const UserFormList = () => {
           addr: userAddr,
           // 날짜 넣기 : 날짜 객체를 넣으면 날짜형식으로 저장됨
           date: new Date(),
-          // date: new Date().toLocaleString(),
         });
         // addDoc은 Firestore에 문서를 추가하는 함수입니다.
         // collection은 Firestore에서 컬렉션을 참조하는 함수입니다.
@@ -182,7 +242,8 @@ const UserFormList = () => {
       setEditUserId(null);
 
       // 사용자 목록 업데이트 함수 호출 ///
-      getUserList();
+      // getUserList();
+      initPagination();
       // 이것을 호출해야 갱신된 사용자 목록이 화면에 나옴!
     } /// if ////
     else {
@@ -202,7 +263,8 @@ const UserFormList = () => {
     // doc(db, 'users', id)를 사용합니다.
 
     // 사용자 목록 업데이트 함수 호출 ///
-    getUserList();
+    // getUserList();
+    initPagination();
     // 이것을 호출해야 갱신된 사용자 목록이 화면에 나옴!
   }; // 사용자 삭제 함수 //////////////
 
@@ -222,11 +284,56 @@ const UserFormList = () => {
     setUserAddr(user.addr);
   }; // 사용자 수정하는 함수 //////////////
 
+  // [6] 페이지네이션 초기화 함수
+  const initPagination = async () => {
+    // 1. 전체 문서가져오기
+    const allDocs = await getDocs(
+      query(collection(db, "users"), orderBy(sortField, sortOrder))
+    );
+
+    // 2. 전체 문서 데이터 구하기
+    const allDocsData = allDocs.docs;
+
+    // 3. 전체 문서 개수 구하기
+    const totalDocs = allDocsData.length;
+
+    // 4. 페이지네이션 총 개수 구하기
+    const pageNum = Math.ceil(totalDocs / PAGE_SIZE);
+    console.log("페이지개수", pageNum);
+    // 5. 페이지네이션 상태변수에 저장하기
+    setPageCount(pageNum);
+
+    // (중요!)
+    // 6. 각 페이지의 '이전페이지 마지막 문서'를 저장함
+    const startDoc = [];
+    for (let i = PAGE_SIZE - 1; i < totalDocs; i += PAGE_SIZE) {
+      startDoc.push(allDocsData[i]);
+      // for문 돌린후 i의 값을 찍어보자
+      console.log("i", i);
+    } /// for ///
+    // 2, 5, 8 11x
+    // {0,1,2} {3,4,5} {6,7,8} {9}
+    // 이 순번은 매 배열의 마지막 순번임!!
+
+    console.log("startDoc", startDoc);
+
+    // 7. pageStartDocs 상태변수에 저장하기
+    setPageStartDoc(startDoc);
+
+    //8. 리스트 함수
+    getUserList(1, startDoc);
+
+    // console.log('전체문서데이터:',allDocsData,'/개수',totalDocs);
+  }; /// initPagination ///
+
   // 랜더링 후 실행 구역 /////////////
   useEffect(() => {
+    // 페이지네이션 초기화함수 호출
+    initPagination();
     // 사용자 정보를 DB에서 가져오는 함수 호출
-    getUserList();
-  }, []); // 처음 한번만 실행되도록 빈 배열을 넣어줍니다.
+    // getUserList();
+  }, [sortField, sortOrder]);
+  // 정렬 변경시 반영되게 하려면 의존성에 넣어준다
   //   }, [userList]); -> 이렇게하면 성능상 문제 발생함!
 
   // 리턴 코드구역 //////////////
@@ -279,7 +386,15 @@ const UserFormList = () => {
         <h2>사용자 리스트</h2>
         {/* 정렬 옵션 박스 */}
         {/* 정렬 옵션 선택 */}
-        <div style={{backgroundColor:'#ddd', marginBottom: "1rem", padding: "0.5rem", borderRadius: "5px", textAlign: "center" }}>
+        <div
+          style={{
+            backgroundColor: "#ddd",
+            marginBottom: "1rem",
+            padding: "0.5rem",
+            borderRadius: "5px",
+            textAlign: "center",
+          }}
+        >
           <label>정렬 기준:</label>
           <select
             value={sortField}
@@ -307,31 +422,80 @@ const UserFormList = () => {
                 {/* 사용자이름 (나이) - 주소 */}
                 {user.name} ({user.age}세) - {user.addr ?? "주소없음"}
                 {/* [{user.date}]  */}
-                <small>{user.date.toDate().toJSON().substr(0, 10)}</small>
                 &nbsp;
-                <button
-                  onClick={() => {
-                    // 수정모드 실행 함수 호출!
-                    editUser(user);
-                    // 수정할 사용자 정보를 editUser() 함수에 전달함
-                  }}
-                >
-                  수정
-                </button>
-                &nbsp;
-                <button
-                  onClick={() =>
-                    window.confirm("삭제하시겠습니까?") && deleteUser(user.id)
+                <small style={{ display: "block" }}>
+                  [
+                  {
+                    // 날짜형식 데이터 변경해서 넣기
+                    // toJSON() -> YYYY-MM-DDThh:mm:ss
+                    // 요즘은 substr() 안쓰고 새로나온 slice()를 사용
+                    // slice(시작순번, 끝순번)
+                    // 뒤의 끝순번을 개수로 사용하고 싶으면
+                    // slice(시작순번, 시작순번+개수)
+                    user.date.toDate().toJSON().substr(2, 8) // YY-MM-DD
                   }
-                >
-                  삭제
-                </button>
+                  &nbsp; (
+                  {
+                    // 시간형식으로 출력하기
+                    user.date
+                      .toDate()
+                      // .toLocaleDateString(국가코드,{출력형식})
+                      .toLocaleTimeString("ko-KR", {
+                        hour: "2-digit", // 2자릿수
+                        minute: "2-digit", //2자릿수
+                        second: "2-digit", //2자릿수
+                        hour12: true, // 12시간제(오전,오후표시)
+                      })
+                  }
+                  )] &nbsp;
+                  <button
+                    onClick={() => {
+                      // 수정모드 실행 함수 호출!
+                      editUser(user);
+                      // 수정할 사용자 정보를 editUser() 함수에 전달함
+                    }}
+                  >
+                    수정
+                  </button>
+                  &nbsp;
+                  <button
+                    onClick={() =>
+                      window.confirm("삭제하시겠습니까?") && deleteUser(user.id)
+                    }
+                  >
+                    삭제
+                  </button>
+                </small>
               </li>
             ))
           ) : (
             <li>사용자 정보가 없습니다.</li>
           )}
         </ul>
+        {
+          // 특정개수만큼 배열 만들어
+          // Array.from({ length: 5 }).map((_, i) => <button>{i + 1}</button>)
+          // Array.from({length:개수},전달값변경함수)
+          Array.from({ length: pageCount }, (_, i) => i + 1)
+            // 전달값 변경함수가 생성한 값을 page변수가 받음
+            .map((page) => (
+              <button
+                key={page}
+                onClick={() => getUserList(page, pageStartDoc)}
+                style={{
+                  margin: "0 5px",
+                  fontWeight: currentPage === page ? "bold" : "normal",
+                  backgroundColor: currentPage === page ? "#555" : "#ddd",
+                  color: currentPage === page ? "#fff" : "#000",
+                  border: "none",
+                  padding: "5px 10px",
+                  borderRadius: "5px",
+                }}
+              >
+                {page}
+              </button>
+            ))
+        }
       </div>
     </div>
   );
