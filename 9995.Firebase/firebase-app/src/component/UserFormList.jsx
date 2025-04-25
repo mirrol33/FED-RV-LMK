@@ -96,7 +96,10 @@ const UserFormList = () => {
   const getUserList = async (page, startDoc) => {
     // page는 현재페이지, startDoc는 이전페이지 데이터 배열
     // -> 이전데이터 배열이 왜 필요한가?
-    //
+    // 이유는 startAfter라고 하는 함수에서 시작 문서가
+    // 이전 페이지의 마지막 문서를 넣어야 하므로 배열 데이터를 
+    // 이전 페이지것을 가져와야 한다!
+
     // async/await를 사용하여 비동기적으로 데이터를 가져옵니다.
     // 비동기 함수는 async 키워드로 정의합니다.
 
@@ -243,8 +246,10 @@ const UserFormList = () => {
 
       // 사용자 목록 업데이트 함수 호출 ///
       // getUserList();
-      initPagination();
       // 이것을 호출해야 갱신된 사용자 목록이 화면에 나옴!
+
+      // 초기화 함수 호출 ///
+      initPagination();
     } /// if ////
     else {
       // 이름, 나이, 주소가 모두 입력되지 않았을 때
@@ -264,8 +269,10 @@ const UserFormList = () => {
 
     // 사용자 목록 업데이트 함수 호출 ///
     // getUserList();
-    initPagination();
     // 이것을 호출해야 갱신된 사용자 목록이 화면에 나옴!
+
+    // 초기화 함수 호출 ///
+    initPagination();
   }; // 사용자 삭제 함수 //////////////
 
   // [5] 사용자 수정 함수 //////////////
@@ -296,10 +303,12 @@ const UserFormList = () => {
 
     // 3. 전체 문서 개수 구하기
     const totalDocs = allDocsData.length;
+    // console.log('전체문서데이터:',allDocsData,'/개수',totalDocs);
 
     // 4. 페이지네이션 총 개수 구하기
     const pageNum = Math.ceil(totalDocs / PAGE_SIZE);
     console.log("페이지개수", pageNum);
+
     // 5. 페이지네이션 상태변수에 저장하기
     setPageCount(pageNum);
 
@@ -311,6 +320,7 @@ const UserFormList = () => {
       // for문 돌린후 i의 값을 찍어보자
       console.log("i", i);
     } /// for ///
+
     // 2, 5, 8 11x
     // {0,1,2} {3,4,5} {6,7,8} {9}
     // 이 순번은 매 배열의 마지막 순번임!!
@@ -323,7 +333,6 @@ const UserFormList = () => {
     //8. 리스트 함수
     getUserList(1, startDoc);
 
-    // console.log('전체문서데이터:',allDocsData,'/개수',totalDocs);
   }; /// initPagination ///
 
   // 랜더링 후 실행 구역 /////////////
@@ -432,7 +441,8 @@ const UserFormList = () => {
                     // slice(시작순번, 끝순번)
                     // 뒤의 끝순번을 개수로 사용하고 싶으면
                     // slice(시작순번, 시작순번+개수)
-                    user.date.toDate().toJSON().substr(2, 8) // YY-MM-DD
+                    user.date.toDate().toJSON().slice(2, 2+8) // YY-MM-DD
+                    // user.date.toDate().toJSON().substr(2, 8) // YY-MM-DD
                   }
                   &nbsp; (
                   {
