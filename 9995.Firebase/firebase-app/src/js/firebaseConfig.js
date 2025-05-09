@@ -24,5 +24,3 @@ export const db = getFirestore(app);
 // getFirestore는 Firestore 데이터베이스에 대한 인스턴스를 가져오는 함수입니다.
 // Firestore는 Firebase의 NoSQL 클라우드 데이터베이스입니다.
 // 이것만 내보내면 내가 만든 DB와 연결하여 테이블을 사용할 수 있다!
-
-console.log('나나',firebaseConfig);
