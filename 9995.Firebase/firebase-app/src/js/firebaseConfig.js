@@ -1,27 +1,26 @@
-// src/firebaseConfig.ts
-// Firebase SDK를 사용하기 위해서는
-// Firebase Console에서 Firebase 연동하기를 통해 Firebase SDK를 사용해야 합니다
+// 파이어베이스 설정 파일
+// Firebase SDK를 사용하기 위해서는 
+// Firebase Console에서 프로젝트를 생성하고 설정을 받아야 합니다.
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    // 웹 API 키
-    apiKey: "AIzaSyCtA5s9aFKGyXUrPZAYtU__a99s6FDYBzM",
-    // 인증 도메인
-    authDomain: "react-firebase-app-647ff.firebaseapp.com",
-    // 프로젝트 ID
-    projectId: "react-firebase-app-647ff",
-    // 스토리지 버킷
-    storageBucket: "react-firebase-app-647ff.firebasestorage.app",
-    // 메시징 보낸이 ID
-    messagingSenderId: "116834733600",
-    // 앱 ID
-    appId: "1:116834733600:web:73039f95ecf1e4ce753645"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
-// 파이어베이스 앱 초기화
-const app = initializeApp(firebaseConfig);
-// 파이어스토어 DB연결하여 가져오기
-export const db = getFirestore(app);
-// 이것만 내보내면 내가 만든 DB와 연결하여 테이블을 사용할 수 있다!
 
+// Firebase 앱 초기화
+const app = initializeApp(firebaseConfig);
+// initializeApp은 Firebase 앱을 초기화하는 함수입니다.
+// Firebase 앱을 초기화하면 Firebase 서비스에 접근할 수 있습니다.
+
+// 파이어베이스 DB연결하여 가져오기
+export const db = getFirestore(app);
+// getFirestore는 Firestore 데이터베이스에 대한 인스턴스를 가져오는 함수입니다.
+// Firestore는 Firebase의 NoSQL 클라우드 데이터베이스입니다.
+// 이것만 내보내면 내가 만든 DB와 연결하여 테이블을 사용할 수 있다!
